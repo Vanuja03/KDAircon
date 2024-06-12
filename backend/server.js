@@ -2,6 +2,12 @@ const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const router = require('./products/productRoute');
+const appP = require('./products/productsApp');
+const routerB = require('./cart/cartRoute');
+const { addBooking } = require('./cart/cartController');
+const routerP = require('./Prefer/PreferRoute');
+const routerR = require('./repairs/repairRoute');
 
 dotenv.config();
 //rest
@@ -39,7 +45,7 @@ app.listen(PORT, () => {
     console.log(`Server is Running on ${PORT}`);
 })
 
-// app.use('/api', router);
-// app.use('/api', routerB);
-// app.use('/api', routerP);
-// app.use('/api', routerR);
+app.use('/api', router);
+app.use('/api', routerB);
+app.use('/api', routerP);
+app.use('/api', routerR);

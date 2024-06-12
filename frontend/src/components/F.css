@@ -1,0 +1,137 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container_f {
+    max-width: 1170px;
+    margin: auto;
+    position: relative;
+}
+
+.row_f {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+ul {
+    list-style: none;
+}
+
+.foothead {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 25px;
+    align-items: center;
+}
+
+.foothead img {
+    margin-right: 10px;
+}
+
+.footer {
+
+    background-color: blue;
+    padding: 20px 0px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    min-width: 100vw;
+    margin-top: auto;
+    border-top: 1px solid black;
+}
+
+.footer-col {
+    width: 25%;
+    padding: 0 15px;
+    box-sizing: border-box;
+    flex: 1;
+}
+
+.footer-col h4 {
+    font-size: 23px;
+    color: black;
+    text-transform: capitalize;
+    margin-bottom: 35px;
+    font-weight: 500;
+    position: relative;
+}
+
+.footer-col h4::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    background-color: black;
+    height: 2px;
+    box-sizing: border-box;
+    width: 50px;
+}
+
+.footer-col ul li:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+.footer-col ul li a {
+    padding: 0;
+    font-size: 16px;
+    text-transform: capitalize;
+    text-decoration: none;
+    font-weight: 300;
+    color: black;
+    display: block;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.footer-col ul li a:hover {
+    color: blue;
+    padding-left: 8px;
+    font-weight: 700;
+}
+
+.footer-col .social-links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    width: 40px;
+    background-color: rgba(255, 255, 255, 0.2);
+    margin: 0 10px 10px 0;
+    text-decoration: none;
+    color: black;
+    border-radius: 50%;
+    transition: all 0.5s ease;
+}
+
+.footer-col .social-links a:hover {
+    background-color: rgb(255, 255, 255);
+}
+
+.footer-col .social-links a:hover {
+    transform: scale(1.2);
+}
+
+
+.copyright {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    width: 100%;
+}
+
+.footer-col .social-links .blue:hover {
+    color: blue;
+}
+
+.footer-col .social-links .red :hover {
+    color: red;
+}
+
+.footer-col .social-links img {
+    width: 120%;
+    height: 100%;
+}
