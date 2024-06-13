@@ -8,6 +8,7 @@ const routerB = require('./cart/cartRoute');
 const { addBooking } = require('./cart/cartController');
 const routerP = require('./Prefer/PreferRoute');
 const routerR = require('./repairs/repairRoute');
+const routerF = require('./feedbacks/feedbackroute');
 
 dotenv.config();
 //rest
@@ -49,3 +50,4 @@ app.use('/api', router);
 app.use('/api', routerB);
 app.use('/api', routerP);
 app.use('/api', routerR);
+app.use('/api', routerF);

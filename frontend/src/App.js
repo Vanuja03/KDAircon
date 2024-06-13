@@ -10,6 +10,7 @@ import PreferOrders from './pages/PreferOrders';
 import AddRepair from './pages/addRepair';
 import Repairs from './pages/Repairs';
 import UpdateRepair from './pages/updateRepair';
+import AddFeedback from './pages/AddFeedback';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path='/repairs' element={<Repairs />} />
         {/* <Route path='/updateR/:r_id/:billNo/:billDate/:pname/:description/:image/:mobile' element={<UpdateRepair />} />
         <Route path='/updaterep/:_id' element={<UpdateRepair />} /> */}
+        <Route path='/addfeedback' element={<AddFeedback />} />
       </Routes>
     </Router>
   );
