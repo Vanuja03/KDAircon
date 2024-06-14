@@ -1,0 +1,38 @@
+.stars {
+    color: #ffc107;
+}
+
+.disflex {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.flex2dis {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.actionbuttons {
+    justify-content: space-between;
+    align-items: normal;
+}
+
+.dislikes {
+    margin-left: 2%;
+}
+
+.likes:hover {
+    cursor: pointer;
+    color: rgb(21, 21, 243);
+}
+
+.dislikes:hover {
+    cursor: pointer;
+    color: rgb(248, 22, 22);
+}
+
+.likes::after {
+    color: rgb(21, 21, 243);
+}

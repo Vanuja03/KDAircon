@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import Layout from '../components/Layout';
 import { Button, Card, Form } from 'react-bootstrap';
 import '../styles/addfeedback.css';
+import Feedbacks from './Feedbacks';
 
 const AddFeedback = () => {
     const [pname, setPname] = useState('');
@@ -115,6 +116,7 @@ const AddFeedback = () => {
                         </Form>
                     </Card.Body>
                 </Card>
+                <Feedbacks />
             </Layout>
         </div>
     );
