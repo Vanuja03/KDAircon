@@ -23,16 +23,14 @@
     margin-left: 2%;
 }
 
-.likes:hover {
+.likes:hover,
+.likes.liked {
     cursor: pointer;
     color: rgb(21, 21, 243);
 }
 
-.dislikes:hover {
+.dislikes:hover,
+.dislikes.disliked {
     cursor: pointer;
     color: rgb(248, 22, 22);
-}
-
-.likes::after {
-    color: rgb(21, 21, 243);
 }

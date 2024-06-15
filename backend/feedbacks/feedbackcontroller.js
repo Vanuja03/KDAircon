@@ -3,12 +3,12 @@ const Feedback = require('./feebackmodel');
 const addFeedback = async (req, res) => {
     try {
 
-        const { pname, feedback, email, name, rating } = req.body;
+        const { pname, feedback, userMail, name, rating } = req.body;
 
         const newFeedback = new Feedback({
             pname,
             feedback,
-            email,
+            userMail,
             name,
             rating
         });
@@ -42,7 +42,7 @@ const deleteFeedback = async (req, res) => {
 
 const updateFeedback = async (req, res) => {
     const feedbackId = req.params.id;
-    const { feedback, email, name, rating } = req.body;
+    const { feedback, userMail, name, rating } = req.body;
 
     try {
         const updatedFeedback = await Feedback.findByIdAndUpdate(feedbackId, { feedback, email, name, rating }, { new: true });
