@@ -129,7 +129,9 @@ const Feedbacks = () => {
 
     return (
         <div>
-            <div>
+            <center><h2>Our valuble feedbacks !!</h2></center>
+            <div className='flx3'>
+
                 <Button onClick={() => setopenadd(true)}><FaPlus /></Button>
                 <Button onClick={() => setopenyf(true)}>Your Feedbacks</Button>
             </div>
@@ -142,7 +144,8 @@ const Feedbacks = () => {
                                 {renderStarRating(feedbacks.rating)}
                             </div>
                         </Card.Title>
-                        <Card.Body className='flex2dis'>{feedbacks.feedback}
+                        <Card.Body className='flex2dis card-body'>
+                            <Card.Text>{feedbacks.feedback}</Card.Text>
                             <div className='actionbuttons'>
                                 <FaThumbsUp
                                     className={`likes ${JSON.parse(localStorage.getItem('likedFeedbacks'))?.includes(feedbacks._id) ? 'liked' : ''}`}
@@ -181,7 +184,8 @@ const Feedbacks = () => {
                                     </div>
                                     <Button onClick={() => deleteFeedback(feedbacks._id)}><FaTrash /></Button>
                                 </Card.Title>
-                                <Card.Body className='flex2dis'>{feedbacks.feedback}
+                                <Card.Body className='flex2dis card-body'>
+                                    <Card.Text style={{ maxWidth: '90%' }}>{feedbacks.feedback}</Card.Text>
                                     <div className='actionbuttons'>
                                         <FaThumbsUp
                                             className={`likes ${JSON.parse(localStorage.getItem('likedFeedbacks'))?.includes(feedbacks._id) ? 'liked' : ''}`}

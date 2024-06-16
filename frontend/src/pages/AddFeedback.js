@@ -66,6 +66,15 @@ const AddFeedback = ({ onFeedbackAdded }) => {
                             </Form.Control>
                         </Form.Group>
                         <br />
+                        <Form.Group controlId="formName">
+                            <Form.Control
+                                type="text"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                                placeholder="Enter your name"
+                            />
+                        </Form.Group>
+                        <br />
                         <Form.Group controlId="formFeedback">
                             <Form.Control
                                 as="textarea"
@@ -73,15 +82,6 @@ const AddFeedback = ({ onFeedbackAdded }) => {
                                 value={feedback}
                                 onChange={(e) => setFeedback(e.target.value)}
                                 placeholder="Enter your feedback"
-                            />
-                        </Form.Group>
-                        <br />
-                        <Form.Group controlId="formName">
-                            <Form.Control
-                                type="text"
-                                value={name}
-                                onChange={(e) => setName(e.target.value)}
-                                placeholder="Enter your name"
                             />
                         </Form.Group>
                         <br />
