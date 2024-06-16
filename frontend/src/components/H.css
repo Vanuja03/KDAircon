@@ -21,6 +21,10 @@ body {
 
 }
 
+.shpcart {
+  font-size: large;
+}
+
 .active {
   border-bottom: 1px solid black;
 }
@@ -33,4 +37,8 @@ body {
 
 .logimg {
   border-radius: 25px;
+}
+
+.btnlname {
+  margin-right: 5px;
 }

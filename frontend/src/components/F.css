@@ -33,12 +33,12 @@ ul {
 .footer {
 
     background-color: blue;
-    padding: 20px 0px;
+    /* padding: 20px 0px; */
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: flex-start;
-    min-width: 100vw;
+    width: 100%;
     margin-top: auto;
     border-top: 1px solid black;
 }

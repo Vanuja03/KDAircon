@@ -16,7 +16,7 @@ const PreferOrders = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const user = JSON.parse(localStorage.getItem('user'));
 
-  const unitPrices = {
+  /*const unitPrices = {
     'Condenser': {
       '9000 Btu Condenser Coil (18x24) Single Row': 100,
       '9000 Btu Condenser Coil (20x16) Single Row , S/T': 110,
@@ -83,7 +83,7 @@ const PreferOrders = () => {
     if (pname && psize) {
       setUnitPrice(unitPrices[pname][psize]);
     }
-  }, [pname, psize]);
+  }, [pname, psize]);*/
 
   const addPrefer = async () => {
 

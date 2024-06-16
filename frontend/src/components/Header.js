@@ -67,15 +67,16 @@ const Header = () => {
                                     </ul>
                                 </li>
                                 <li className='nav-item'>
-                                    <button onClick={() => navigate('/cart')} className='nav-link'><FaShoppingCart /> ({bsize})</button>
+                                    <button onClick={() => navigate('/cart')} className='nav-link shpcart'><FaShoppingCart /> ({bsize})</button>
                                 </li>
                                 <li className='nav-item'>
                                     <NavLink to='/addproduct' className='nav-link'>Admin</NavLink>
                                 </li>
-                                <li className='nav-item'>
-                                    <Button onClick={Profile}>Hi {user.displayName} !</Button>
+                                <li className='nav-item '>
+                                    <Button className='btnlname' onClick={Profile}>Hi {user.displayName} !</Button>
                                     {user && (<img className='logimg' src={user.photoURL} alt='Userphoto' width={50} height={50} />)}
                                 </li>
+
 
                             </ul>
                         </div>
