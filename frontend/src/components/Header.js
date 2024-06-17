@@ -4,6 +4,7 @@ import { Button } from 'react-bootstrap';
 import './H.css';
 import { FaShoppingCart } from 'react-icons/fa';
 import Axios from 'axios';
+import kdlogo from '../images2/kdhomelg.png';
 
 const Header = () => {
 
@@ -44,7 +45,7 @@ const Header = () => {
                             <span className="navbar-toggler-icon" />
                         </button>
                         <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
-                            <Link to="/" className="navbar-brand" >KD Aircon</Link>
+                            <Link to="/" className="navbar-brand" ><img src={kdlogo} height={50} width={200} /></Link>
                             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
                                 <li className='nav-item'>
                                     <NavLink to='/' className='nav-link'>Home</NavLink>

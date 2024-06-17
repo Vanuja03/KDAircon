@@ -119,7 +119,7 @@ const PreferOrders = () => {
       console.error('Error adding to cart:', error);
     }
   };
-
+  //https://www.wix.com/website-template/view/html/2860?originUrl=https%3A%2F%2Fwww.wix.com%2Fwebsite%2Ftemplates%3Fcriteria%3Decommerce&tpClick=view_button&esi=66df2b7c-1755-4d53-abcf-3cc30b647048
   // const filteredproductData = p.filter(clin => {
   //   return clin.ff.toLowerCase().includes(searchQuery.toLowerCase());
   // });

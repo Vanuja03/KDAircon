@@ -1,7 +1,27 @@
 .videoss {
-    width: 95%;
-    height: 20%;
-    margin-left: 3%;
-    margin-right: 3%;
-    margin-top: 2%;
+    width: 100%;
+    height: auto;
+
+
+}
+
+
+.homecontainer1 {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+
+
+    position: relative;
+
+}
+
+.homediv11 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+    z-index: 2;
 }
