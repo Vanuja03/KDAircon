@@ -1,6 +1,7 @@
 import React from 'react'
 import './F.css';
 import { FaEnvelope, FaFacebook, FaMapMarkerAlt, FaPhone, FaTwitter, FaYoutube } from 'react-icons/fa'
+import GoogleMap from '../pages/GoogleMap';
 // import natlogo from '../webImages/natLogo.png';
 // import fimg from '../webImages/footerimg.jpg';
 
@@ -53,6 +54,9 @@ const Footer = () => {
               <br />
               {/* <img src={fimg} alt='nikndpuimage' /> */}
             </div>
+          </div>
+          <div>
+            <GoogleMap />
           </div>
         </div>
       </div>

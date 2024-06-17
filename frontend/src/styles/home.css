@@ -1,6 +1,6 @@
 .videoss {
     width: 100%;
-    height: auto;
+    height: 50%;
 
 
 }
@@ -8,6 +8,7 @@
 
 .homecontainer1 {
     width: 100%;
+    height: 1%;
     display: flex;
     flex-direction: row;
 
@@ -24,4 +25,20 @@
     text-align: center;
     color: white;
     z-index: 2;
+}
+
+.homecontainer2 {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    background-image: linear-gradient(to top, white, cyan);
+}
+
+.homecontainer2 h3 {
+    font-size: 2.4vw;
 }

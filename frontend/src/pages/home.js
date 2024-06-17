@@ -21,6 +21,27 @@ const Home = () => {
           </video>
         </Container>
 
+        <Container className='homecontainer2'>
+          <div>
+            <h3>Instant service</h3>
+          </div>
+          <div>
+            <h3>fast delivery</h3>
+          </div>
+          <div>
+            <h3>govenment approved</h3>
+          </div>
+          <div>
+            <h3> warranties included</h3>
+          </div>
+
+        </Container>
+        <Container>
+          <h1>Best sellers</h1>
+          <div className='homeflex3'>
+
+          </div>
+        </Container>
 
         <Feedbacks />
       </Layout>
