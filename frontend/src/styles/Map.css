@@ -1,0 +1,13 @@
+@media (max-width: 600px) {
+    .map-container {
+        height: 300px;
+        /* Smaller height for small screens */
+    }
+}
+
+@media (min-width: 601px) {
+    .map-container {
+        height: 500px;
+        /* Larger height for larger screens */
+    }
+}

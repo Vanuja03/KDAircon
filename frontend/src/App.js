@@ -12,6 +12,8 @@ import Repairs from './pages/Repairs';
 import UpdateRepair from './pages/updateRepair';
 import AddFeedback from './pages/AddFeedback';
 import Feedbacks from './pages/Feedbacks';
+import AdminCheckouts from './pages/AdminCheckouts';
+import Checkouts from './pages/Checkouts';
 
 function App() {
   return (
@@ -31,6 +33,8 @@ function App() {
         {/* <Route path='/updateR/:r_id/:billNo/:billDate/:pname/:description/:image/:mobile' element={<UpdateRepair />} />
         <Route path='/updaterep/:_id' element={<UpdateRepair />} /> */}
         <Route path='/addfeedback' element={<AddFeedback />} />
+        <Route path='/admincheckout' element={<AdminCheckouts />} />
+        <Route path='/Checkouts' element={<Checkouts />} />
       </Routes>
     </Router>
   );
