@@ -22,6 +22,11 @@ const Checkouts = () => {
     useEffect(() => {
         getcheckout();
     }, []);
+
+
+    const deleteCheckout = async (id) => {
+
+    }
     return (
         <div>
             <TableContainer>
