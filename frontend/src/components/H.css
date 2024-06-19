@@ -17,7 +17,7 @@ body {
   box-shadow: 0 8px 6px -6px gray;
   --webkit-box-shadow: 0 8px 6px -6px gray;
   border-bottom: 0.3px solid gray;
-  background-color: rgb(96, 142, 240);
+  background-image: linear-gradient(to right, white, rgb(0, 242, 255));
 
 }
 

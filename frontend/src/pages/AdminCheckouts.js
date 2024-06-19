@@ -2,13 +2,15 @@ import { MenuItem, Select, Table, TableBody, TableCell, TableContainer, TableHea
 import Axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Button, Form } from 'react-bootstrap';
-import { FaCheck } from 'react-icons/fa';
+import { FaCheck, FaCheckCircle, FaDotCircle } from 'react-icons/fa';
 import Swal from 'sweetalert2';
 
 const AdminCheckouts = () => {
     const [checkouts, setcheckouts] = useState([]);
 
     const [statusu, setstatus] = useState('');
+
+    const [filterstatus, setfilterStatus] = useState('All');
 
 
     const getcheckout = async () => {
@@ -64,11 +66,32 @@ const AdminCheckouts = () => {
         StatusUpdate(id, newStatus);
     };
 
+    const handleFilterChange = (event) => {
+        setfilterStatus(event.target.value);
+    };
+
+    const filteredCheckouts = filterstatus === 'All'
+        ? checkouts
+        : checkouts.filter(check => check.status === filterstatus);
+
 
     const pendingCheckouts = checkouts.filter(checkout => checkout.status === 'Pending');
     const CompletedCheckouts = checkouts.filter(checkout => checkout.status === 'Completed');
     return (
         <div>
+            <Form.Group>
+                <Form.Label>Filter by Status</Form.Label>
+                <Select
+                    value={filterstatus}
+                    onChange={handleFilterChange}
+                    name='filterstatus'
+                    displayEmpty
+                    inputProps={{ 'aria-label': 'Without label' }}>
+                    <MenuItem value='All'>All</MenuItem>
+                    <MenuItem value='Pending' style={{ color: 'red', fontWeight: 'bold' }}>Pending</MenuItem>
+                    <MenuItem value='Completed' style={{ color: 'green', fontWeight: 'bold' }}>Completed</MenuItem>
+                </Select>
+            </Form.Group>
             <TableContainer>
                 <Table>
                     <TableHead>
@@ -84,16 +107,22 @@ const AdminCheckouts = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {pendingCheckouts && pendingCheckouts.length > 0 ? (
-                            pendingCheckouts.map((checkout, index) => (
+                        {filteredCheckouts && filteredCheckouts.length > 0 ? (
+                            filteredCheckouts.map((checkout, index) => (
                                 <TableRow key={checkout._id}>
                                     <TableCell>{index + 1}</TableCell>
                                     <TableCell>{checkout.pname}</TableCell>
                                     <TableCell>{checkout.pprice}</TableCell>
                                     <TableCell>{checkout.quantity}</TableCell>
-                                    <TableCell>{checkout.userMail}</TableCell>
-                                    <TableCell>{checkout.mobile}</TableCell>
-                                    <TableCell style={{ color: 'red', fontWeight: 'bold' }}>{checkout.status}</TableCell>
+                                    <TableCell><a href={`mailto:${checkout.userMail}`}>{checkout.userMail}</a></TableCell>
+                                    <TableCell><a href={`tel:${checkout.mobile}`}>{checkout.mobile}</a></TableCell>
+                                    <TableCell style={{ fontWeight: 'bold' }}>
+                                        {checkout.status === 'Pending' ? (
+                                            <span style={{ color: 'red' }}><FaDotCircle style={{ verticalAlign: 'middle' }} /> Pending</span>
+                                        ) : (
+                                            <span style={{ color: 'green' }}><FaCheckCircle style={{ verticalAlign: 'middle' }} /> Completed</span>
+                                        )}
+                                    </TableCell>
                                     <TableCell>
                                         <Select
                                             value={statusu}
@@ -105,11 +134,9 @@ const AdminCheckouts = () => {
                                             <MenuItem value="Pending" style={{ color: 'red' }}>Pending</MenuItem>
                                             <MenuItem value="Completed" style={{ color: 'green' }}>Completed</MenuItem>
                                         </Select>
-                                        {statusu === 'Completed' && (
-                                            <Button onClick={() => StatusUpdate(checkout._id)}>
-                                                <FaCheck />
-                                            </Button>
-                                        )}
+                                        <Button onClick={() => StatusUpdate(checkout._id)}>
+                                            <FaCheck />
+                                        </Button>
                                     </TableCell>
 
                                 </TableRow>
@@ -122,7 +149,17 @@ const AdminCheckouts = () => {
                     </TableBody>
                 </Table>
             </TableContainer>
-            <br />
+
+        </div>
+    )
+}
+
+export default AdminCheckouts
+
+
+
+
+{/* <br />
             <TableContainer>
                 <Table>
                     <TableHead>
@@ -175,9 +212,4 @@ const AdminCheckouts = () => {
                         )}
                     </TableBody>
                 </Table>
-            </TableContainer>
-        </div>
-    )
-}
-
-export default AdminCheckouts
+            </TableContainer> */}

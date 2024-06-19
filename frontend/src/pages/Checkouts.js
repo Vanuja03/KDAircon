@@ -24,6 +24,8 @@ const Checkouts = () => {
         getCheckout();
     }, []);
 
+
+
     const deleteCheckout = async (_id, status) => {
         if (status === 'Completed') {
             toast.error('This checkout is already completed and cannot be deleted.');
