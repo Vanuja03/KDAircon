@@ -10,6 +10,7 @@ const routerP = require('./Prefer/PreferRoute');
 const routerR = require('./repairs/repairRoute');
 const routerF = require('./feedbacks/feedbackroute');
 const routerCh = require('./Checkouts/Checkoutroute');
+const routerPCh = require('./PreferCheckouts/PCheckoutROute');
 
 dotenv.config();
 //rest
@@ -53,3 +54,4 @@ app.use('/api', routerP);
 app.use('/api', routerR);
 app.use('/api', routerF);
 app.use('/api', routerCh);
+app.use('/api', routerPCh);

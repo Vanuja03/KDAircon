@@ -14,6 +14,8 @@ import AddFeedback from './pages/AddFeedback';
 import Feedbacks from './pages/Feedbacks';
 import AdminCheckouts from './pages/AdminCheckouts';
 import Checkouts from './pages/Checkouts';
+import AdminPCheckouts from './pages/AdminPCheckouts';
+import Pcheckouts from './pages/Pcheckouts';
 
 function App() {
   return (
@@ -34,7 +36,9 @@ function App() {
         <Route path='/updaterep/:_id' element={<UpdateRepair />} /> */}
         <Route path='/addfeedback' element={<AddFeedback />} />
         <Route path='/admincheckout' element={<AdminCheckouts />} />
+        <Route path='/adminpcheckout' element={<AdminPCheckouts />} />
         <Route path='/Checkouts' element={<Checkouts />} />
+        <Route path='/PCheckouts' element={<Pcheckouts />} />
       </Routes>
     </Router>
   );
