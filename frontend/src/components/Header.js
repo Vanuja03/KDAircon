@@ -5,10 +5,13 @@ import './H.css';
 import { FaShoppingCart } from 'react-icons/fa';
 import Axios from 'axios';
 import kdlogo from '../images2/kdhomelg.png';
+import { Popover, Typography } from '@mui/material';
+import Profiles from '../pages/Profile';
 
 const Header = () => {
 
     const user = JSON.parse(localStorage.getItem('user'));
+    const [anchorEl, setAnchorEl] = useState(null);
     const navigate = useNavigate();
     const [booking, setBooking] = useState([]);
     const userMail = user ? user.email : null;
@@ -35,6 +38,17 @@ const Header = () => {
     };
 
     const bsize = booking.length;
+
+    const handleProfileClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
+    const open = Boolean(anchorEl);
+    const id = open ? 'simple-popover' : undefined;
 
     if (user) {
         return (
@@ -74,11 +88,26 @@ const Header = () => {
                                     <NavLink to='/addproduct' className='nav-link'>Admin</NavLink>
                                 </li>
                                 <li className='nav-item '>
-                                    <Button className='btnlname' onClick={Profile}>Hi {user.displayName} !</Button>
-                                    {user && (<img className='logimg' src={user.photoURL} alt='Userphoto' width={50} height={50} />)}
+                                    <Button className='btnlname' onClick={handleProfileClick}>Hi {user.displayName} !</Button>
+                                    {user && (<img onClick={handleProfileClick} className='logimg' src={user.photoURL} alt='Userphoto' width={50} height={50} />)}
                                 </li>
-
-
+                                <Popover
+                                    id={id}
+                                    open={open}
+                                    anchorEl={anchorEl}
+                                    onClose={handleClose}
+                                    className='poppover'
+                                    anchorOrigin={{
+                                        vertical: 'bottom',
+                                        horizontal: 'center',
+                                    }}
+                                    transformOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'center',
+                                    }}
+                                >
+                                    <Profiles />
+                                </Popover>
                             </ul>
                         </div>
                     </div>
@@ -120,4 +149,4 @@ const Header = () => {
     }
 }
 
-export default Header
+export default Header;

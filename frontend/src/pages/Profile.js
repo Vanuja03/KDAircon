@@ -2,11 +2,16 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import { auth } from './firebase';
-import Layout from '../components/Layout';
 import { Button, Card, Container } from 'react-bootstrap';
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBBtn, MDBTypography, MDBIcon } from 'mdb-react-ui-kit';
 import Axios from 'axios';
-import { FaCheck, FaShoppingCart } from 'react-icons/fa';
+import { FaArrowAltCircleRight, FaArrowRight, FaCaretUp, FaCheck, FaShoppingBag, FaShoppingCart } from 'react-icons/fa';
+import { Dialog, DialogTitle, DialogContent } from '@mui/material';
+import Checkouts from './Checkouts';
+import Repairs from './Repairs';
+
+import '../styles/profile.css';
+import Cart from './Cart';
 const Profile = () => {
 
   const user = JSON.parse(localStorage.getItem('user'));
@@ -14,6 +19,8 @@ const Profile = () => {
   const [checkouts, setCheckouts] = useState([]);
   const [booking, setBooking] = useState([]);
   const [pbooking, setPBooking] = useState([]);
+  const [open1, setopen1] = useState(false);
+  const [open2, setopen2] = useState(false);
   const userMail = user ? user.email : null;
 
   const getCheckout = async () => {
@@ -77,49 +84,60 @@ const Profile = () => {
     }
   }
   return (
-    <Layout>
-      <div className="vh-100" style={{ backgroundColor: '#eee' }}>
-        <MDBContainer className="container py-5 h-100">
-          <MDBRow className="justify-content-center align-items-center h-100">
-            <MDBCol md="12" xl="4">
-              <MDBCard style={{ borderRadius: '15px' }}>
-                <MDBCardBody className="text-center">
-                  <div className="mt-3 mb-4">
-                    <MDBCardImage src={user.photoURL}
-                      className="rounded-circle" fluid style={{ width: '100px' }} />
-                  </div>
-                  <MDBTypography tag="h4">{user.displayName}</MDBTypography>
-                  <MDBCardText className="text-muted mb-4">
-                    Customer <span className="mx-2">|</span> <a href="#!">{user.email}</a>
-                  </MDBCardText>
-                  <div className="mb-4 pb-2">
-                    <Button onClick={() => navigate('/Checkouts')}><FaCheck />({yourcheckouts.length})</Button>
-                    <Button onClick={() => navigate('/Cart')}><FaShoppingCart />{booking.length + pbooking.length}</Button>
-                  </div>
-                  <Button onClick={signOutUser} rounded size="sm">
-                    Logout
-                  </Button>
-                  <div className="d-flex justify-content-between text-center mt-5 mb-2">
-                    <div>
-                      <MDBCardText className="mb-1 h5">8471</MDBCardText>
-                      <MDBCardText className="small text-muted mb-0">Wallets Balance</MDBCardText>
-                    </div>
-                    <div className="px-3">
-                      <MDBCardText className="mb-1 h5">8512</MDBCardText>
-                      <MDBCardText className="small text-muted mb-0">Followers</MDBCardText>
-                    </div>
-                    <div>
-                      <MDBCardText className="mb-1 h5">4751</MDBCardText>
-                      <MDBCardText className="small text-muted mb-0">Total Transactions</MDBCardText>
-                    </div>
-                  </div>
-                </MDBCardBody>
-              </MDBCard>
-            </MDBCol>
-          </MDBRow>
-        </MDBContainer>
+    <>
+      <div >
+        {/* <FaCaretUp style={{ justifyContent: 'right' }} /> */}
+        <MDBCard style={{ borderRadius: '15px' }}>
+          <MDBCardBody className="text-center">
+            <div className='headoprof'>
+              <div className="mt-3 mb-4 profimage">
+                <MDBCardImage src={user.photoURL}
+                  className="rounded-circle" fluid style={{ width: '100px' }} />
+              </div>
+              <MDBTypography tag="h4">{user.displayName}</MDBTypography>
+              <MDBCardText className="text-muted mb-4">
+                Customer <span className="mx-2">|</span> <a href="#!">{user.email}</a>
+              </MDBCardText>
+              <hr style={{ color: 'black', marginTop: '-10px' }} />
+              <div className="mb-4 pb-2" style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
+                <Button onClick={() => setopen1(true)}><FaShoppingBag /> ({yourcheckouts.length})</Button>
+                <Button onClick={() => setopen2(true)}><FaShoppingCart /> {booking.length + pbooking.length}</Button>
+              </div>
+            </div>
+            <div style={{
+              display: 'flex',
+              flexDirection: 'column',
+              marginLeft: '5px',
+              marginRight: '5px'
+            }}>
+              <div className='disflexprof' onClick={() => navigate('/repairs')}>
+                <span>Your repairs</span>
+                <span><FaArrowRight /></span>
+              </div>
+              <div className='disflexprof' onClick={() => navigate('/feedbacks')}>
+                <span>Your feedbacks</span>
+                <span><FaArrowRight /></span>
+              </div>
+              <div className='disflexprof'>
+                <span>Your FAQs</span>
+                <span><FaArrowRight /></span>
+              </div>
+            </div>
+          </MDBCardBody>
+          <Button onClick={signOutUser} rounded size="md" className='signoutbtn'>
+            Logout
+          </Button>
+        </MDBCard>
       </div>
-    </Layout>
+      <Dialog open={open1}>
+        <Checkouts />
+      </Dialog>
+      <Dialog open={open2}>
+        <Cart />
+      </Dialog>
+    </>
+
+
 
   )
 }

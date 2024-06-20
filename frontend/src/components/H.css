@@ -39,6 +39,17 @@ body {
   border-radius: 25px;
 }
 
+.logimg:hover {
+  border-radius: 20px;
+  transition: all 1s;
+  cursor: pointer;
+}
+
 .btnlname {
   margin-right: 5px;
+}
+
+.poppover {
+  border-radius: 25px;
+  padding: 5% 5% 5% 5%;
 }
