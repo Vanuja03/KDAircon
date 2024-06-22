@@ -16,6 +16,7 @@ import AdminCheckouts from './pages/AdminCheckouts';
 import Checkouts from './pages/Checkouts';
 import AdminPCheckouts from './pages/AdminPCheckouts';
 import Pcheckouts from './pages/Pcheckouts';
+import AdminRepairs from './pages/AdminRepairs';
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
         <Route path='/adminpcheckout' element={<AdminPCheckouts />} />
         <Route path='/Checkouts' element={<Checkouts />} />
         <Route path='/PCheckouts' element={<Pcheckouts />} />
+        <Route path='/adminRepairs' element={<AdminRepairs />} />
       </Routes>
     </Router>
   );

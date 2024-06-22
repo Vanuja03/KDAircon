@@ -129,10 +129,10 @@ const Profile = () => {
           </Button>
         </MDBCard>
       </div>
-      <Dialog open={open1}>
+      <Dialog open={open1} fullWidth>
         <Checkouts />
       </Dialog>
-      <Dialog open={open2}>
+      <Dialog open={open2} fullWidth>
         <Cart />
       </Dialog>
     </>

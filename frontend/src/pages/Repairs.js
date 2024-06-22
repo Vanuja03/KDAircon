@@ -1,7 +1,7 @@
 import { Button, Dialog, DialogContent, DialogTitle, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import Axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { FaEdit, FaTractor, FaTrash } from 'react-icons/fa';
+import { FaCheckCircle, FaDotCircle, FaEdit, FaTractor, FaTrash } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import Layout from '../components/Layout';
@@ -122,6 +122,7 @@ const Repairs = () => {
               <TableCell>Issue</TableCell>
               <TableCell>Images</TableCell>
               <TableCell>Contact number</TableCell>
+              <TableCell>Status</TableCell>
               <TableCell>Actions</TableCell>
             </TableRow>
           </TableHead>
@@ -147,6 +148,13 @@ const Repairs = () => {
                     )}
                   </TableCell>
                   <TableCell>{rep.mobile}</TableCell>
+                  <TableCell style={{ fontWeight: 'bold' }}>
+                    {rep.status === 'Pending' ? (
+                      <span style={{ color: 'red' }}><FaDotCircle style={{ verticalAlign: 'middle' }} /> Pending</span>
+                    ) : (
+                      <span style={{ color: 'green' }}><FaCheckCircle style={{ verticalAlign: 'middle' }} /> Reviewed</span>
+                    )}
+                  </TableCell>
                   <TableCell>
                     <Button onClick={() => openUpdatePopup(rep)}><FaEdit /></Button>
                     <Button onClick={() => confirmDelete(rep._id)}><FaTrash /></Button>

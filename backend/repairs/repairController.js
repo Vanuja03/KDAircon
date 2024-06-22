@@ -57,7 +57,7 @@ const getRepair = async (req, res) => {
 const getAllRepair = async (req, res) => {
     try {
         const allRepairs = await Repair.find();
-        res.json({ allRepairs });
+        res.status(200).json(allRepairs);
 
     } catch (error) {
         res.status(500).json({ success: false, message: 'Internal server error' });
@@ -106,8 +106,31 @@ const deleteRepair = async (req, res) => {
     }
 }
 
+const repairstatusupdate = async (req, res) => {
+
+    const { _id, status } = req.body;
+
+    try {
+        const updatestatus = await Repair.findByIdAndUpdate(
+            _id,
+            { status: status },
+            { new: true }
+        )
+
+        if (updatestatus) {
+            res.status(200).json(updatestatus);
+        } else {
+            res.status(404).json({ message: 'Repair not found' });
+        }
+    } catch (error) {
+        console.error('Error updating status: ', error);
+        res.status(500).json({ message: 'Internal server error', error: error });
+    }
+}
+
 exports.addRepair = addRepair;
 exports.getRepair = getRepair;
 exports.deleteRepair = deleteRepair;
 exports.updateRepair = updateRepair;
 exports.getAllRepair = getAllRepair;
+exports.repairstatusupdate = repairstatusupdate;

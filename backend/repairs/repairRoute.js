@@ -11,5 +11,6 @@ routerR.get('/repair/:userMail', Rcontrol.getRepair);
 routerR.get('/Allrepairs', Rcontrol.getAllRepair);
 routerR.post('/deleteRepair', Rcontrol.deleteRepair);
 routerR.post('/updateRepair', Rcontrol.updateRepair);
+routerR.post('/repairstatus', Rcontrol.repairstatusupdate);
 
 module.exports = routerR;

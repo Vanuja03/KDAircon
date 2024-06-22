@@ -16,7 +16,7 @@ const AddRepair = new mongoose.Schema({
     userMail: String,
     images: [imageSchema],
     mobile: String,
-
+    status: { type: String, default: 'Pending' }
 }
     ,
     {
