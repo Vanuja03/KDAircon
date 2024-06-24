@@ -3,6 +3,7 @@ import Layout from '../components/Layout';
 import { Alert, Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 import Axios from 'axios';
 import Swal from 'sweetalert2';
+import * as Yup from 'yup';
 
 const PreferOrders = () => {
 
@@ -15,99 +16,35 @@ const PreferOrders = () => {
   const [unitFPrice, setFUnitPrice] = useState(0);
   const [errorMessage, setErrorMessage] = useState('');
   const user = JSON.parse(localStorage.getItem('user'));
+  const [errors, setErrors] = useState({});
 
-  /*const unitPrices = {
-    'Condenser': {
-      '9000 Btu Condenser Coil (18x24) Single Row': 100,
-      '9000 Btu Condenser Coil (20x16) Single Row , S/T': 110,
-      '9000 Btu Condenser Coil (18x27) Single Row': 120,
-      '12000 Btu Condenser Coil (20x28) Single Row': 130,
-      '12001 Btu Condenser Coil (20x24) Single Row': 140,
-      '12000 Btu Condenser Coil (20x30) Single Row': 150,
-      '12000 Btu Condenser Coil (20x30) 1 1/2  Row': 160,
-      '12001 Btu Condenser Coil (20x32) Single  Row': 170,
-      '12000 Btu Condenser Coil (23x27) Single Row': 180,
-      '12000 Btu Condenser Coil (18x27) 1 1/2 Row(LG Inverter)(no-01)': 190,
-      '12000 Btu Condenser Coil (18x27) Double Row(LG Inverter)(no-01)': 200,
-      '12000 Btu Condenser Coil (24x24) Single Row Streight(Pansonic Non Inverter)': 210,
-      '18000 Btu Condenser Coil (19x32) S/R (Panasonic Inverter)': 220,
-      '10001 Btu Condenser Coil (19x24) D/R (Panasonic Inverter)': 230,
-      '13000 Btu Condenser Coil (19x24) 1 1/2 Row (Panasonic Inverter)': 240,
-      '18000 Btu Condenser Coil (20x30) Double Row': 250,
-      '18000 Btu Condenser Coil (20x32) Double Row (LG)': 260,
-      '18000 Btu Condenser Coil (20x32) 1 1/2 Row (LG)': 270,
-      '18000 Btu Condenser Coil (24x24) 1 1/2 Row Streight(Pansonic Non Inverter)': 280,
-      '18000 Btu Condenser Coil (24x32) Single Row': 290,
-      '18000 Btu Condenser Coil (23x33) 1 1/2  Row (Pansonic Inverter)': 300,
-      '18000 Btu Condenser Coil (22x32) Single Row': 310,
-      '18000 Btu Condenser Coil (20x28) D/R Row-(Pansonic Inverter)': 320,
-      '24000 Btu Condenser Coil (26x34) Single Row-(Panasonic)': 330,
-      '24000 Btu Condenser Coil (24x34) Single Row': 340,
-      '24000 Btu Condenser Coil (22x32) Double Row': 350,
-      '24000 Btu Condenser Coil (24x32) Double Row ': 360,
-      '24000 Btu Condenser Coil (24x34) Double Row (LG)': 370,
-      '24000 Btu Condenser Coil (26x36) Single Row': 380,
-      '24000 Btu Condenser Coil (26x36) Double Row': 390,
-      '24000 Btu Condenser Coil (26x34) Double Row': 400,
-      '24000 Btu Condenser Coil (26x26) 1 1/2 Row Streight (Pansonic Inverter)': 410,
-      '24000 Btu Condenser Coil (26x26) Double Row Streight (Pansonic Inverter)': 420,
-      '24000 Btu Condenser Coil (26x26) Single Row Streight': 430,
-      '24000 Btu Condenser Coil (24x34) 1 1/2 Row': 440,
-      '24000 Btu Condenser Coil (24x34) 1 1/2 Row-Media': 450,
-      '24000 Btu Condenser Coil (26x32) Double Row-Media': 460,
-      '24000 Btu Condenser Coil (26x32) Single Row-Media': 470,
-      '24000 Btu Condenser Coil (28x34) 1 1/2 Row': 480,
-      '36000 Btu Condenser Coil (36x36) Single Row': 490,
-      '36001 Btu Condenser Coil (36x36) Double Row': 500,
-      '36000 Btu Condenser Coil (40x36) Single Row': 510,
-      '36000 Btu Condenser Coil (30x34) Double Row': 520,
-      '36000 Btu Condenser Coil (30x41) Double Row-Media': 530,
-      '36000 Btu Condenser Coil (30x41) 1 1/2 Row-Media': 540,
-      '36001 Btu Condenser Coil (30x33) Double Row': 550,
-      '36000 Btu Condenser Coil (32x32) Double Row': 560,
-      '36000 Btu Condenser Coil (32x32) 1 1/2 Row': 570,
-      '48000 Btu Condenser Coil (44x32) Single Row': 580,
-      '48000 Btu Condenser Coil (44x34) Single Row': 590,
-      '48000 Btu Condenser Coil (44x34) Double Row': 600,
-      '48000 Btu Condenser Coil (44x34) 1 1/2 Row': 610,
-      '48000 Btu Condenser Coil (48x34) Double Row': 620,
-      '48000 Btu Condenser Coil (48x34) 1 1/2 Row': 630,
-      '48000 Btu Condenser Coil (46x34) Double Row': 640,
-      '48000 Btu Condenser Coil (48x34) Single Row': 650,
-      '48000 Btu Condenser Coil (56x34)Double Row': 660,
-    }  // Define unit prices for other products
-  };
-
-  useEffect(() => {
-    // Update unit price when size changes
-    if (pname && psize) {
-      setUnitPrice(unitPrices[pname][psize]);
-    }
-  }, [pname, psize]);*/
+  const schema = Yup.object().shape({
+    pname: Yup.string().required('Product name is required'),
+    psize: Yup.string().required('Size is required'),
+    quantity: Yup.number().required('Quantity is required').min(1, 'Quantity must be at least 1'),
+    pTubeSize: pname === 'Condenser' ? Yup.string().required('Tube size is required') : Yup.string(),
+    pGasType: pname === 'Brand new outdoor unit air conditioner' ? Yup.string().required('Gas type is required') : Yup.string()
+  })
 
   const addPrefer = async () => {
 
-    if (!quantity) {
-      setErrorMessage('Your selected quantity 0 ! ');
-      return;
-    }
-    if (!psize) {
-      setErrorMessage('Please select a size');
-      return;
-    }
-    const userMail = user ? user.email : null;
     try {
+      await schema.validate({ pname, psize, quantity, pTubeSize, pGasType }, { abortEarly: false });
+      setErrors({});
+
+      const userMail = user ? user.email : null;
       const response = await Axios.post('http://localhost:4000/api/addprefer', {
         pname,
-        psize: psize,
-        pGasType: pGasType,
-        pTubeSize: pTubeSize,
-        quantity: quantity,
-        userMail: userMail,
+        psize,
+        pGasType,
+        pTubeSize,
+        quantity,
+        userMail
       });
+
       console.log('Added to cart', response.data);
       await Swal.fire({
-        title: "Your Custormized order is added to cart!",
+        title: "Your customized order is added to cart!",
         text: "Try out your cart!",
         icon: "success",
       }).then((result) => {
@@ -116,10 +53,17 @@ const PreferOrders = () => {
         }
       });
     } catch (error) {
-      console.error('Error adding to cart:', error);
+      if (error.name === 'ValidationError') {
+        const formattedErrors = {};
+        error.inner.forEach((err) => {
+          formattedErrors[err.path] = err.message;
+        });
+        setErrors(formattedErrors);
+      } else {
+        console.error('Error adding to cart:', error);
+      }
     }
   };
-  //https://www.wix.com/website-template/view/html/2860?originUrl=https%3A%2F%2Fwww.wix.com%2Fwebsite%2Ftemplates%3Fcriteria%3Decommerce&tpClick=view_button&esi=66df2b7c-1755-4d53-abcf-3cc30b647048
   // const filteredproductData = p.filter(clin => {
   //   return clin.ff.toLowerCase().includes(searchQuery.toLowerCase());
   // });
@@ -208,6 +152,7 @@ const PreferOrders = () => {
                     <option>48000 Btu Condenser Coil (48x34) Single Row</option>
                     <option>48000 Btu Condenser Coil (56x34)Double Row</option>
                   </Form.Control>
+                  {errors.psize && <p className="text-danger">{errors.psize}</p>}
                 </Form.Group>
                 <Form.Group>
                   <Form.Label>Tube Size</Form.Label>
@@ -216,6 +161,7 @@ const PreferOrders = () => {
                     <option>9mm</option>
                     <option>7mm</option>
                   </Form.Control>
+                  {errors.pTubeSize && <p className="text-danger">{errors.pTubeSize}</p>}
                 </Form.Group>
                 <Form.Group>
                   <Form.Label>Quantity</Form.Label>
@@ -226,6 +172,7 @@ const PreferOrders = () => {
                     placeholder='Enter your amount'
                     onChange={(e) => setQuantity(e.target.value)}
                   />
+                  {errors.quantity && <p className="text-danger">{errors.quantity}</p>}
                 </Form.Group>
                 <br />
                 <Button onClick={addPrefer} variant='primary'>Add to Cart</Button>
@@ -246,8 +193,8 @@ const PreferOrders = () => {
                   <Form.Control as='select' size='sm' onChange={(e) => {
                     setpsize(e.target.value);
                     setpname('Fiber Glass Outdoor Casing');
-                  }} custom >
-                    <option disabled>Select size</option>
+                  }} custom
+                    placeholder='Select your size' >
                     <option>9000 Btu</option>
                     <option>12000 Btu</option>
                     <option>18000 Btu</option>
@@ -255,6 +202,7 @@ const PreferOrders = () => {
                     <option>36000 Btu</option>
                     <option>48000 Btu</option>
                   </Form.Control>
+                  {errors.psize && <p className="text-danger">{errors.psize}</p>}
                 </Form.Group>
                 <Form.Group>
                   <Form.Label>Quantity</Form.Label>
@@ -265,6 +213,7 @@ const PreferOrders = () => {
                     placeholder='Enter your amount'
                     onChange={(e) => setQuantity(e.target.value)}
                   />
+                  {errors.quantity && <p className="text-danger">{errors.quantity}</p>}
                 </Form.Group>
                 <br />
                 <Button onClick={addPrefer} variant='primary'>Add to Cart</Button>
@@ -294,6 +243,7 @@ const PreferOrders = () => {
                     <option>36000 Btu</option>
                     <option>48000 Btu</option>
                   </Form.Control>
+                  {errors.psize && <p className="text-danger">{errors.psize}</p>}
                 </Form.Group>
                 <Form.Group>
                   <Form.Label>Gas type</Form.Label>
@@ -302,6 +252,7 @@ const PreferOrders = () => {
                     <option>R 22</option>
                     <option>R 410</option>
                   </Form.Control>
+                  {errors.pGasType && <p className="text-danger">{errors.pGasType}</p>}
                 </Form.Group>
                 <Form.Group>
                   <Form.Label>Quantity</Form.Label>
@@ -312,6 +263,7 @@ const PreferOrders = () => {
                     placeholder='Enter your amount'
                     onChange={(e) => setQuantity(e.target.value)}
                   />
+                  {errors.quantity && <p className="text-danger">{errors.quantity}</p>}
                 </Form.Group>
                 <br />
                 <Button onClick={addPrefer} variant='primary'>Add to Cart</Button>

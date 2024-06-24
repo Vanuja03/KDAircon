@@ -6,6 +6,8 @@ import { FaPlus, FaThumbsDown, FaThumbsUp, FaTimes, FaTrash } from 'react-icons/
 import { Dialog, DialogTitle, DialogContent } from '@mui/material';
 import AddFeedBack from './AddFeedback';
 import Swal from 'sweetalert2';
+import Aos from 'aos';
+import 'aos/dist/aos.css';
 
 const Feedbacks = () => {
     const [feedback, setFeedbacks] = useState([]);
@@ -124,20 +126,23 @@ const Feedbacks = () => {
         getfeedbacks();
         setopenadd(false);
     };
+    useEffect(() => {
+        Aos.init({ duration: 1000 });
+    }, []);
 
     const yourfeedbacks = feedback.filter(feedbacks => feedbacks.userMail === userMail);
 
     return (
-        <div>
-            <center><h2>Our valuble feedbacks !!</h2></center>
-            <div className='flx3'>
+        <div data-aos="fade-up">
+            <center><h1>Our valuble feedbacks !!</h1></center>
+            <div className='flx3' data-aos="fade-left" >
 
                 <Button onClick={() => setopenadd(true)}><FaPlus /></Button>
                 <Button onClick={() => setopenyf(true)}>Your Feedbacks</Button>
             </div>
             {feedback && feedback.length > 0 ? (
                 feedback.map((feedbacks) => (
-                    <Card key={feedbacks._id}>
+                    <Card key={feedbacks._id} className='cardfeed'>
                         <Card.Title className='disflex'>{feedbacks.name}
                             <div className='starrating'>
                                 {feedbacks.pname} -

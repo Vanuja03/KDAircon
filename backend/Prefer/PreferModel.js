@@ -3,17 +3,17 @@ const Schema = mongoose.Schema;
 
 const PreferBookingSchema = new Schema({
 
-    pname : String,
-    psize : String,
-    pTubeSize : String,
-    pGasType : String,
-    quantity : Number,
-    userMail : String,
-    o_id : String,
+    pname: String,
+    psize: { type: String, default: '-' },
+    pTubeSize: { type: String, default: '-' },
+    pGasType: { type: String, default: '-' },
+    quantity: Number,
+    userMail: String,
+    o_id: String,
 },
-{
-    collection : "PreferBooking"
-});
+    {
+        collection: "PreferBooking"
+    });
 
-const Prefer = mongoose.model('PreferBooking' , PreferBookingSchema);
+const Prefer = mongoose.model('PreferBooking', PreferBookingSchema);
 module.exports = Prefer;

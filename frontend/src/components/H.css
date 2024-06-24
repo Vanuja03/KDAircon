@@ -51,5 +51,13 @@ body {
 
 .poppover {
   border-radius: 25px;
-  padding: 5% 5% 5% 5%;
+}
+
+.gbtn {
+  border-radius: 20px;
+}
+
+.btnlog {
+  border-radius: 25px;
+  margin-bottom: -3%;
 }

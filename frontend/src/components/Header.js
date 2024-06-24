@@ -7,6 +7,7 @@ import Axios from 'axios';
 import kdlogo from '../images2/kdhomelg.png';
 import { Popover, Typography } from '@mui/material';
 import Profiles from '../pages/Profile';
+import Login from '../pages/googlelogin';
 
 const Header = () => {
 
@@ -135,11 +136,25 @@ const Header = () => {
                                     <NavLink to='/addproduct' className='nav-link'>Admin</NavLink>
                                 </li>
                                 <li className='nav-item'>
-                                    <NavLink to='/login' className='nav-link'>Login</NavLink>
+                                    <Button className='btnlog' onClick={handleProfileClick} >Login</Button>
                                 </li>
-                                <li className='nav-item'>
-                                    <NavLink to='/' className='nav-link'></NavLink>
-                                </li>
+                                <Popover
+                                    id={id}
+                                    open={open}
+                                    anchorEl={anchorEl}
+                                    onClose={handleClose}
+                                    className='poppover'
+                                    anchorOrigin={{
+                                        vertical: 'bottom',
+                                        horizontal: 'center',
+                                    }}
+                                    transformOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'center',
+                                    }}
+                                >
+                                    <Login />
+                                </Popover>
                             </ul>
                         </div>
                     </div>

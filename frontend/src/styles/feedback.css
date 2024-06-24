@@ -38,6 +38,8 @@
     flex-direction: row;
     justify-content: flex-end;
     gap: 1%;
+    margin-bottom: 1%;
+    margin-right: 1%;
 }
 
 /* Ensure feedback text wraps and doesn't overflow */
@@ -45,4 +47,16 @@
     overflow-wrap: break-word;
     white-space: pre-wrap;
     word-wrap: break-word;
+}
+
+.cardfeed {
+    padding-left: 2%;
+    padding-right: 2%;
+    padding-top: 2%;
+    padding-bottom: 1%;
+
+    border: 1px solid rgba(0, 0, 255, 0.14);
+    margin-left: 1%;
+    margin-right: 1%;
+
 }
