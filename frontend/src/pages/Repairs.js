@@ -157,7 +157,12 @@ const Repairs = () => {
                   </TableCell>
                   <TableCell>
                     <Button onClick={() => openUpdatePopup(rep)}><FaEdit /></Button>
-                    <Button onClick={() => confirmDelete(rep._id)}><FaTrash /></Button>
+                    {rep.status === 'Pending' ? (
+                      <Button onClick={() => confirmDelete(rep._id)}><FaTrash /></Button>
+                    ) :
+                      (
+                        <Button style={{ color: 'gray', cursor: 'not-allowed' }}><FaTrash /></Button>
+                      )}
                   </TableCell>
                 </TableRow>
               ))
@@ -173,24 +178,18 @@ const Repairs = () => {
         {repair.map((rep) => (
           <Col key={rep._id} md={4}>
             <Card className='mb-4 cards'>
-              <Swiper
-                spaceBetween={50}
-                slidesPerView={3}
-                onSlideChange={() => console.log('slide change')}
-                onSwiper={(swiper) => console.log(swiper)}
-              >
-                <SwiperSlide>
-                  {Array.isArray(rep.images) ? (
-                    rep.images.map((image, index) => (
-                      <div className="imge" key={index} style={{ width: "50px", height: "100px" }}>
-                        <img src={`data:${image.contentType};base64,${image.data}`} alt={`Image`} />
-                      </div>
-                    ))
-                  ) : (
-                    <div>No images available</div>
-                  )}
-                </SwiperSlide>
-
+              <Swiper spaceBetween={5} slidesPerView={1}>
+                {rep.images.map((image, index) => (
+                  <SwiperSlide key={index}>
+                    <div style={{ textAlign: 'center' }}>
+                      <img
+                        src={`data:${image.contentType};base64,${image.data}`}
+                        alt={`Image ${index + 1}`}
+                        style={{ maxWidth: '100%', height: 'auto' }}
+                      />
+                    </div>
+                  </SwiperSlide>
+                ))}
               </Swiper>
               <Card.Body>
                 <Card.Title>{rep.pname}</Card.Title>
@@ -205,7 +204,7 @@ const Repairs = () => {
         ))}
       </Row>
       <Dialog open={open}>
-        <DialogTitle>Update Product</DialogTitle>
+        <DialogTitle>Update Repair</DialogTitle>
         <DialogContent>
           <Form>
             <Row><Col>

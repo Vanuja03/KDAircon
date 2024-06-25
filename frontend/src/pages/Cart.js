@@ -11,6 +11,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import logo1 from '../images2/kdtitlelg.png';
+import '../styles/Nv.css';
+import * as Yup from 'yup';
 
 const Cart = () => {
 
@@ -18,6 +20,7 @@ const Cart = () => {
   const [edit, setEdit] = useState({});
   const user = JSON.parse(localStorage.getItem('user'));
   const userMail = user ? user.email : null;
+  const [errorMessage, setErrorMessage] = useState('');
 
   const [mobile, setMobile] = useState('');
 
@@ -103,11 +106,14 @@ const Cart = () => {
     setopen(true);
   }
 
+  const validateSchema = Yup.object().shape({
+    mobile: Yup.string().matches(/^0\d{9}$/, 'Invalid Contact Number').required('Contact Number is Required')
+  })
   const addCheckout = async (e) => {
     e.preventDefault();
 
     try {
-
+      await validateSchema.validate({ mobile }, { abortEarly: false })
       const response = await Axios.post('http://localhost:4000/api/addCheckout', {
         pname: checkout.pname,
         pprice: checkout.pprice,
@@ -132,45 +138,19 @@ const Cart = () => {
 
 
     } catch (error) {
-      console.log(error);
+      if (error instanceof Yup.ValidationError) {
+        const errors = {};
+        error.inner.forEach(err => {
+          errors[err.path] = err.message;
+        });
+        setErrorMessage(errors);
+      } else {
+        console.log(error);
+      }
     }
   }
 
-  const genbill = () => {
 
-    const doc = new jsPDF();
-
-    const logo = new Image();
-    logo.src = logo1;
-    doc.addImage(logo, 'PNG', 20, 10, 20, 20);
-
-
-    doc.setFontSize(12);
-    doc.text('KD Aircon Industries (Pvt) Ltd', 45, 15);
-    doc.text('321/P1,Kalderam Maduwatta,');
-    doc.text('Wekada,Panadura.', 45, 25);
-
-    doc.text('', 45, 35);
-
-    doc.autoTable({
-      head: [['Qty', 'Product name', 'Unit price', 'Total']],
-      body: [checkout.quantity, checkout.pname, checkout.pprice, checkout.pprice * checkout.quantity],
-      startY: 40,
-      styles: {
-        cellWidth: 'Auto',
-        fontsize: 10,
-
-      },
-      columnStyles: {
-        0: { cellWidth: 30 },
-        1: { cellWidth: 30 },
-      },
-    });
-
-    doc.save('Bill.pdf');
-
-
-  }
   return (
     <div>
       <Layout>
@@ -257,16 +237,19 @@ const Cart = () => {
                 <TableCell>Contact No - </TableCell>
                 <TableCell>
                   <Form>
-                    <Form.Control type='text'
-                      onChange={(e) => setMobile(e.target.value)}
+                    <Form.Control
+                      className='no-spinner'
+                      type='number'
+                      onChange={e => setMobile(e.target.value.slice(0, 10))}
+                      maxLength={10}
                     />
+                    {errorMessage.mobile && <div className='text-danger'>{errorMessage.mobile}</div>}
                   </Form>
                 </TableCell>
               </TableRow>
             </Table>
             <br />
             <Button onClick={addCheckout}>COnfirm Checkout</Button>
-            <Button onClick={genbill}><FaFilePdf /></Button>
             <Button onClick={() => setopen(false)}>Cancel</Button>
           </Card>
         </Dialog>
@@ -280,3 +263,40 @@ const Cart = () => {
 }
 
 export default Cart;
+
+
+/**const genbill = () => {
+
+    const doc = new jsPDF();
+
+    const logo = new Image();
+    logo.src = logo1;
+    doc.addImage(logo, 'PNG', 20, 10, 20, 20);
+
+
+    doc.setFontSize(12);
+    doc.text('KD Aircon Industries (Pvt) Ltd', 45, 15);
+    doc.text('321/P1,Kalderam Maduwatta,');
+    doc.text('Wekada,Panadura.', 45, 25);
+
+    doc.text('', 45, 35);
+
+    doc.autoTable({
+      head: [['Qty', 'Product name', 'Unit price', 'Total']],
+      body: [checkout.quantity, checkout.pname, checkout.pprice, checkout.pprice * checkout.quantity],
+      startY: 40,
+      styles: {
+        cellWidth: 'Auto',
+        fontsize: 10,
+
+      },
+      columnStyles: {
+        0: { cellWidth: 30 },
+        1: { cellWidth: 30 },
+      },
+    });
+
+    doc.save('Bill.pdf');
+
+
+  } */

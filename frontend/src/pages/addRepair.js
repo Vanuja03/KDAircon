@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import Layout from '../components/Layout'
-import { Alert, Button, Col, Form, Row } from 'react-bootstrap'
+import { Alert, Button, Card, Col, Form, Row } from 'react-bootstrap'
 import Axios from 'axios'
 import Swal from 'sweetalert2'
 import Repairs from './Repairs'
 import { useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import * as Yup from 'yup';
+import '../styles/addrep.css';
 
 const AddRepair = () => {
 
@@ -47,14 +49,22 @@ const AddRepair = () => {
         });
     }
 
+    const validateSchema = Yup.object().shape({
+        billNo: Yup.number().required('Bill No is Required'),
+        pname: Yup.string().required('Product name is required'),
+        billDate: Yup.string().required('Date is required'),
+        description: Yup.string().required('Repair Description required'),
+        images: Yup.mixed().required('Photos are required').test('file-size', 'Please upload at most 5 files', (files) => files.length <= 5)
+            .test('file-type', 'Only image files are allowed', (files) => files.every((file) => file.type.match(/^image\/(png|jpeg|jpg)$/))),
+        mobile: Yup.string().matches(/^0\d{9}$/, 'Invalid Contact Number').required('Contact number is Required'),
+    });
+
     const addRep = async () => {
 
-        if (!billNo || !pname || !billDate || !description || !images || !mobile) {
-            setErrorMessage('Fill in all fields');
-            return;
-        }
-
         try {
+
+            await validateSchema.validate({ billNo, billDate, pname, description, images, mobile }, { abortEarly: false });
+
             const formData = new FormData();
             formData.append("billNo", billNo);
             formData.append("billDate", billDate);
@@ -93,12 +103,25 @@ const AddRepair = () => {
                 }
             });
         } catch (error) {
-            console.error('Error adding product: ', error);
-            Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "Something went wrong!"
-            });
+            if (error instanceof Yup.ValidationError) {
+                const errors = {};
+                error.inner.forEach((err) => {
+                    if (err.path === 'evidence') {
+                        errors[err.path] = err.message;
+                    } else {
+                        errors[err.path] = err.message;
+                        setErrorMessage(errors);
+                    }
+                });
+                setErrorMessage(errors);
+            } else {
+                console.error('Error adding product: ', error);
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Something went wrong!"
+                });
+            }
         }
 
     }
@@ -112,9 +135,9 @@ const AddRepair = () => {
     return (
         <div>
             <Layout>
-                <h1>Repairs</h1><br />
-                {errorMessage && <Alert variant='danger'>{errorMessage}</Alert>}
-                <Form>
+
+                <h1 className='text-center' style={{ marginTop: '20px' }}>Add a Repair inquiry</h1><br />
+                <Form className='addrepform'>
                     <Row><Col>
                         <Form.Group >
                             <Form.Label>Bill No</Form.Label>
@@ -123,6 +146,7 @@ const AddRepair = () => {
                                 value={billNo}
                                 onChange={e => setbNo(e.target.value)}
                                 required />
+                            {errorMessage.billNo && <div className="text-danger">{errorMessage.billNo}</div>}
                         </Form.Group>
                         <Form.Group >
                             <Form.Label>Bill Date</Form.Label>
@@ -132,6 +156,7 @@ const AddRepair = () => {
                                 max={new Date().toISOString().split('T')[0]}
                                 onChange={e => setbdate(e.target.value.toString())}
                                 required />
+                            {errorMessage.billDate && <div className="text-danger">{errorMessage.billDate}</div>}
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>Contact number</Form.Label>
@@ -141,6 +166,7 @@ const AddRepair = () => {
                                 onChange={e => setMobile(e.target.value.slice(0, 10))}
                                 maxLength={10} // added maxLength attribute to limit input
                                 required />
+                            {errorMessage.mobile && <div className="text-danger">{errorMessage.mobile}</div>}
                         </Form.Group>
                     </Col>
                         <Col>
@@ -151,6 +177,7 @@ const AddRepair = () => {
                                     value={pname}
                                     onChange={e => setpname(e.target.value)}
                                     required />
+                                {errorMessage.pname && <div className="text-danger">{errorMessage.pname}</div>}
                             </Form.Group>
                             <Form.Group >
                                 <Form.Label>Describe your issue</Form.Label>
@@ -159,6 +186,7 @@ const AddRepair = () => {
                                     value={description}
                                     onChange={e => setdesc(e.target.value)}
                                     required />
+                                {errorMessage.description && <div className="text-danger">{errorMessage.description}</div>}
                             </Form.Group>
                         </Col>
                         <Form.Group style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
@@ -169,22 +197,27 @@ const AddRepair = () => {
                                 width={400}
                                 onChange={onInputChange}
                                 multiple />
+
                             {imagePreview && imagePreview.map((preview, index) => (
                                 <div key={index} style={{ marginRight: '10px', marginBottom: '10px' }}>
                                     <img src={preview} alt={`Preview ${index}`} style={{ width: '150px', height: '150px' }} />
                                 </div>
                             ))}
+                            {errorMessage.images && <div className="text-danger">{errorMessage.images}</div>}
                         </Form.Group>
 
                     </Row>
                     <br />
-                    <Button variant='primary' onClick={addRep}>
-                        Submit
-                    </Button>
-                    <Button variant='primary' onClick={Repair}>
-                        Your repairs
-                    </Button>
+                    <div className='addrepdiv1'>
+                        <Button variant='primary' onClick={addRep}>
+                            Submit
+                        </Button>
+                        <Button variant='primary' onClick={Repair}>
+                            Your repairs
+                        </Button>
+                    </div>
                 </Form>
+
             </Layout>
             <ToastContainer
                 position="top-right"

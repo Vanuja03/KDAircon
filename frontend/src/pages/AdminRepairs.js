@@ -4,12 +4,14 @@ import Layout from '../components/Layout';
 import { Button, MenuItem, Paper, Select, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import { FaCheck, FaCheckCircle, FaDotCircle } from 'react-icons/fa';
 import Swal from 'sweetalert2';
+import { Form } from 'react-bootstrap';
 
 const AdminRepairs = () => {
 
     const [repairs, setrepairs] = useState([]);
     const user = JSON.parse(localStorage.getItem('user'));
     const userMail = user ? user.email : null;
+    const [filterstatus, setfilterStatus] = useState('All');
 
     const [Status, setstatus] = useState('');
 
@@ -61,10 +63,31 @@ const AdminRepairs = () => {
 
     console.log(repairs.length);
 
+    const handleFilterChange = (event) => {
+        setfilterStatus(event.target.value);
+    };
+
+    const filteredRepairs = filterstatus === 'All'
+        ? repairs
+        : repairs.filter(rep => rep.status === filterstatus);
+
     return (
         <div>
             <Layout>
-                <h1 className='text-center'>Your inquiries</h1>
+                <h1 className='text-center'>Review repair inquiries</h1>
+                <Form.Group>
+                    <Form.Label>Filter by status</Form.Label>
+                    <Select
+                        value={filterstatus}
+                        onChange={handleFilterChange}
+                        name='filterstatus'
+                        displayEmpty
+                        inputProps={{ 'aria-label': 'without label' }}>
+                        <MenuItem value='All'>All</MenuItem>
+                        <MenuItem value='Pending' style={{ color: 'red', fontWeight: 'bold' }}>Pending</MenuItem>
+                        <MenuItem value='Reviewed' style={{ color: 'green', fontWeight: 'bold' }}>Reviewed</MenuItem>
+                    </Select>
+                </Form.Group>
                 <TableContainer component={Paper}>
                     <Table>
                         <TableHead>
@@ -81,8 +104,8 @@ const AdminRepairs = () => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {repairs && repairs.length > 0 ? (
-                                repairs.map((rep, index) => (
+                            {filteredRepairs && filteredRepairs.length > 0 ? (
+                                filteredRepairs.map((rep, index) => (
                                     <TableRow key={rep._id}>
                                         <TableCell>{index + 1}</TableCell>
                                         <TableCell>{rep.billNo}</TableCell>

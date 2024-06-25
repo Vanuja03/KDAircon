@@ -3,19 +3,29 @@ import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 import { Button, Card, Form } from 'react-bootstrap';
 import '../styles/addfeedback.css';
+import * as yup from 'yup';
 
 const AddFeedback = ({ onFeedbackAdded }) => {
     const [pname, setPname] = useState('');
     const [feedback, setFeedback] = useState('');
     const [name, setName] = useState('');
     const [rating, setRating] = useState(0);
+    const [errorMessage, setErrorMessage] = useState('');
 
     const user = JSON.parse(localStorage.getItem('user'));
     const userMail = user ? user.email : null;
 
+    const validateSchema = yup.object().shape({
+        pname: yup.string().required('Product name is required'),
+        feedback: yup.string().required('Feedback is required'),
+        name: yup.string().required('Name is required'),
+        rating: yup.number().required('Please give a rating to us')
+    })
+
     const addFeedback = async (e) => {
         e.preventDefault();
         try {
+            await validateSchema.validate({ pname, feedback, name, rating }, { abortEarly: false });
             const response = await Axios.post('http://localhost:4000/api/addfeedback', {
                 pname,
                 feedback,
@@ -40,7 +50,15 @@ const AddFeedback = ({ onFeedbackAdded }) => {
 
             if (onFeedbackAdded) onFeedbackAdded();
         } catch (error) {
-            console.error('Error', error);
+            if (error instanceof yup.ValidationError) {
+                const errors = {};
+                error.inner.forEach(err => {
+                    errors[err.path] = err.message;
+                });
+                setErrorMessage(errors);
+            } else {
+                console.error('Error', error);
+            }
         }
     };
 
@@ -64,6 +82,7 @@ const AddFeedback = ({ onFeedbackAdded }) => {
                                 <option>Outdoor unit</option>
                                 <option>Indoor unit</option>
                             </Form.Control>
+                            {errorMessage.pname && <div className="text-danger">{errorMessage.pname}</div>}
                         </Form.Group>
                         <br />
                         <Form.Group controlId="formName">
@@ -73,6 +92,7 @@ const AddFeedback = ({ onFeedbackAdded }) => {
                                 onChange={(e) => setName(e.target.value)}
                                 placeholder="Enter your name"
                             />
+                            {errorMessage.name && <div className="text-danger">{errorMessage.name}</div>}
                         </Form.Group>
                         <br />
                         <Form.Group controlId="formFeedback">
@@ -83,6 +103,7 @@ const AddFeedback = ({ onFeedbackAdded }) => {
                                 onChange={(e) => setFeedback(e.target.value)}
                                 placeholder="Enter your feedback"
                             />
+                            {errorMessage.feedback && <div className="text-danger">{errorMessage.feedback}</div>}
                         </Form.Group>
                         <br />
                         <Form.Group controlId="formRating">
@@ -96,6 +117,7 @@ const AddFeedback = ({ onFeedbackAdded }) => {
                                     />
                                 ))}
                             </div>
+                            {errorMessage.rating && <div className="text-danger">{errorMessage.rating}</div>}
                         </Form.Group>
                         <br />
                         <Button variant="primary" type="submit">

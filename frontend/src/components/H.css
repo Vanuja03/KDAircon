@@ -37,6 +37,7 @@ body {
 
 .logimg {
   border-radius: 25px;
+  border: 3px solid blue;
 }
 
 .logimg:hover {
@@ -60,4 +61,20 @@ body {
 .btnlog {
   border-radius: 25px;
   margin-bottom: -3%;
+}
+
+/* .dropdowns {
+  border-radius: 25px;
+  background-image: linear-gradient(to bottom, white, cyan);
+} */
+
+.dropdown-menu {
+  background-image: linear-gradient(to bottom, white, cyan);
+  border-radius: 20px;
+}
+
+.dropdown-menu :hover {
+  border-bottom: 1px solid blue;
+  background-image: linear-gradient(to bottom, white, cyan);
+  border-radius: 20px;
 }

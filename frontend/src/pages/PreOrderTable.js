@@ -7,6 +7,8 @@ import Swal from 'sweetalert2';
 import { Card, Form } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import '../styles/Nv.css';
+import * as Yup from 'yup';
 
 const PreOrderTable = () => {
 
@@ -17,7 +19,7 @@ const PreOrderTable = () => {
     const [open, setopen] = useState(false);
     const [pcheckout, setpCheckout] = useState([]);
     const [mobile, setMobile] = useState('');
-
+    const [errorMessage, setErrorMessage] = useState('');
 
     const Checkouts = (checkout) => {
         setpCheckout(checkout);
@@ -95,10 +97,15 @@ const PreOrderTable = () => {
         });
     }
 
+    const validateSchema = Yup.object().shape({
+        mobile: Yup.string().matches(/^0\d{9}$/, 'Invalid Contact Number').required('Contact Number is Required')
+    })
+
     const addPCheckout = async (e) => {
         e.preventDefault();
 
         try {
+            await validateSchema.validate({ mobile }, { abortEarly: false })
 
             const response = await Axios.post('http://localhost:4000/api/addPCheckout', {
                 pname: pcheckout.pname,
@@ -122,7 +129,15 @@ const PreOrderTable = () => {
                 timer: 2000
             });
         } catch (error) {
-            console.log(error);
+            if (error instanceof Yup.ValidationError) {
+                const errors = {};
+                error.inner.forEach(err => {
+                    errors[err.path] = err.message;
+                });
+                setErrorMessage(errors);
+            } else {
+                console.log(error);
+            }
         }
     }
 
@@ -215,15 +230,19 @@ const PreOrderTable = () => {
                             <TableCell>Contact No - </TableCell>
                             <TableCell>
                                 <Form>
-                                    <Form.Control type='text'
-                                        onChange={(e) => setMobile(e.target.value)}
+                                    <Form.Control
+                                        className='no-spinner'
+                                        type='number'
+                                        maxLength={10}
+                                        onChange={(e) => setMobile(e.target.value.slice(0, 10))}
                                     />
+                                    {errorMessage.mobile && <div className='text-danger'>{errorMessage.mobile}</div>}
                                 </Form>
                             </TableCell>
                         </TableRow>
                     </Table>
                     <br />
-                    <Button onClick={addPCheckout}>COnfirm Checkout</Button>
+                    <Button onClick={addPCheckout}>Confirm Checkout</Button>
                     <Button onClick={() => setopen(false)}>Cancel</Button>
                 </Card>
             </Dialog>
