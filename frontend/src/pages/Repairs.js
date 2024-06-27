@@ -157,7 +157,7 @@ const Repairs = () => {
                     )}
                   </TableCell>
                   <TableCell>
-                    <Button onClick={() => openUpdatePopup(rep)}><FaEdit /></Button>
+                    <Button onClick={() => navigate(`/updateR/${rep._id}/${rep.billNo}/${rep.billDate}/${rep.pname}/${rep.description}/${rep.mobile}`)}><FaEdit /></Button>
                     {rep.status === 'Pending' ? (
                       <Button onClick={() => confirmDelete(rep._id)}><FaTrash /></Button>
                     ) :

@@ -115,7 +115,7 @@ const AddToCart = ({ submitted, data }) => {
             <Row>
               {products.map((product) => (
                 <Col key={product._id} md={4}>
-                  <Card className='mb-4 cards cardimg'>
+                  <Card className='mb-4 cards cardimg' style={{ position: 'center' }}>
                     <Card.Img
                       variant='top'
                       src={require(`../../src/images/${product.image}`)}

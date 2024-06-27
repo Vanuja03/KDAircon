@@ -32,7 +32,7 @@ ul {
 
 .footer {
 
-    background-image: linear-gradient(to left, white, cyan);
+    background-image: linear-gradient(to left, rgba(0, 0, 0, 0.2), cyan);
     /* padding: 20px 0px; */
     display: flex;
     flex-wrap: wrap;

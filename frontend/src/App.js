@@ -33,8 +33,8 @@ function App() {
         <Route path='/repair' element={<AddRepair />} />
         <Route path='/repairs' element={<Repairs />} />
         <Route path='/feedback' element={<Feedbacks />} />
-        {/* <Route path='/updateR/:r_id/:billNo/:billDate/:pname/:description/:image/:mobile' element={<UpdateRepair />} />
-        <Route path='/updaterep/:_id' element={<UpdateRepair />} /> */}
+        <Route path='/updateR/:_id/:billNo/:billDate/:pname/:description/:mobile' element={<UpdateRepair />} />
+        {/* <Route path='/updaterep/:_id' element={<UpdateRepair />} /> */}
         <Route path='/addfeedback' element={<AddFeedback />} />
         <Route path='/admincheckout' element={<AdminCheckouts />} />
         <Route path='/adminpcheckout' element={<AdminPCheckouts />} />
