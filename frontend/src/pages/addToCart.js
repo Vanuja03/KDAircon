@@ -110,12 +110,12 @@ const AddToCart = ({ submitted, data }) => {
       <div>
         <Layout>
 
-          <h1 className='text-center'>Our Products...<Button onClick={Cart}><FaShoppingCart /></Button></h1>
+          <h1 className='text-center'>Our Products...</h1>
           <Container>
             <Row>
               {products.map((product) => (
                 <Col key={product._id} md={4}>
-                  <Card className='mb-4 cards'>
+                  <Card className='mb-4 cards cardimg'>
                     <Card.Img
                       variant='top'
                       src={require(`../../src/images/${product.image}`)}

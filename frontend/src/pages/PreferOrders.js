@@ -85,7 +85,6 @@ const PreferOrders = () => {
               <Card.Body>
                 <Card.Title>Condenser</Card.Title>
                 <Card.Text>Condenser test</Card.Text>
-                <Card.Text>Unit Price : {unitPrice}</Card.Text>
                 <Form.Group>
                   <Form.Label>Select your size</Form.Label>
                   <Form.Control as='select' size='sm' custom onChange={(e) => {

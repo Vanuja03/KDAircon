@@ -120,8 +120,8 @@ const AddProduct = () => {
         <>
             <div className='page'>
                 <Layout>
-
-                    <Form>
+                    <h1 className='text-center'>Add product</h1>
+                    <Form style={{ marginLeft: '2%', marginRight: '2%' }}>
                         <Row>
                             <Col>
                                 <Form.Group controlId='pID'>

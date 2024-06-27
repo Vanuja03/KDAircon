@@ -9,6 +9,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import * as Yup from 'yup';
 import '../styles/addrep.css';
+import Login from './googlelogin'
+import { Dialog } from '@mui/material'
 
 const AddRepair = () => {
 
@@ -24,6 +26,8 @@ const AddRepair = () => {
     const user = JSON.parse(localStorage.getItem('user'));
     const userMail = user ? user.email : null;
     const navigate = useNavigate();
+
+    const [logopen, setlogopen] = useState(true);
 
     const onInputChange = (e) => {
         const files = Array.from(e.target.files).slice(0, 5);
@@ -131,100 +135,121 @@ const AddRepair = () => {
         navigate('/repairs');
     }
 
+    if (user) {
+        return (
+            <div>
+                <Layout>
 
-    return (
-        <div>
-            <Layout>
-
-                <h1 className='text-center' style={{ marginTop: '20px' }}>Add a Repair inquiry</h1><br />
-                <Form className='addrepform'>
-                    <Row><Col>
-                        <Form.Group >
-                            <Form.Label>Bill No</Form.Label>
-                            <Form.Control
-                                type='text'
-                                value={billNo}
-                                onChange={e => setbNo(e.target.value)}
-                                required />
-                            {errorMessage.billNo && <div className="text-danger">{errorMessage.billNo}</div>}
-                        </Form.Group>
-                        <Form.Group >
-                            <Form.Label>Bill Date</Form.Label>
-                            <Form.Control
-                                type='date'
-                                value={billDate}
-                                max={new Date().toISOString().split('T')[0]}
-                                onChange={e => setbdate(e.target.value.toString())}
-                                required />
-                            {errorMessage.billDate && <div className="text-danger">{errorMessage.billDate}</div>}
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Label>Contact number</Form.Label>
-                            <Form.Control
-                                type='text'
-                                value={mobile}
-                                onChange={e => setMobile(e.target.value.slice(0, 10))}
-                                maxLength={10} // added maxLength attribute to limit input
-                                required />
-                            {errorMessage.mobile && <div className="text-danger">{errorMessage.mobile}</div>}
-                        </Form.Group>
-                    </Col>
-                        <Col>
+                    <h1 className='text-center' style={{ marginTop: '20px' }}>Add a Repair inquiry</h1><br />
+                    <Form className='addrepform'>
+                        <Row><Col>
                             <Form.Group >
-                                <Form.Label>Product name</Form.Label>
+                                <Form.Label>Bill No</Form.Label>
                                 <Form.Control
                                     type='text'
-                                    value={pname}
-                                    onChange={e => setpname(e.target.value)}
+                                    value={billNo}
+                                    onChange={e => setbNo(e.target.value)}
                                     required />
-                                {errorMessage.pname && <div className="text-danger">{errorMessage.pname}</div>}
+                                {errorMessage.billNo && <div className="text-danger">{errorMessage.billNo}</div>}
                             </Form.Group>
                             <Form.Group >
-                                <Form.Label>Describe your issue</Form.Label>
+                                <Form.Label>Bill Date</Form.Label>
+                                <Form.Control
+                                    type='date'
+                                    value={billDate}
+                                    max={new Date().toISOString().split('T')[0]}
+                                    onChange={e => setbdate(e.target.value.toString())}
+                                    required />
+                                {errorMessage.billDate && <div className="text-danger">{errorMessage.billDate}</div>}
+                            </Form.Group>
+                            <Form.Group>
+                                <Form.Label>Contact number</Form.Label>
                                 <Form.Control
                                     type='text'
-                                    value={description}
-                                    onChange={e => setdesc(e.target.value)}
+                                    value={mobile}
+                                    onChange={e => setMobile(e.target.value.slice(0, 10))}
+                                    maxLength={10} // added maxLength attribute to limit input
                                     required />
-                                {errorMessage.description && <div className="text-danger">{errorMessage.description}</div>}
+                                {errorMessage.mobile && <div className="text-danger">{errorMessage.mobile}</div>}
                             </Form.Group>
                         </Col>
-                        <Form.Group style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
-                            <Form.Label>Input some images on your issue</Form.Label>
-                            <Form.Control
-                                type='file'
-                                accept='image/'
-                                width={400}
-                                onChange={onInputChange}
-                                multiple />
+                            <Col>
+                                <Form.Group >
+                                    <Form.Label>Product name</Form.Label>
+                                    <Form.Control
+                                        type='text'
+                                        value={pname}
+                                        onChange={e => setpname(e.target.value)}
+                                        required />
+                                    {errorMessage.pname && <div className="text-danger">{errorMessage.pname}</div>}
+                                </Form.Group>
+                                <Form.Group >
+                                    <Form.Label>Describe your issue</Form.Label>
+                                    <Form.Control
+                                        type='text'
+                                        value={description}
+                                        onChange={e => setdesc(e.target.value)}
+                                        required />
+                                    {errorMessage.description && <div className="text-danger">{errorMessage.description}</div>}
+                                </Form.Group>
+                            </Col>
+                            <Form.Group style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
+                                <Form.Label>Input some images on your issue</Form.Label>
+                                <Form.Control
+                                    type='file'
+                                    accept='image/'
+                                    width={400}
+                                    onChange={onInputChange}
+                                    multiple />
 
-                            {imagePreview && imagePreview.map((preview, index) => (
-                                <div key={index} style={{ marginRight: '10px', marginBottom: '10px' }}>
-                                    <img src={preview} alt={`Preview ${index}`} style={{ width: '150px', height: '150px' }} />
-                                </div>
-                            ))}
-                            {errorMessage.images && <div className="text-danger">{errorMessage.images}</div>}
-                        </Form.Group>
+                                {imagePreview && imagePreview.map((preview, index) => (
+                                    <div key={index} style={{ marginRight: '10px', marginBottom: '10px' }}>
+                                        <img src={preview} alt={`Preview ${index}`} style={{ width: '150px', height: '150px' }} />
+                                    </div>
+                                ))}
+                                {errorMessage.images && <div className="text-danger">{errorMessage.images}</div>}
+                            </Form.Group>
 
-                    </Row>
-                    <br />
-                    <div className='addrepdiv1'>
-                        <Button variant='primary' onClick={addRep}>
-                            Submit
-                        </Button>
-                        <Button variant='primary' onClick={Repair}>
-                            Your repairs
-                        </Button>
-                    </div>
-                </Form>
+                        </Row>
+                        <br />
+                        <div className='addrepdiv1'>
+                            <Button variant='primary' onClick={addRep}>
+                                Submit
+                            </Button>
+                            <Button variant='primary' onClick={Repair}>
+                                Your repairs
+                            </Button>
+                        </div>
+                    </Form>
 
-            </Layout>
-            <ToastContainer
-                position="top-right"
-                autoClose={1500} // Close the toast after 3 seconds
-            />
-        </div>
-    )
+                </Layout>
+                <ToastContainer
+                    position="top-right"
+                    autoClose={1500} // Close the toast after 3 seconds
+                />
+            </div>
+        )
+    } else {
+        return (
+            <div>
+                <Layout>
+                    <Dialog open={logopen}>
+                        <Card style={{ paddingTop: '5%', paddingBottom: '5%', paddingLeft: '5%', paddingRight: '5%' }}>
+                            <Card.Title className='text-center' style={{ fontSize: '1.5em' }}>Please login first to add a inquiry</Card.Title>
+                            <Card.Body>
+                                <Login />
+                                <Button style={{ marginTop: '8%', marginLeft: '60%' }} onClick={() => navigate('/')}>Go back</Button>
+                            </Card.Body>
+                        </Card>
+                    </Dialog>
+                </Layout>
+                <ToastContainer
+                    position="top-right"
+                    autoClose={1500} // Close the toast after 3 seconds
+                />
+            </div>
+        )
+    }
 }
 
 export default AddRepair;

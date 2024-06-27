@@ -70,7 +70,7 @@ const AddFeedback = ({ onFeedbackAdded }) => {
         <div>
             <Card>
                 <Card.Body>
-                    <Card.Title>Provide your valuable feedback</Card.Title>
+                    <Card.Title style={{ fontSize: '1.3em' }}>Provide your valuable feedback</Card.Title>
                     <Form onSubmit={addFeedback}>
                         <Form.Group controlId="formProductName">
                             <Form.Label>Select Product</Form.Label>

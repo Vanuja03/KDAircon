@@ -8,6 +8,7 @@ import Layout from '../components/Layout';
 import '../styles/repairs.css';
 import { Card, Col, Form, Row } from 'react-bootstrap';
 import { Swiper, SwiperSlide } from 'swiper/react';
+
 import 'swiper/css';
 
 const Repairs = () => {
@@ -178,19 +179,34 @@ const Repairs = () => {
         {repair.map((rep) => (
           <Col key={rep._id} md={4}>
             <Card className='mb-4 cards'>
-              <Swiper spaceBetween={5} slidesPerView={1}>
-                {rep.images.map((image, index) => (
-                  <SwiperSlide key={index}>
-                    <div style={{ textAlign: 'center' }}>
-                      <img
-                        src={`data:${image.contentType};base64,${image.data}`}
-                        alt={`Image ${index + 1}`}
-                        style={{ maxWidth: '100%', height: 'auto' }}
-                      />
-                    </div>
-                  </SwiperSlide>
-                ))}
+              <Swiper
+                spaceBetween={5}
+                slidesPerView={1}
+                navigation={{
+                  nextEl: '.swiper-button-next',
+                  prevEl: '.swiper-button-prev',
+                }}
+              >
+                {Array.isArray(rep.images) ? (
+                  rep.images.map((image, index) => (
+                    <SwiperSlide key={index}>
+                      <div style={{ textAlign: 'center' }}>
+                        <img
+                          src={`data:${image.contentType};base64,${image.data}`}
+                          alt={`Image ${index + 1}`}
+                          width={50}
+                          height={50}
+                        />
+                      </div>
+                    </SwiperSlide>
+                  ))
+                ) : (
+                  <div>No images available</div>
+                )}
+                <div className="swiper-button-next" style={{ color: 'black' }}></div>
+                <div className="swiper-button-prev" style={{ color: 'black' }}></div>
               </Swiper>
+
               <Card.Body>
                 <Card.Title>{rep.pname}</Card.Title>
                 <Card.Text>{rep.billNo}</Card.Text>

@@ -170,39 +170,36 @@ const Feedbacks = () => {
             )}
 
             <Dialog open={openaddf}>
-                <DialogTitle>Add your feedback <Button onClick={() => setopenadd(false)}><FaTimes /></Button></DialogTitle>
+                <DialogTitle className='text-center' style={{ fontSize: '1.5em' }}>Add your feedback <Button onClick={() => setopenadd(false)} variant='danger' style={{ marginLeft: '3%' }} ><FaTimes /></Button></DialogTitle>
                 <DialogContent>
                     <AddFeedBack onFeedbackAdded={handleFeedbackAdded} />
                 </DialogContent>
             </Dialog>
 
             <Dialog open={openyf} maxWidth='xl'>
-                <DialogTitle>Your feedbacks <Button onClick={() => setopenyf(false)}><FaTimes /></Button></DialogTitle>
+                <DialogTitle className='text-center' style={{ fontSize: '2em' }}>Your feedbacks <Button variant='danger' style={{ marginLeft: '4%' }} onClick={() => setopenyf(false)}><FaTimes /></Button></DialogTitle>
                 <DialogContent>
                     {yourfeedbacks && yourfeedbacks.length > 0 ? (
                         yourfeedbacks.map((feedbacks) => (
-                            <Card key={feedbacks._id}>
+                            <Card key={feedbacks._id} className='cardfeed'>
                                 <Card.Title className='disflex'>{feedbacks.name}
-                                    <div className='starrating'>
+                                    <div className='starrating' style={{}}>
                                         {feedbacks.pname} -
                                         {renderStarRating(feedbacks.rating)}
                                     </div>
-                                    <Button onClick={() => deleteFeedback(feedbacks._id)}><FaTrash /></Button>
+
                                 </Card.Title>
                                 <Card.Body className='flex2dis card-body'>
-                                    <Card.Text style={{ maxWidth: '90%' }}>{feedbacks.feedback}</Card.Text>
+                                    <Card.Text style={{ maxWidth: '80%' }}>{feedbacks.feedback}</Card.Text>
                                     <div className='actionbuttons'>
-                                        <FaThumbsUp
-                                            className={`likes ${JSON.parse(localStorage.getItem('likedFeedbacks'))?.includes(feedbacks._id) ? 'liked' : ''}`}
-                                            onClick={() => handleLike(feedbacks._id)}
-                                        >({feedbacks.likes || 0})</FaThumbsUp>
-                                        <FaThumbsDown
-                                            className={`dislikes ${JSON.parse(localStorage.getItem('dislikedFeedbacks'))?.includes(feedbacks._id) ? 'disliked' : ''}`}
-                                            onClick={() => handledisLike(feedbacks._id)}
-                                        >({feedbacks.dislikes || 0})</FaThumbsDown>
+                                        <FaThumbsUp />{feedbacks.likes}
+                                        <FaThumbsDown />{feedbacks.dislikes}
                                     </div>
                                 </Card.Body>
-                                <Card.Text>{timeAgo(feedbacks.createdAt)}</Card.Text>
+                                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+                                    <Card.Text>{timeAgo(feedbacks.createdAt)}</Card.Text>
+                                    <Button variant='danger' onClick={() => deleteFeedback(feedbacks._id)}><FaTrash /></Button>
+                                </div>
                             </Card>
                         ))
                     ) : (

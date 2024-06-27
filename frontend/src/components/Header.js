@@ -150,6 +150,9 @@ const Header = () => {
                                     <NavLink to="/addToCart" className="nav-link">Our store</NavLink>
                                 </li>
                                 <li className="nav-item">
+                                    <NavLink to="/repair" className="nav-link">Inquries</NavLink>
+                                </li>
+                                <li className="nav-item">
                                     <Button className="btnlog" onClick={handleProfileClick}>Login</Button>
                                 </li>
                                 <Popover
