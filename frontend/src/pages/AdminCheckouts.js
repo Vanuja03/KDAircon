@@ -2,13 +2,14 @@ import { MenuItem, Select, Table, TableBody, TableCell, TableContainer, TableHea
 import Axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Button, Form } from 'react-bootstrap';
-import { FaCheck, FaCheckCircle, FaDotCircle } from 'react-icons/fa';
+import { FaCheck, FaCheckCircle, FaDotCircle, FaSearch } from 'react-icons/fa';
 import Swal from 'sweetalert2';
 import Layout from '../components/Layout';
+import '../styles/searchinput.css'
 
 const AdminCheckouts = () => {
     const [checkouts, setcheckouts] = useState([]);
-
+    const [searchQuery, setSearchQuery] = useState('');
     const [statusu, setstatus] = useState('');
 
     const [filterstatus, setfilterStatus] = useState('All');
@@ -76,8 +77,9 @@ const AdminCheckouts = () => {
         : checkouts.filter(check => check.status === filterstatus);
 
 
-    const pendingCheckouts = checkouts.filter(checkout => checkout.status === 'Pending');
-    const CompletedCheckouts = checkouts.filter(checkout => checkout.status === 'Completed');
+    const searchCheckouts = filteredCheckouts.filter(product =>
+        product.pname.toLowerCase().includes(searchQuery.toLowerCase())
+    );
     return (
         <div>
             <Layout>
@@ -95,6 +97,16 @@ const AdminCheckouts = () => {
                         <MenuItem value='Completed' style={{ color: 'green', fontWeight: 'bold' }}>Completed</MenuItem>
                     </Select>
                 </Form.Group>
+                <Form.Group className="search-container">
+                    <FaSearch className='searchicon' />
+                    <input
+                        className='search-input'
+                        type='search'
+                        placeholder='Search by Product name'
+                        value={searchQuery}
+                        onChange={e => setSearchQuery(e.target.value)}
+                    />
+                </Form.Group>
                 <TableContainer>
                     <Table>
                         <TableHead>
@@ -110,8 +122,8 @@ const AdminCheckouts = () => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {filteredCheckouts && filteredCheckouts.length > 0 ? (
-                                filteredCheckouts.map((checkout, index) => (
+                            {searchCheckouts && searchCheckouts.length > 0 ? (
+                                searchCheckouts.map((checkout, index) => (
                                     <TableRow key={checkout._id}>
                                         <TableCell>{index + 1}</TableCell>
                                         <TableCell>{checkout.pname}</TableCell>

@@ -100,8 +100,8 @@ const Profile = () => {
               </MDBCardText>
               <hr style={{ color: 'black', marginTop: '-10px' }} />
               <div className="mb-4 pb-2" style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
-                <Button onClick={() => setopen1(true)}><FaShoppingBag /> ({yourcheckouts.length})</Button>
-                <Button onClick={() => setopen2(true)}><FaShoppingCart /> {booking.length + pbooking.length}</Button>
+                <Button onClick={() => navigate('/Checkouts')}><FaShoppingBag /> ({yourcheckouts.length})</Button>
+                <Button onClick={() => navigate('/Cart')}><FaShoppingCart /> {booking.length + pbooking.length}</Button>
               </div>
             </div>
             <div style={{
@@ -118,8 +118,8 @@ const Profile = () => {
                 <span>Your feedbacks</span>
                 <span><FaArrowRight /></span>
               </div>
-              <div className='disflexprof'>
-                <span>Your FAQs</span>
+              <div className='disflexprof' onClick={() => navigate('/Checkouts')}>
+                <span>Your Checkouts</span>
                 <span><FaArrowRight /></span>
               </div>
             </div>

@@ -1,13 +1,18 @@
 import Axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { MenuItem, Select, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
-import { FaCircle, FaTrash, FaDotCircle, FaCheckCircle } from 'react-icons/fa';
+import { FaCircle, FaTrash, FaDotCircle, FaCheckCircle, FaSearch } from 'react-icons/fa';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import '../styles/searchinput.css'
+import { Form } from 'react-bootstrap';
+import Pcheckouts from './Pcheckouts';
+import Layout from '../components/Layout';
 
 const Checkouts = () => {
     const [checkouts, setCheckouts] = useState([]);
     const user = JSON.parse(localStorage.getItem('user'));
+    const [searchQuery, setSearchQuery] = useState('');
     const userMail = user ? user.email : null;
 
     const getCheckout = async () => {
@@ -43,60 +48,77 @@ const Checkouts = () => {
     };
 
     const yourcheckouts = checkouts.filter(checkout => checkout.userMail === userMail);
-
+    const searchCheckouts = yourcheckouts.filter(yck =>
+        yck.pname.toLowerCase().includes(searchQuery.toLowerCase())
+    );
     return (
         <div>
-            <ToastContainer />
-            <TableContainer>
-                <Table>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>#</TableCell>
-                            <TableCell>Product name</TableCell>
-                            <TableCell>Unit price</TableCell>
-                            <TableCell>Quantity</TableCell>
-                            <TableCell>Email</TableCell>
-                            <TableCell>Contact No</TableCell>
-                            <TableCell>Status</TableCell>
-                            <TableCell>Actions</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {yourcheckouts && yourcheckouts.length > 0 ? (
-                            yourcheckouts.map((checkout, index) => (
-                                <TableRow key={checkout._id}>
-                                    <TableCell>{index + 1}</TableCell>
-                                    <TableCell>{checkout.pname}</TableCell>
-                                    <TableCell>{checkout.pprice}</TableCell>
-                                    <TableCell>{checkout.quantity}</TableCell>
-                                    <TableCell>{checkout.userMail}</TableCell>
-                                    <TableCell>{checkout.mobile}</TableCell>
-                                    <TableCell style={{ fontWeight: 'bold' }}>
-                                        {checkout.status === 'Pending' ? (
-                                            <span style={{ color: 'red' }}><FaDotCircle style={{ verticalAlign: 'middle' }} /> Pending</span>
-                                        ) : (
-                                            <span style={{ color: 'green' }}><FaCheckCircle style={{ verticalAlign: 'middle' }} /> Completed</span>
-                                        )}
-                                    </TableCell>
-                                    <TableCell>
-                                        {checkout.status === 'Pending' ? (
-                                            <FaTrash onClick={() => deleteCheckout(checkout._id, checkout.status)} style={{ cursor: 'pointer' }} />
-                                        ) : (
-                                            <span style={{ color: 'gray', cursor: 'not-allowed' }}>
-                                                <FaTrash />
-                                            </span>
-                                        )}
-                                    </TableCell>
-                                </TableRow>
-                            ))
-                        ) : (
+            <Layout>
+                <h1>Your checkouts</h1>
+                <Form.Group className="search-container">
+                    <FaSearch className='searchicon' />
+                    <input
+                        className='search-input'
+                        type='search'
+                        placeholder='Search by Product name'
+                        value={searchQuery}
+                        onChange={e => setSearchQuery(e.target.value)}
+                    />
+                </Form.Group>
+                <ToastContainer />
+                <TableContainer>
+                    <Table>
+                        <TableHead>
                             <TableRow>
-                                <TableCell colSpan={8} align="center">No checkouts yet !!!</TableCell>
+                                <TableCell>#</TableCell>
+                                <TableCell>Product name</TableCell>
+                                <TableCell>Unit price</TableCell>
+                                <TableCell>Quantity</TableCell>
+                                <TableCell>Email</TableCell>
+                                <TableCell>Contact No</TableCell>
+                                <TableCell>Status</TableCell>
+                                <TableCell>Actions</TableCell>
                             </TableRow>
-                        )}
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                        </TableHead>
+                        <TableBody>
+                            {searchCheckouts && searchCheckouts.length > 0 ? (
+                                searchCheckouts.map((checkout, index) => (
+                                    <TableRow key={checkout._id}>
+                                        <TableCell>{index + 1}</TableCell>
+                                        <TableCell>{checkout.pname}</TableCell>
+                                        <TableCell>{checkout.pprice}</TableCell>
+                                        <TableCell>{checkout.quantity}</TableCell>
+                                        <TableCell>{checkout.userMail}</TableCell>
+                                        <TableCell>{checkout.mobile}</TableCell>
+                                        <TableCell style={{ fontWeight: 'bold' }}>
+                                            {checkout.status === 'Pending' ? (
+                                                <span style={{ color: 'red' }}><FaDotCircle style={{ verticalAlign: 'middle' }} /> Pending</span>
+                                            ) : (
+                                                <span style={{ color: 'green' }}><FaCheckCircle style={{ verticalAlign: 'middle' }} /> Completed</span>
+                                            )}
+                                        </TableCell>
+                                        <TableCell>
+                                            {checkout.status === 'Pending' ? (
+                                                <FaTrash onClick={() => deleteCheckout(checkout._id, checkout.status)} style={{ cursor: 'pointer' }} />
+                                            ) : (
+                                                <span style={{ color: 'gray', cursor: 'not-allowed' }}>
+                                                    <FaTrash />
+                                                </span>
+                                            )}
+                                        </TableCell>
+                                    </TableRow>
+                                ))
+                            ) : (
+                                <TableRow>
+                                    <TableCell colSpan={8} align="center">No checkouts yet !!!</TableCell>
+                                </TableRow>
+                            )}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+                <br />
+                <Pcheckouts />
+            </Layout>
         </div>
     );
 };

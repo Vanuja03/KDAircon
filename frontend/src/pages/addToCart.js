@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import Axios from 'axios';
 import Layout from '../components/Layout';
-import { Alert, Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
+import { Alert, Button, Card, Col, Container, Form, InputGroup, Row } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { FaShoppingCart } from 'react-icons/fa';
+import { FaSadCry, FaSearch, FaShoppingCart } from 'react-icons/fa';
 import PreferOrders from './PreferOrders';
 import '../styles/addCarts.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import * as Yup from 'yup';
+import '../styles/searchinput.css'
 
 
 
@@ -17,7 +18,8 @@ const AddToCart = ({ submitted, data }) => {
 
   const [products, setProducts] = useState([]);
   const [quantity, setQuantity] = useState(0);
-  const [errorMessage, setErrorMessage] = useState('');
+
+  const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
 
   const user = JSON.parse(localStorage.getItem('user'));
@@ -105,15 +107,30 @@ const AddToCart = ({ submitted, data }) => {
     }
   }
 
+  const filteredProducts = products.filter(product =>
+    product.pname.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   if (user) {
     return (
       <div>
         <Layout>
 
           <h1 className='text-center'>Our Products...</h1>
+          <Form.Group className="search-container">
+            <FaSearch className='searchicon' />
+            <input
+              className='search-input'
+              type='search'
+              placeholder='Search by Product name'
+              value={searchQuery}
+              onChange={e => setSearchQuery(e.target.value)}
+            />
+          </Form.Group>
+
           <Container>
             <Row>
-              {products.map((product) => (
+              {filteredProducts && filteredProducts.length > 0 ? (filteredProducts.map((product) => (
                 <Col key={product._id} md={4}>
                   <Card className='mb-4 cards cardimg' style={{ position: 'center' }}>
                     <Card.Img
@@ -140,7 +157,9 @@ const AddToCart = ({ submitted, data }) => {
                     </Card.Body>
                   </Card>
                 </Col>
-              ))}
+              ))) : (
+                <h2>Sorry no products yet <FaSadCry /></h2>
+              )}
             </Row>
           </Container>
           <PreferOrders />
@@ -159,9 +178,19 @@ const AddToCart = ({ submitted, data }) => {
       <div>
         <Layout>
           <h1 className='text-center'>Our Products</h1>
+          <Form.Group className="search-container">
+            <FaSearch className='searchicon' />
+            <input
+              className='search-input'
+              type='search'
+              placeholder='Search by Product name'
+              value={searchQuery}
+              onChange={e => setSearchQuery(e.target.value)}
+            />
+          </Form.Group>
           <Container>
             <Row>
-              {products.map((product) => (
+              {filteredProducts.map((product) => (
                 <Col key={product._id} md={4}>
                   <Card className='mb-4'>
                     <Card.Img

@@ -1,18 +1,21 @@
 import Axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Button, Card } from 'react-bootstrap';
+import { Button, Card, Form } from 'react-bootstrap';
 import '../styles/feedback.css';
-import { FaPlus, FaThumbsDown, FaThumbsUp, FaTimes, FaTrash } from 'react-icons/fa';
+import { FaPlus, FaSearch, FaThumbsDown, FaThumbsUp, FaTimes, FaTrash } from 'react-icons/fa';
 import { Dialog, DialogTitle, DialogContent } from '@mui/material';
 import AddFeedBack from './AddFeedback';
 import Swal from 'sweetalert2';
 import Aos from 'aos';
 import 'aos/dist/aos.css';
+import '../styles/searchinput.css'
 
 const Feedbacks = () => {
     const [feedback, setFeedbacks] = useState([]);
     const [openaddf, setopenadd] = useState(false);
     const [openyf, setopenyf] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [searchYQuery, setSearchYQuery] = useState('');
 
     const user = JSON.parse(localStorage.getItem('user'));
     const userMail = user ? user.email : null;
@@ -132,16 +135,33 @@ const Feedbacks = () => {
 
     const yourfeedbacks = feedback.filter(feedbacks => feedbacks.userMail === userMail);
 
+    const searchFeedbacks = feedback.filter(feedbacks =>
+        feedbacks.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
+    const searchYourFeedbacks = yourfeedbacks.filter(yfeedbacks =>
+        yfeedbacks.pname.toLowerCase().includes(searchYQuery.toLowerCase())
+    );
     return (
         <div data-aos="fade-up">
             <center><h1>Our valuble feedbacks !!</h1></center>
+            <Form.Group className="search-container">
+                <FaSearch className='searchicon' />
+                <input
+                    className='search-input'
+                    type='search'
+                    placeholder='Search by your name'
+                    value={searchQuery}
+                    onChange={e => setSearchQuery(e.target.value)}
+                />
+            </Form.Group>
             <div className='flx3' data-aos="fade-left" >
 
                 <Button onClick={() => setopenadd(true)}><FaPlus /></Button>
                 <Button onClick={() => setopenyf(true)}>Your Feedbacks</Button>
             </div>
-            {feedback && feedback.length > 0 ? (
-                feedback.map((feedbacks) => (
+            {searchFeedbacks && searchFeedbacks.length > 0 ? (
+                searchFeedbacks.map((feedbacks) => (
                     <Card key={feedbacks._id} className='cardfeed'>
                         <Card.Title className='disflex'>{feedbacks.name}
                             <div className='starrating'>
@@ -179,8 +199,18 @@ const Feedbacks = () => {
             <Dialog open={openyf} maxWidth='xl'>
                 <DialogTitle className='text-center' style={{ fontSize: '2em' }}>Your feedbacks <Button variant='danger' style={{ marginLeft: '4%' }} onClick={() => setopenyf(false)}><FaTimes /></Button></DialogTitle>
                 <DialogContent>
-                    {yourfeedbacks && yourfeedbacks.length > 0 ? (
-                        yourfeedbacks.map((feedbacks) => (
+                    <Form.Group className="search-container">
+                        <FaSearch className='searchicon' />
+                        <input
+                            className='search-input'
+                            type='search'
+                            placeholder='Search by product name'
+                            value={searchYQuery}
+                            onChange={e => setSearchYQuery(e.target.value)}
+                        />
+                    </Form.Group>
+                    {searchYourFeedbacks && searchYourFeedbacks.length > 0 ? (
+                        searchYourFeedbacks.map((feedbacks) => (
                             <Card key={feedbacks._id} className='cardfeed'>
                                 <Card.Title className='disflex'>{feedbacks.name}
                                     <div className='starrating' style={{}}>

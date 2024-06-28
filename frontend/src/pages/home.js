@@ -3,7 +3,7 @@ import Layout from '../components/Layout';
 import backq from '../images2/backtest.mp4';
 import '../styles/home.css'
 import Feedbacks from './Feedbacks';
-import { Button, Container } from 'react-bootstrap';
+import { Button, Card, Container } from 'react-bootstrap';
 import gov from '../images2/gov.png';
 import delivery from '../images2/delivery.png';
 import service from '../images2/service.png';
@@ -28,7 +28,6 @@ const Home = () => {
             <source src={backq} type="video/mp4" />
           </video>
         </div>
-
         <div className='homecontainer2' data-aos="fade-up">
           <div className='ct1'>
             <div className='content' data-aos="fade-right">
@@ -54,10 +53,14 @@ const Home = () => {
         <Container>
           <h1>Best sellers</h1>
           <div className='homeflex3'>
+            <Card>
+              <Card.Img />
+              <Card.Title>Condensers</Card.Title>
+
+            </Card>
 
           </div>
         </Container>
-
         <Feedbacks />
       </Layout>
     </div>

@@ -3,14 +3,16 @@ import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, 
 import Axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { FaEdit, FaTrash } from 'react-icons/fa';
+import { FaEdit, FaSearch, FaTrash } from 'react-icons/fa';
 import { Col, Form, Row } from 'react-bootstrap';
+import '../styles/searchinput.css'
 
 const Products = () => {
     const [products, setProducts] = useState([]);
     const navigate = useNavigate();
     const [updateProduct, setUpdateProduct] = useState({});
     const [open, setOpen] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
 
     const getProducts = async () => {
         try {
@@ -130,9 +132,22 @@ const Products = () => {
             }
         });
     }
+    const filteredProducts = products.filter(product =>
+        product.pname.toLowerCase().includes(searchQuery.toLowerCase())
+    );
 
     return (
         <div>
+            <Form.Group className="search-container">
+                <FaSearch className='searchicon' />
+                <input
+                    className='search-input'
+                    type='search'
+                    placeholder='Search by Product name'
+                    value={searchQuery}
+                    onChange={e => setSearchQuery(e.target.value)}
+                />
+            </Form.Group>
             <TableContainer component={Paper}>
                 <Table sx={{ '&:last-child td, &:last-child th': { border: 1 } }}>
                     <TableHead>
@@ -147,8 +162,8 @@ const Products = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {products && products.length > 0 ? (
-                            products.map((product) => (
+                        {filteredProducts && filteredProducts.length > 0 ? (
+                            filteredProducts.map((product) => (
                                 <TableRow key={product._id} >
                                     <TableCell>{product.pid}</TableCell>
                                     <TableCell>{product.pname}</TableCell>

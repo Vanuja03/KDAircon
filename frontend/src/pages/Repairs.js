@@ -1,13 +1,14 @@
 import { Button, Dialog, DialogContent, DialogTitle, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import Axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { FaCheckCircle, FaDotCircle, FaEdit, FaTractor, FaTrash } from 'react-icons/fa';
+import { FaCheckCircle, FaDotCircle, FaEdit, FaSearch, FaTractor, FaTrash } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import Layout from '../components/Layout';
 import '../styles/repairs.css';
 import { Card, Col, Form, Row } from 'react-bootstrap';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import '../styles/searchinput.css'
 
 import 'swiper/css';
 
@@ -19,6 +20,7 @@ const Repairs = () => {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [updateRepair, setUpdateRepair] = useState({});
+  const [searchQuery, setSearchQuery] = useState('');
 
   const openUpdatePopup = (repair) => {
     setUpdateRepair(repair);
@@ -108,10 +110,24 @@ const Repairs = () => {
     });
   }
 
+  const searchRepairs = repair.filter(rep =>
+    rep.pname.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
 
   return (
     <div><Layout>
       <h1 className='text-center'>Your inquiries</h1>
+      <Form.Group className="search-container">
+        <FaSearch className='searchicon' />
+        <input
+          className='search-input'
+          type='search'
+          placeholder='Search by Product name'
+          value={searchQuery}
+          onChange={e => setSearchQuery(e.target.value)}
+        />
+      </Form.Group>
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
@@ -128,8 +144,8 @@ const Repairs = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {repair && repair.length > 0 ? (
-              repair.map((rep, index) => (
+            {searchRepairs && searchRepairs.length > 0 ? (
+              searchRepairs.map((rep, index) => (
 
                 <TableRow key={rep._id}>
                   <TableCell>{index + 1}</TableCell>

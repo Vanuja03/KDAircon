@@ -70,11 +70,11 @@ body {
 
 .dropdown-menu {
   background-image: linear-gradient(to bottom, white, cyan);
-  border-radius: 20px;
+  border-radius: 10px;
 }
 
 .dropdown-menu :hover {
   border-bottom: 1px solid blue;
-  background-image: linear-gradient(to bottom, white, cyan);
-  border-radius: 20px;
+
+  border-radius: 10px;
 }

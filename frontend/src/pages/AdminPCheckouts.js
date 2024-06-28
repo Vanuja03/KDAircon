@@ -2,15 +2,17 @@ import { MenuItem, Select, TableBody, TableCell, TableContainer, TableHead, Tabl
 import Axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Button, Form, Table } from 'react-bootstrap';
-import { FaCheck, FaCheckCircle, FaDotCircle } from 'react-icons/fa';
+import { FaCheck, FaCheckCircle, FaDotCircle, FaSearch } from 'react-icons/fa';
 import Swal from 'sweetalert2';
 import Layout from '../components/Layout';
+import '../styles/searchinput.css'
 
 const AdminPCheckouts = () => {
 
     const [checkouts, setcheckouts] = useState([]);
     const [statusu, setstatus] = useState('');
     const [filterstatus, setfilterStatus] = useState('All');
+    const [searchQuery, setSearchQuery] = useState('');
 
     const getcheckout = async () => {
 
@@ -67,6 +69,10 @@ const AdminPCheckouts = () => {
         ? checkouts
         : checkouts.filter(check => check.status === filterstatus);
 
+    const searchCheckouts = filteredCheckouts.filter(product =>
+        product.pname.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
     return (
         <div>
             <Layout>
@@ -83,6 +89,16 @@ const AdminPCheckouts = () => {
                         <MenuItem value='Pending' style={{ color: 'red', fontWeight: 'bold' }}>Pending</MenuItem>
                         <MenuItem value='Completed' style={{ color: 'green', fontWeight: 'bold' }}>Completed</MenuItem>
                     </Select>
+                </Form.Group>
+                <Form.Group className="search-container">
+                    <FaSearch className='searchicon' />
+                    <input
+                        className='search-input'
+                        type='search'
+                        placeholder='Search by Product name'
+                        value={searchQuery}
+                        onChange={e => setSearchQuery(e.target.value)}
+                    />
                 </Form.Group>
                 <TableContainer>
                     <Table>
@@ -101,8 +117,8 @@ const AdminPCheckouts = () => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {filteredCheckouts && filteredCheckouts.length > 0 ? (
-                                filteredCheckouts.map((checkout, index) => (
+                            {searchCheckouts && searchCheckouts.length > 0 ? (
+                                searchCheckouts.map((checkout, index) => (
                                     <TableRow key={checkout._id}>
                                         <TableCell>{index + 1}</TableCell>
                                         <TableCell>{checkout.pname}</TableCell>

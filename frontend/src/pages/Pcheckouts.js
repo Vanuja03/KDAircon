@@ -1,15 +1,17 @@
 import { TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import Axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { Table } from 'react-bootstrap';
-import { FaCheckCircle, FaDotCircle, FaTrash } from 'react-icons/fa';
+import { Form, Table } from 'react-bootstrap';
+import { FaCheckCircle, FaDotCircle, FaSearch, FaTrash } from 'react-icons/fa';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import '../styles/searchinput.css'
 
 const Pcheckouts = () => {
 
     const [checkouts, setCheckouts] = useState([]);
     const user = JSON.parse(localStorage.getItem('user'));
+    const [searchQuery, setSearchQuery] = useState('');
     const userMail = user ? user.email : null;
 
     const getCheckout = async () => {
@@ -43,10 +45,23 @@ const Pcheckouts = () => {
     };
 
     const yourcheckouts = checkouts.filter(checkout => checkout.userMail === userMail);
-
+    const searchCheckouts = yourcheckouts.filter(yck =>
+        yck.pname.toLowerCase().includes(searchQuery.toLowerCase())
+    );
     return (
         <div>
+            <h1>Customized order checkouts</h1>
             <ToastContainer />
+            <Form.Group className="search-container">
+                <FaSearch className='searchicon' />
+                <input
+                    className='search-input'
+                    type='search'
+                    placeholder='Search by Product name'
+                    value={searchQuery}
+                    onChange={e => setSearchQuery(e.target.value)}
+                />
+            </Form.Group>
             <TableContainer>
                 <Table>
                     <TableHead>
@@ -64,8 +79,8 @@ const Pcheckouts = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {yourcheckouts && yourcheckouts.length > 0 ? (
-                            yourcheckouts.map((checkout, index) => (
+                        {searchCheckouts && searchCheckouts.length > 0 ? (
+                            searchCheckouts.map((checkout, index) => (
                                 <TableRow key={checkout._id}>
                                     <TableCell>{index + 1}</TableCell>
                                     <TableCell>{checkout.pname}</TableCell>

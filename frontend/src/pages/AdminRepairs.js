@@ -2,9 +2,10 @@ import Axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import Layout from '../components/Layout';
 import { Button, MenuItem, Paper, Select, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
-import { FaCheck, FaCheckCircle, FaDotCircle } from 'react-icons/fa';
+import { FaCheck, FaCheckCircle, FaDotCircle, FaSearch } from 'react-icons/fa';
 import Swal from 'sweetalert2';
 import { Form } from 'react-bootstrap';
+import '../styles/searchinput.css'
 
 const AdminRepairs = () => {
 
@@ -12,6 +13,7 @@ const AdminRepairs = () => {
     const user = JSON.parse(localStorage.getItem('user'));
     const userMail = user ? user.email : null;
     const [filterstatus, setfilterStatus] = useState('All');
+    const [searchQuery, setSearchQuery] = useState('');
 
     const [Status, setstatus] = useState('');
 
@@ -71,6 +73,11 @@ const AdminRepairs = () => {
         ? repairs
         : repairs.filter(rep => rep.status === filterstatus);
 
+
+    const searchRepairs = filteredRepairs.filter(product =>
+        product.pname.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
     return (
         <div>
             <Layout>
@@ -88,6 +95,16 @@ const AdminRepairs = () => {
                         <MenuItem value='Reviewed' style={{ color: 'green', fontWeight: 'bold' }}>Reviewed</MenuItem>
                     </Select>
                 </Form.Group>
+                <Form.Group className="search-container">
+                    <FaSearch className='searchicon' />
+                    <input
+                        className='search-input'
+                        type='search'
+                        placeholder='Search by Product name'
+                        value={searchQuery}
+                        onChange={e => setSearchQuery(e.target.value)}
+                    />
+                </Form.Group>
                 <TableContainer component={Paper}>
                     <Table>
                         <TableHead>
@@ -104,8 +121,8 @@ const AdminRepairs = () => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {filteredRepairs && filteredRepairs.length > 0 ? (
-                                filteredRepairs.map((rep, index) => (
+                            {searchRepairs && searchRepairs.length > 0 ? (
+                                searchRepairs.map((rep, index) => (
                                     <TableRow key={rep._id}>
                                         <TableCell>{index + 1}</TableCell>
                                         <TableCell>{rep.billNo}</TableCell>
