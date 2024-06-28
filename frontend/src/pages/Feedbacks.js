@@ -165,12 +165,12 @@ const Feedbacks = () => {
                     <Card key={feedbacks._id} className='cardfeed'>
                         <Card.Title className='disflex'>{feedbacks.name}
                             <div className='starrating'>
-                                {feedbacks.pname} -
-                                {renderStarRating(feedbacks.rating)}
+                                <p> {feedbacks.pname}</p>
                             </div>
                         </Card.Title>
+                        <Card.Title>{renderStarRating(feedbacks.rating)}</Card.Title>
                         <Card.Body className='flex2dis card-body'>
-                            <Card.Text>{feedbacks.feedback}</Card.Text>
+                            <Card.Text className='carddest'>{feedbacks.feedback}</Card.Text>
                             <div className='actionbuttons'>
                                 <FaThumbsUp
                                     className={`likes ${JSON.parse(localStorage.getItem('likedFeedbacks'))?.includes(feedbacks._id) ? 'liked' : ''}`}
