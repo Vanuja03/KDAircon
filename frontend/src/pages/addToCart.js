@@ -26,8 +26,6 @@ const AddToCart = ({ submitted, data }) => {
 
   const userMail = user ? user.email : null;
 
-
-
   useEffect(() => {
     getProducts();
   }, []);
