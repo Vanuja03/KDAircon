@@ -97,13 +97,12 @@ const Checkouts = () => {
                         <TableHead>
                             <TableRow>
                                 <TableCell>#</TableCell>
-                                <TableCell>Product name</TableCell>
-                                <TableCell>Unit price</TableCell>
-                                <TableCell>Quantity</TableCell>
-                                <TableCell>Email</TableCell>
-                                <TableCell>Contact No</TableCell>
-                                <TableCell>Status</TableCell>
-                                <TableCell>Actions</TableCell>
+                                <TableCell style={{ fontWeight: 'bold' }}>Product name</TableCell>
+                                <TableCell style={{ fontWeight: 'bold' }}>Unit price</TableCell>
+                                <TableCell style={{ fontWeight: 'bold' }}>Quantity</TableCell>
+                                <TableCell style={{ fontWeight: 'bold' }}>Contact No</TableCell>
+                                <TableCell style={{ fontWeight: 'bold' }}>Status</TableCell>
+                                <TableCell style={{ fontWeight: 'bold' }}>Actions</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -114,7 +113,6 @@ const Checkouts = () => {
                                         <TableCell>{checkout.pname}</TableCell>
                                         <TableCell>{checkout.pprice}</TableCell>
                                         <TableCell>{checkout.quantity}</TableCell>
-                                        <TableCell>{checkout.userMail}</TableCell>
                                         <TableCell>{checkout.mobile}</TableCell>
                                         <TableCell style={{ fontWeight: 'bold' }}>
                                             {checkout.status === 'Pending' ? (

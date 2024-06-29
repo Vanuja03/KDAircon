@@ -8,9 +8,7 @@ import PreOrderTable from './PreOrderTable';
 import { Card, Form } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import jsPDF from 'jspdf';
 import 'jspdf-autotable';
-import logo1 from '../images2/kdtitlelg.png';
 import '../styles/Nv.css';
 import * as Yup from 'yup';
 import '../styles/searchinput.css'
@@ -41,6 +39,10 @@ const Cart = () => {
       .then(response => {
         console.log('Data from server: ', response.data);
         setBooking(response.data);
+
+        // if (booking.length > 0) {
+        //   toast.info(`You have ${booking.length} items in the Cart... `)
+        // }
       })
       .catch(error => {
         console.error("Axios error: ", error);
@@ -130,10 +132,10 @@ const Cart = () => {
       setopen(false);
       Swal.fire({
         title: "Success!",
-        text: "checkout was added successfully!",
+        text: "Checkout was added successfully please wait for response from us!",
         icon: "success",
         showConfirmButton: false,
-        timer: 2000
+        timer: 7000
       });
 
 
@@ -159,6 +161,7 @@ const Cart = () => {
   return (
     <div>
       <Layout>
+
         <h1 className='text-center'>Your cart</h1>
         <Form.Group className="search-container">
           <FaSearch className='searchicon' />
@@ -175,12 +178,12 @@ const Cart = () => {
             <TableHead>
               <TableRow>
                 <TableCell>#</TableCell>
-                <TableCell>Product name</TableCell>
-                <TableCell>Product price</TableCell>
-                <TableCell>Quantity</TableCell>
-                <TableCell>Gross amount</TableCell>
-                <TableCell>Created At</TableCell>
-                <TableCell>Actions</TableCell>
+                <TableCell style={{ fontWeight: 'bold' }}>Product name</TableCell>
+                <TableCell style={{ fontWeight: 'bold' }}>Product price</TableCell>
+                <TableCell style={{ fontWeight: 'bold' }}>Quantity</TableCell>
+                <TableCell style={{ fontWeight: 'bold' }}>Gross amount</TableCell>
+                <TableCell style={{ fontWeight: 'bold' }}>Created At</TableCell>
+                <TableCell style={{ fontWeight: 'bold' }}>Actions</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -255,8 +258,8 @@ const Cart = () => {
                     <Form.Control
                       className='no-spinner'
                       type='number'
-                      onChange={e => setMobile(e.target.value.slice(0, 10))}
                       maxLength={10}
+                      onChange={e => setMobile(e.target.value.slice(0, 10))}
                     />
                     {errorMessage.mobile && <div className='text-danger'>{errorMessage.mobile}</div>}
                   </Form>
@@ -271,10 +274,13 @@ const Cart = () => {
       </Layout>
       <ToastContainer
         position="top-right"
-        autoClose={10000} // Close the toast after 3 seconds
+        autoClose={10000}
       />
     </div>
   )
+
+
+
 }
 
 export default Cart;

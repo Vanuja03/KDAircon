@@ -152,13 +152,13 @@ const Products = () => {
                 <Table sx={{ '&:last-child td, &:last-child th': { border: 1 } }}>
                     <TableHead>
                         <TableRow>
-                            <TableCell>ID</TableCell>
-                            <TableCell>Name</TableCell>
-                            <TableCell>Description</TableCell>
-                            <TableCell>Unit Price</TableCell>
-                            <TableCell>Quantity</TableCell>
-                            <TableCell>Image</TableCell>
-                            <TableCell>Actions</TableCell>
+                            <TableCell style={{ fontWeight: 'bold' }}>ID</TableCell>
+                            <TableCell style={{ fontWeight: 'bold' }}>Name</TableCell>
+                            <TableCell style={{ fontWeight: 'bold' }}>Description</TableCell>
+                            <TableCell style={{ fontWeight: 'bold' }}>Unit Price</TableCell>
+                            <TableCell style={{ fontWeight: 'bold' }}>Quantity</TableCell>
+                            <TableCell style={{ fontWeight: 'bold' }}>Image</TableCell>
+                            <TableCell style={{ fontWeight: 'bold' }}>Actions</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>

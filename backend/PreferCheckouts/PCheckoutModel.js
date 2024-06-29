@@ -10,7 +10,8 @@ const PCheckoutSchema = new Schema({
     mobile: Number,
     quantity: Number,
     userMail: String,
-    status: { type: String, default: 'Pending' }
+    status: { type: String, default: 'Pending' },
+    createdAt: { type: Date, default: Date.now }
 },
     {
         collection: "PCheckout"

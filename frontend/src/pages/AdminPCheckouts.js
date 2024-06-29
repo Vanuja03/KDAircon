@@ -124,15 +124,16 @@ const AdminPCheckouts = () => {
                         <TableHead>
                             <TableRow>
                                 <TableCell>#</TableCell>
-                                <TableCell>Product name</TableCell>
-                                <TableCell>Size</TableCell>
-                                <TableCell>Gas type</TableCell>
-                                <TableCell>Tube size</TableCell>
-                                <TableCell>Quantity</TableCell>
-                                <TableCell>Email</TableCell>
-                                <TableCell>Contact No</TableCell>
-                                <TableCell>Status</TableCell>
-                                <TableCell>Update status</TableCell>
+                                <TableCell style={{ fontWeight: 'bold' }}>Product name</TableCell>
+                                <TableCell style={{ fontWeight: 'bold' }}>Size</TableCell>
+                                <TableCell style={{ fontWeight: 'bold' }}>Gas type</TableCell>
+                                <TableCell style={{ fontWeight: 'bold' }}>Tube size</TableCell>
+                                <TableCell style={{ fontWeight: 'bold' }}>Quantity</TableCell>
+                                <TableCell style={{ fontWeight: 'bold' }}>Email</TableCell>
+                                <TableCell style={{ fontWeight: 'bold' }}>Contact No</TableCell>
+                                <TableCell style={{ fontWeight: 'bold' }}>Date and Time</TableCell>
+                                <TableCell style={{ fontWeight: 'bold' }}>Status</TableCell>
+                                <TableCell style={{ fontWeight: 'bold' }}>Update status</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -147,6 +148,7 @@ const AdminPCheckouts = () => {
                                         <TableCell>{checkout.quantity}</TableCell>
                                         <TableCell><a href={`mailto:${checkout.userMail}`}>{checkout.userMail}</a></TableCell>
                                         <TableCell><a href={`tel:${checkout.mobile}`}>{checkout.mobile}</a></TableCell>
+                                        <TableCell>{new Date(checkout.createdAt).toLocaleDateString()}  -  {new Date(checkout.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</TableCell>
                                         <TableCell style={{ fontWeight: 'bold' }}>
                                             {checkout.status === 'Pending' ? (
                                                 <span style={{ color: 'red' }}><FaDotCircle style={{ verticalAlign: 'middle' }} /> Pending</span>

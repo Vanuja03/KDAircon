@@ -46,7 +46,7 @@ const AdminRepairs = () => {
                 getRepairs(); // Refresh the list after updating
 
 
-                if (Status == 'Reviewed') {
+                if (Status === 'Reviewed') {
                     Swal.fire({
                         title: "Success!",
                         text: "Checkout was Reviewed view on completed table!",
@@ -121,14 +121,14 @@ const AdminRepairs = () => {
                         <TableHead>
                             <TableRow>
                                 <TableCell>#</TableCell>
-                                <TableCell>BIll No</TableCell>
-                                <TableCell>Bill Date</TableCell>
-                                <TableCell>Product name</TableCell>
-                                <TableCell>Issue</TableCell>
-                                <TableCell>Images</TableCell>
-                                <TableCell>Contact number</TableCell>
-                                <TableCell>Repair Status</TableCell>
-                                <TableCell>Actions</TableCell>
+                                <TableCell style={{ fontWeight: 'bold' }}>BIll No</TableCell>
+                                <TableCell style={{ fontWeight: 'bold' }}>Bill Date</TableCell>
+                                <TableCell style={{ fontWeight: 'bold' }}>Product name</TableCell>
+                                <TableCell style={{ fontWeight: 'bold' }}>Issue</TableCell>
+                                <TableCell style={{ fontWeight: 'bold' }}>Images</TableCell>
+                                <TableCell style={{ fontWeight: 'bold' }}>Contact number</TableCell>
+                                <TableCell style={{ fontWeight: 'bold' }}>Repair Status</TableCell>
+                                <TableCell style={{ fontWeight: 'bold' }}>Actions</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>

@@ -91,15 +91,14 @@ const Pcheckouts = () => {
                     <TableHead>
                         <TableRow>
                             <TableCell>#</TableCell>
-                            <TableCell>Product name</TableCell>
-                            <TableCell>Size</TableCell>
-                            <TableCell>Gas type</TableCell>
-                            <TableCell>Tube size</TableCell>
-                            <TableCell>Quantity</TableCell>
-                            <TableCell>Email</TableCell>
-                            <TableCell>Contact No</TableCell>
-                            <TableCell>Status</TableCell>
-                            <TableCell>Actions</TableCell>
+                            <TableCell style={{ fontWeight: 'bold' }}>Product name</TableCell>
+                            <TableCell style={{ fontWeight: 'bold' }}>Size</TableCell>
+                            <TableCell style={{ fontWeight: 'bold' }}>Gas type</TableCell>
+                            <TableCell style={{ fontWeight: 'bold' }}>Tube size</TableCell>
+                            <TableCell style={{ fontWeight: 'bold' }}>Quantity</TableCell>
+                            <TableCell style={{ fontWeight: 'bold' }}>Contact No</TableCell>
+                            <TableCell style={{ fontWeight: 'bold' }}>Status</TableCell>
+                            <TableCell style={{ fontWeight: 'bold' }}>Actions</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -112,7 +111,6 @@ const Pcheckouts = () => {
                                     <TableCell>{checkout.pGasType}</TableCell>
                                     <TableCell>{checkout.pTubeSize}</TableCell>
                                     <TableCell>{checkout.quantity}</TableCell>
-                                    <TableCell>{checkout.userMail}</TableCell>
                                     <TableCell>{checkout.mobile}</TableCell>
                                     <TableCell style={{ fontWeight: 'bold' }}>
                                         {checkout.status === 'Pending' ? (

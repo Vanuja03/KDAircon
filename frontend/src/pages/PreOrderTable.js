@@ -125,10 +125,10 @@ const PreOrderTable = () => {
             setopen(false);
             Swal.fire({
                 title: "Success!",
-                text: "Checkout was added successfully!",
+                text: "Checkout was added successfully please wait for response from us!",
                 icon: "success",
                 showConfirmButton: false,
-                timer: 2000
+                timer: 7000
             });
         } catch (error) {
             if (error instanceof Yup.ValidationError) {
@@ -167,12 +167,12 @@ const PreOrderTable = () => {
                     <TableHead>
                         <TableRow>
                             <TableCell>#</TableCell>
-                            <TableCell>Product name</TableCell>
-                            <TableCell>Size</TableCell>
-                            <TableCell>Tube size</TableCell>
-                            <TableCell>Gas type</TableCell>
-                            <TableCell>Quantity</TableCell>
-                            <TableCell>Actions</TableCell>
+                            <TableCell style={{ fontWeight: 'bold' }}>Product name</TableCell>
+                            <TableCell style={{ fontWeight: 'bold' }}>Size</TableCell>
+                            <TableCell style={{ fontWeight: 'bold' }}>Tube size</TableCell>
+                            <TableCell style={{ fontWeight: 'bold' }}>Gas type</TableCell>
+                            <TableCell style={{ fontWeight: 'bold' }}>Quantity</TableCell>
+                            <TableCell style={{ fontWeight: 'bold' }}>Actions</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>

@@ -133,14 +133,14 @@ const Repairs = () => {
           <TableHead>
             <TableRow>
               <TableCell>#</TableCell>
-              <TableCell>BIll No</TableCell>
-              <TableCell>Bill Date</TableCell>
-              <TableCell>Product name</TableCell>
-              <TableCell>Issue</TableCell>
-              <TableCell>Images</TableCell>
-              <TableCell>Contact number</TableCell>
-              <TableCell>Status</TableCell>
-              <TableCell>Actions</TableCell>
+              <TableCell style={{ fontWeight: 'bold' }}>BIll No</TableCell>
+              <TableCell style={{ fontWeight: 'bold' }}>Bill Date</TableCell>
+              <TableCell style={{ fontWeight: 'bold' }}>Product name</TableCell>
+              <TableCell style={{ fontWeight: 'bold' }}>Issue</TableCell>
+              <TableCell style={{ fontWeight: 'bold' }}>Images</TableCell>
+              <TableCell style={{ fontWeight: 'bold' }}>Contact number</TableCell>
+              <TableCell style={{ fontWeight: 'bold' }}>Status</TableCell>
+              <TableCell style={{ fontWeight: 'bold' }}>Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
