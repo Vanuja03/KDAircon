@@ -2,13 +2,14 @@ import Axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import Layout from '../components/Layout';
 import { Button, Dialog, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField } from '@mui/material';
-import { FaCheck, FaEdit, FaTrash } from 'react-icons/fa';
+import { FaCheck, FaEdit, FaSearch, FaTrash } from 'react-icons/fa';
 import Swal from 'sweetalert2';
 import { Card, Form } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '../styles/Nv.css';
 import * as Yup from 'yup';
+import '../styles/searchinput.css'
 
 const PreOrderTable = () => {
 
@@ -20,6 +21,7 @@ const PreOrderTable = () => {
     const [pcheckout, setpCheckout] = useState([]);
     const [mobile, setMobile] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+    const [searchQuery, setSearchQuery] = useState('');
 
     const Checkouts = (checkout) => {
         setpCheckout(checkout);
@@ -141,11 +143,25 @@ const PreOrderTable = () => {
         }
     }
 
+    const searchProduct = bookings.filter(product =>
+        product.pname.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
     return (
         <div>
             <br />
             <br />
             <h1 className='text-center'>Prefer cart</h1>
+            <Form.Group className="search-container">
+                <FaSearch className='searchicon' />
+                <input
+                    className='search-input'
+                    type='search'
+                    placeholder='Search by Product name'
+                    value={searchQuery}
+                    onChange={e => setSearchQuery(e.target.value)}
+                />
+            </Form.Group>
             <TableContainer component={Paper}>
                 <Table>
                     <TableHead>
@@ -160,8 +176,8 @@ const PreOrderTable = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {bookings && bookings.length > 0 ? (
-                            bookings.map((order, index) => (
+                        {searchProduct && searchProduct.length > 0 ? (
+                            searchProduct.map((order, index) => (
                                 <TableRow key={order._id} sx={{ '&:last-child id, &:last-child th': { border: 1 } }}>
                                     <TableCell>{index + 1}</TableCell>
                                     <TableCell>{order.pname}</TableCell>

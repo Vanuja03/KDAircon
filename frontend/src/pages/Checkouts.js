@@ -1,7 +1,7 @@
 import Axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { MenuItem, Select, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
-import { FaCircle, FaTrash, FaDotCircle, FaCheckCircle, FaSearch } from 'react-icons/fa';
+import { FaCircle, FaTrash, FaDotCircle, FaCheckCircle, FaSearch, FaCircleNotch } from 'react-icons/fa';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '../styles/searchinput.css'
@@ -14,6 +14,7 @@ const Checkouts = () => {
     const user = JSON.parse(localStorage.getItem('user'));
     const [searchQuery, setSearchQuery] = useState('');
     const userMail = user ? user.email : null;
+    const [filterstatus, setfilterStatus] = useState('All');
 
     const getCheckout = async () => {
         try {
@@ -48,13 +49,38 @@ const Checkouts = () => {
     };
 
     const yourcheckouts = checkouts.filter(checkout => checkout.userMail === userMail);
-    const searchCheckouts = yourcheckouts.filter(yck =>
+
+    const handleFilterChange = (event) => {
+        setfilterStatus(event.target.value);
+    };
+
+    const filteredCheckouts = filterstatus === 'All'
+        ? yourcheckouts
+        : yourcheckouts.filter(check => check.status === filterstatus);
+
+
+    const searchCheckouts = filteredCheckouts.filter(yck =>
         yck.pname.toLowerCase().includes(searchQuery.toLowerCase())
     );
     return (
         <div>
             <Layout>
-                <h1>Your checkouts</h1>
+                <h1 className='text-center'>Your checkouts</h1>
+                <Form.Group style={{ marginLeft: '5%', fontWeight: 'bold' }}>
+                    <Form.Label>Filter by Status</Form.Label>
+                    <Select
+                        value={filterstatus}
+                        onChange={handleFilterChange}
+                        name='filterstatus'
+                        displayEmpty
+                        inputProps={{ 'aria-label': 'Without label' }}
+                        style={{ marginLeft: '1%' }}>
+                        <MenuItem value='All'>All</MenuItem>
+                        <MenuItem value='Pending' style={{ color: 'red', fontWeight: 'bold' }}>Pending</MenuItem>
+                        <MenuItem value='In Progress' style={{ color: 'blue', fontWeight: 'bold' }}>In Progress</MenuItem>
+                        <MenuItem value='Completed' style={{ color: 'green', fontWeight: 'bold' }}>Completed</MenuItem>
+                    </Select>
+                </Form.Group>
                 <Form.Group className="search-container">
                     <FaSearch className='searchicon' />
                     <input
@@ -93,6 +119,10 @@ const Checkouts = () => {
                                         <TableCell style={{ fontWeight: 'bold' }}>
                                             {checkout.status === 'Pending' ? (
                                                 <span style={{ color: 'red' }}><FaDotCircle style={{ verticalAlign: 'middle' }} /> Pending</span>
+                                            ) : checkout.status === 'In Progress' ? (
+                                                <span style={{ color: 'blue' }}>
+                                                    <FaCircleNotch style={{ verticalAlign: 'middle' }} /> In Progress
+                                                </span>
                                             ) : (
                                                 <span style={{ color: 'green' }}><FaCheckCircle style={{ verticalAlign: 'middle' }} /> Completed</span>
                                             )}

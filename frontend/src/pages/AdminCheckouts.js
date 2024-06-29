@@ -2,7 +2,7 @@ import { MenuItem, Select, Table, TableBody, TableCell, TableContainer, TableHea
 import Axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Button, Form } from 'react-bootstrap';
-import { FaCheck, FaCheckCircle, FaDotCircle, FaSearch } from 'react-icons/fa';
+import { FaCheck, FaCheckCircle, FaCircleNotch, FaDotCircle, FaSearch } from 'react-icons/fa';
 import Swal from 'sweetalert2';
 import Layout from '../components/Layout';
 import '../styles/searchinput.css'
@@ -47,10 +47,18 @@ const AdminCheckouts = () => {
                 getcheckout(); // Refresh the list after updating
 
 
-                if (statusu == 'Completed') {
+                if (statusu === 'Completed') {
                     Swal.fire({
                         title: "Success!",
-                        text: "Checkout was Completed view on completed table!",
+                        text: "Checkout is Completed view on completed table!",
+                        icon: "success",
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
+                } else if (statusu === 'Pending') {
+                    Swal.fire({
+                        title: "Success!",
+                        text: "Checkout is pending view on pending table!",
                         icon: "success",
                         showConfirmButton: false,
                         timer: 2000
@@ -58,7 +66,7 @@ const AdminCheckouts = () => {
                 } else {
                     Swal.fire({
                         title: "Success!",
-                        text: "Checkout was pending view on pending table!",
+                        text: "Checkout is in progress  view on in progress table!",
                         icon: "success",
                         showConfirmButton: false,
                         timer: 2000
@@ -95,16 +103,18 @@ const AdminCheckouts = () => {
                     hideProgressBar={false} // Show a progress bar
                     closeOnClick={false} />
                 <center><h1>Normal Checkouts</h1></center>
-                <Form.Group>
+                <Form.Group style={{ marginLeft: '5%', fontWeight: 'bold' }}>
                     <Form.Label>Filter by Status</Form.Label>
                     <Select
                         value={filterstatus}
                         onChange={handleFilterChange}
                         name='filterstatus'
                         displayEmpty
-                        inputProps={{ 'aria-label': 'Without label' }}>
+                        inputProps={{ 'aria-label': 'Without label' }}
+                        style={{ marginLeft: '1%' }}>
                         <MenuItem value='All'>All</MenuItem>
                         <MenuItem value='Pending' style={{ color: 'red', fontWeight: 'bold' }}>Pending</MenuItem>
+                        <MenuItem value='In Progress' style={{ color: 'blue', fontWeight: 'bold' }}>In Progress</MenuItem>
                         <MenuItem value='Completed' style={{ color: 'green', fontWeight: 'bold' }}>Completed</MenuItem>
                     </Select>
                 </Form.Group>
@@ -145,6 +155,10 @@ const AdminCheckouts = () => {
                                         <TableCell style={{ fontWeight: 'bold' }}>
                                             {checkout.status === 'Pending' ? (
                                                 <span style={{ color: 'red' }}><FaDotCircle style={{ verticalAlign: 'middle' }} /> Pending</span>
+                                            ) : checkout.status === 'In Progress' ? (
+                                                <span style={{ color: 'blue' }}>
+                                                    <FaCircleNotch style={{ verticalAlign: 'middle' }} /> In Progress
+                                                </span>
                                             ) : (
                                                 <span style={{ color: 'green' }}><FaCheckCircle style={{ verticalAlign: 'middle' }} /> Completed</span>
                                             )}
@@ -158,6 +172,7 @@ const AdminCheckouts = () => {
                                                 inputProps={{ 'aria-label': 'Without label' }}
                                             >
                                                 <MenuItem value="Pending" style={{ color: 'red' }}>Pending</MenuItem>
+                                                <MenuItem value='In Progress' style={{ color: 'blue' }}>In Progress</MenuItem>
                                                 <MenuItem value="Completed" style={{ color: 'green' }}>Completed</MenuItem>
                                             </Select>
                                             <Button onClick={() => StatusUpdate(checkout._id)}>
@@ -176,7 +191,7 @@ const AdminCheckouts = () => {
                     </Table>
                 </TableContainer>
             </Layout>
-        </div>
+        </div >
     )
 }
 

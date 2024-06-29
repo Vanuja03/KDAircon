@@ -73,7 +73,7 @@ const PreferOrders = () => {
       <br />
       <br />
       <Container>
-        <h1 className='text-center'>Products of your own</h1>
+        <h1 className='text-center'>Customized products</h1>
         <Row>
           {errorMessage && <Alert variant='danger'>{errorMessage}</Alert>}
           <Col md={4}>

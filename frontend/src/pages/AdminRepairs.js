@@ -5,7 +5,7 @@ import { Button, MenuItem, Paper, Select, Table, TableBody, TableCell, TableCont
 import { FaCheck, FaCheckCircle, FaDotCircle, FaSearch } from 'react-icons/fa';
 import Swal from 'sweetalert2';
 import { Form } from 'react-bootstrap';
-import '../styles/searchinput.css'
+import '../styles/searchinput.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -92,14 +92,15 @@ const AdminRepairs = () => {
                     hideProgressBar={false} // Show a progress bar
                     closeOnClick={false} />
                 <h1 className='text-center'>Review repair inquiries</h1>
-                <Form.Group>
+                <Form.Group style={{ marginLeft: '5%', fontWeight: 'bold' }}>
                     <Form.Label>Filter by status</Form.Label>
                     <Select
                         value={filterstatus}
                         onChange={handleFilterChange}
                         name='filterstatus'
                         displayEmpty
-                        inputProps={{ 'aria-label': 'without label' }}>
+                        inputProps={{ 'aria-label': 'without label' }}
+                        style={{ marginLeft: '1%' }}>
                         <MenuItem value='All'>All</MenuItem>
                         <MenuItem value='Pending' style={{ color: 'red', fontWeight: 'bold' }}>Pending</MenuItem>
                         <MenuItem value='Reviewed' style={{ color: 'green', fontWeight: 'bold' }}>Reviewed</MenuItem>

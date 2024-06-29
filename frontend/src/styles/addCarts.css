@@ -2,32 +2,11 @@
     width: 80%;
 }
 
-.cardimg {
-    overflow: hidden;
-}
+
 
 .cardimg img:hover {
     transition: transform 1s ease;
     transform: scale(1.1);
     cursor: pointer;
     border-radius: 15px;
-}
-
-.quantity-control {
-    display: flex;
-    align-items: center;
-}
-
-.quantity-control .btn {
-    padding: 0.5rem 1rem;
-}
-
-.quantity-control input {
-    text-align: center;
-    max-width: 60px;
-    margin: 0 5px;
-    padding: 0.5rem;
-    border: 1px solid #ced4da;
-    border-radius: 0.25rem;
-    width: 50px;
 }
