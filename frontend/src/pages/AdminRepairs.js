@@ -6,6 +6,8 @@ import { FaCheck, FaCheckCircle, FaDotCircle, FaSearch } from 'react-icons/fa';
 import Swal from 'sweetalert2';
 import { Form } from 'react-bootstrap';
 import '../styles/searchinput.css'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AdminRepairs = () => {
 
@@ -22,6 +24,10 @@ const AdminRepairs = () => {
             .then(response => {
                 console.log('data from sever', response.data);
                 setrepairs(response.data);
+                const pendingRepairs = response.data.filter(repair => repair.status === 'Pending').length;
+                if (pendingRepairs > 0) {
+                    toast.info(`You have ${pendingRepairs} pending repairs. Review them`);
+                }
             })
             .catch(error => {
                 console.error("Axios error:", error);
@@ -81,6 +87,10 @@ const AdminRepairs = () => {
     return (
         <div>
             <Layout>
+                <ToastContainer position="top-right"
+                    autoClose={10000} // Close the toast after 3 seconds
+                    hideProgressBar={false} // Show a progress bar
+                    closeOnClick={false} />
                 <h1 className='text-center'>Review repair inquiries</h1>
                 <Form.Group>
                     <Form.Label>Filter by status</Form.Label>

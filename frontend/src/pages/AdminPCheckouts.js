@@ -6,6 +6,8 @@ import { FaCheck, FaCheckCircle, FaDotCircle, FaSearch } from 'react-icons/fa';
 import Swal from 'sweetalert2';
 import Layout from '../components/Layout';
 import '../styles/searchinput.css'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AdminPCheckouts = () => {
 
@@ -18,7 +20,10 @@ const AdminPCheckouts = () => {
 
         try {
             const response = await Axios.get('http://localhost:4000/api/PCheckout')
-
+            const pendingCheckoutsCount = response.data.filter(checkout => checkout.status === 'Pending').length;
+            if (pendingCheckoutsCount > 0) {
+                toast.info(`You have ${pendingCheckoutsCount} pending checkouts`);
+            }
             console.log(response.data);
             setcheckouts(response.data);
         } catch (error) {
@@ -76,6 +81,10 @@ const AdminPCheckouts = () => {
     return (
         <div>
             <Layout>
+                <ToastContainer position="top-right"
+                    autoClose={10000} // Close the toast after 3 seconds
+                    hideProgressBar={false} // Show a progress bar
+                    closeOnClick={false} />
                 <center><h1>Preffered Checkouts</h1></center>
                 <Form.Group>
                     <Form.Label>Filter by Status</Form.Label>

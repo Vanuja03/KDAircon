@@ -14,6 +14,7 @@ const Header = () => {
     const [anchorEl, setAnchorEl] = useState(null);
     const navigate = useNavigate();
     const [booking, setBooking] = useState([]);
+    const [pbooking, setPBooking] = useState([]);
     const userMail = user ? user.email : null;
 
     const Profile = () => {
@@ -23,6 +24,7 @@ const Header = () => {
     useEffect(() => {
         if (userMail) {
             getBooking(userMail);
+            getPBooking(userMail);
         }
     }, [userMail]);
 
@@ -37,7 +39,18 @@ const Header = () => {
             });
     };
 
-    const bsize = booking.length;
+    const getPBooking = (userMail) => {
+        Axios.get(`http://localhost:4000/api/Prefer/${userMail}`)
+            .then(response => {
+                console.log('Data from server: ', response.data);
+                setPBooking(response.data);
+            })
+            .catch(error => {
+                console.error("Axios error: ", error);
+            });
+    }
+
+    const bsize = booking.length + pbooking.length;
 
     const admin = userMail === 'vinnathvanuja@gmail.com';
 

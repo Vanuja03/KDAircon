@@ -1,0 +1,26 @@
+.mainflex {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.subflex {
+    flex: 1;
+    margin: 10px;
+    min-width: 300px;
+}
+
+
+
+
+@media (max-width: 800px) {
+    .mainflex {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .subflex {
+        display: flex;
+        flex-direction: column;
+    }
+
+}

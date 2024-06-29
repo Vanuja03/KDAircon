@@ -92,7 +92,7 @@ const Profile = () => {
             <div className='headoprof'>
               <div className="mt-3 mb-4 profimage">
                 <MDBCardImage src={user.photoURL}
-                  className="rounded-circle" fluid style={{ width: '100px' }} />
+                  className="rounded-circle " fluid style={{ width: '100px', border: '5px solid blue' }} />
               </div>
               <MDBTypography tag="h4">{user.displayName}</MDBTypography>
               <MDBCardText className="text-muted mb-4">

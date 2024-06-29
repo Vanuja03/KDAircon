@@ -17,6 +17,7 @@ import Checkouts from './pages/Checkouts';
 import AdminPCheckouts from './pages/AdminPCheckouts';
 import Pcheckouts from './pages/Pcheckouts';
 import AdminRepairs from './pages/AdminRepairs';
+import News from './pages/News';
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
         <Route path='/Checkouts' element={<Checkouts />} />
         <Route path='/PCheckouts' element={<Pcheckouts />} />
         <Route path='/adminRepairs' element={<AdminRepairs />} />
+        <Route path='/news' element={<News />} />
       </Routes>
     </Router>
   );

@@ -8,10 +8,11 @@ import AddFeedBack from './AddFeedback';
 import Swal from 'sweetalert2';
 import Aos from 'aos';
 import 'aos/dist/aos.css';
-import '../styles/searchinput.css'
+import '../styles/searchinput.css';
 
 const Feedbacks = () => {
     const [feedback, setFeedbacks] = useState([]);
+    const [visibleFeedbacks, setVisibleFeedbacks] = useState(5);
     const [openaddf, setopenadd] = useState(false);
     const [openyf, setopenyf] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
@@ -129,6 +130,7 @@ const Feedbacks = () => {
         getfeedbacks();
         setopenadd(false);
     };
+
     useEffect(() => {
         Aos.init({ duration: 1000 });
     }, []);
@@ -142,9 +144,18 @@ const Feedbacks = () => {
     const searchYourFeedbacks = yourfeedbacks.filter(yfeedbacks =>
         yfeedbacks.pname.toLowerCase().includes(searchYQuery.toLowerCase())
     );
+
+    const handleLoadMore = () => {
+        setVisibleFeedbacks(feedback.length);
+    };
+
+    const handleLoadLess = () => {
+        setVisibleFeedbacks(5);
+    };
+
     return (
         <div data-aos="fade-up">
-            <center><h1>Our valuble feedbacks !!</h1></center>
+            <center><h1>Our valuable feedbacks !!</h1></center>
             <Form.Group className="search-container" data-aos="fade-left">
                 <FaSearch className='searchicon' />
                 <input
@@ -155,13 +166,12 @@ const Feedbacks = () => {
                     onChange={e => setSearchQuery(e.target.value)}
                 />
             </Form.Group>
-            <div className='flx3' data-aos="fade-left" >
-
+            <div className='flx3' data-aos="fade-left">
                 <Button onClick={() => setopenadd(true)}><FaPlus /></Button>
                 <Button onClick={() => setopenyf(true)}>Your Feedbacks</Button>
             </div>
             {searchFeedbacks && searchFeedbacks.length > 0 ? (
-                searchFeedbacks.map((feedbacks) => (
+                searchFeedbacks.slice(0, visibleFeedbacks).map((feedbacks) => (
                     <Card key={feedbacks._id} className='cardfeed'>
                         <Card.Title className='disflex'>{feedbacks.name}
                             <div className='starrating'>
@@ -187,6 +197,12 @@ const Feedbacks = () => {
                 ))
             ) : (
                 <span>No feedbacks yet</span>
+            )}
+            {searchFeedbacks.length > 5 && visibleFeedbacks < searchFeedbacks.length && (
+                <Button data-aos="fade-right" className='loadbtn' onClick={handleLoadMore}>Load More</Button>
+            )}
+            {visibleFeedbacks > 5 && (
+                <Button data-aos="fade-right" className='loadbtn' onClick={handleLoadLess}>Load Less</Button>
             )}
 
             <Dialog open={openaddf}>
@@ -217,7 +233,6 @@ const Feedbacks = () => {
                                         {feedbacks.pname} -
                                         {renderStarRating(feedbacks.rating)}
                                     </div>
-
                                 </Card.Title>
                                 <Card.Body className='flex2dis card-body'>
                                     <Card.Text style={{ maxWidth: '80%' }}>{feedbacks.feedback}</Card.Text>

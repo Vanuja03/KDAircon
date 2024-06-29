@@ -18,22 +18,17 @@ const AddToCart = ({ submitted, data }) => {
 
   const [products, setProducts] = useState([]);
   const [quantity, setQuantity] = useState(0);
-
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
-
   const user = JSON.parse(localStorage.getItem('user'));
-
   const userMail = user ? user.email : null;
 
   useEffect(() => {
     getProducts();
   }, []);
   const getProducts = async () => {
-
     try {
       const response = await Axios.get('http://localhost:4000/api/products')
-
       console.log('Products', response.data);
       setProducts(response.data.allProducts);
     } catch (error) {
@@ -54,7 +49,6 @@ const AddToCart = ({ submitted, data }) => {
   }, [data]);
 
   const addBooking = async (product) => {
-
     if (!quantity) {
       toast.error('Please enter a quantity before adding to cart');
       return;
@@ -94,10 +88,6 @@ const AddToCart = ({ submitted, data }) => {
     }
   }
 
-  const Cart = () => {
-    navigate('/cart');
-  }
-
   const handleqPress = (e) => {
     // Prevent the default behavior if a number key is pressed
     if (e.key === '+' || e.key === '-') {
@@ -113,7 +103,6 @@ const AddToCart = ({ submitted, data }) => {
     return (
       <div>
         <Layout>
-
           <h1 className='text-center'>Our Products...</h1>
           <Form.Group className="search-container" style={{ marginRight: '4%' }}>
             <FaSearch className='searchicon' />
@@ -125,7 +114,6 @@ const AddToCart = ({ submitted, data }) => {
               onChange={e => setSearchQuery(e.target.value)}
             />
           </Form.Group>
-
           <Container>
             <Row>
               {filteredProducts && filteredProducts.length > 0 ? (filteredProducts.map((product) => (
@@ -206,7 +194,6 @@ const AddToCart = ({ submitted, data }) => {
                           min={0}
                           name='quantity'
                           placeholder='Please login to order'
-                        //onChange={}
                         />
                       </Form.Group>
                       <br />

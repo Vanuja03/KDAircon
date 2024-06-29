@@ -69,7 +69,7 @@ body {
 } */
 
 .dropdown-menu {
-  background-image: linear-gradient(to bottom, white, cyan);
+  background-image: linear-gradient(to bottom, white, rgba(0, 255, 255, 0.464));
   border-radius: 10px;
 }
 

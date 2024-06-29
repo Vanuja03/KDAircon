@@ -15,6 +15,8 @@ const Home = () => {
   useEffect(() => {
     Aos.init({ duration: 1000 });
   }, []);
+
+
   return (
     <div>
       <Layout>
@@ -51,16 +53,12 @@ const Home = () => {
           </div>
         </div>
         <Container>
-          <h1>Best sellers</h1>
+          <h1>About us</h1>
           <div className='homeflex3'>
-            <Card>
-              <Card.Img />
-              <Card.Title>Condensers</Card.Title>
-
-            </Card>
 
           </div>
         </Container>
+
         <Feedbacks />
       </Layout>
     </div>

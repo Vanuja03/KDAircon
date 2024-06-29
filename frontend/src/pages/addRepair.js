@@ -11,6 +11,7 @@ import * as Yup from 'yup';
 import '../styles/addrep.css';
 import Login from './googlelogin'
 import { Dialog } from '@mui/material'
+import '../styles/addrepairs.css';
 
 const AddRepair = () => {
 
@@ -64,6 +65,7 @@ const AddRepair = () => {
     });
 
     const addRep = async () => {
+        toast.success('Wait a second !');
 
         try {
 
@@ -89,11 +91,11 @@ const AddRepair = () => {
             const response = await Axios.post('http://localhost:4000/api/addRepair', formData, {
                 headers: { "Content-Type": "multipart/form-data" }
             });
-            toast.success('Wait a second !');
+
             console.log('Add product response: ', response.data);
             await Swal.fire({
                 title: "Repair submitted successfully!",
-                text: "wait for a call from us in two days",
+                text: "wait for a call from us within two days",
                 icon: "success",
             }).then((result) => {
                 if (result.isConfirmed) {
@@ -139,43 +141,43 @@ const AddRepair = () => {
         return (
             <div>
                 <Layout>
-
-                    <h1 className='text-center' style={{ marginTop: '20px' }}>Add a Repair inquiry</h1><br />
+                    <h1 className='text-center' style={{ marginTop: '20px' }}>Add a Repair Inquiry</h1><br />
                     <Form className='addrepform'>
-                        <Row><Col>
-                            <Form.Group >
-                                <Form.Label>Bill No</Form.Label>
-                                <Form.Control
-                                    type='text'
-                                    value={billNo}
-                                    onChange={e => setbNo(e.target.value)}
-                                    required />
-                                {errorMessage.billNo && <div className="text-danger">{errorMessage.billNo}</div>}
-                            </Form.Group>
-                            <Form.Group >
-                                <Form.Label>Bill Date</Form.Label>
-                                <Form.Control
-                                    type='date'
-                                    value={billDate}
-                                    max={new Date().toISOString().split('T')[0]}
-                                    onChange={e => setbdate(e.target.value.toString())}
-                                    required />
-                                {errorMessage.billDate && <div className="text-danger">{errorMessage.billDate}</div>}
-                            </Form.Group>
-                            <Form.Group>
-                                <Form.Label>Contact number</Form.Label>
-                                <Form.Control
-                                    type='text'
-                                    value={mobile}
-                                    onChange={e => setMobile(e.target.value.slice(0, 10))}
-                                    maxLength={10} // added maxLength attribute to limit input
-                                    required />
-                                {errorMessage.mobile && <div className="text-danger">{errorMessage.mobile}</div>}
-                            </Form.Group>
-                        </Col>
-                            <Col>
-                                <Form.Group >
-                                    <Form.Label>Product name</Form.Label>
+                        <div className='mainflex'>
+                            <div className='subflex'>
+                                <Form.Group>
+                                    <Form.Label>Bill No</Form.Label>
+                                    <Form.Control
+                                        type='text'
+                                        value={billNo}
+                                        onChange={e => setbNo(e.target.value)}
+                                        required />
+                                    {errorMessage.billNo && <div className="text-danger">{errorMessage.billNo}</div>}
+                                </Form.Group>
+                                <Form.Group>
+                                    <Form.Label>Bill Date</Form.Label>
+                                    <Form.Control
+                                        type='date'
+                                        value={billDate}
+                                        max={new Date().toISOString().split('T')[0]}
+                                        onChange={e => setbdate(e.target.value.toString())}
+                                        required />
+                                    {errorMessage.billDate && <div className="text-danger">{errorMessage.billDate}</div>}
+                                </Form.Group>
+                                <Form.Group>
+                                    <Form.Label>Contact Number</Form.Label>
+                                    <Form.Control
+                                        type='text'
+                                        value={mobile}
+                                        onChange={e => setMobile(e.target.value.slice(0, 10))}
+                                        maxLength={10}
+                                        required />
+                                    {errorMessage.mobile && <div className="text-danger">{errorMessage.mobile}</div>}
+                                </Form.Group>
+                            </div>
+                            <div className='subflex'>
+                                <Form.Group>
+                                    <Form.Label>Product Name</Form.Label>
                                     <Form.Control
                                         type='text'
                                         value={pname}
@@ -183,8 +185,8 @@ const AddRepair = () => {
                                         required />
                                     {errorMessage.pname && <div className="text-danger">{errorMessage.pname}</div>}
                                 </Form.Group>
-                                <Form.Group >
-                                    <Form.Label>Describe your issue</Form.Label>
+                                <Form.Group>
+                                    <Form.Label>Describe Your Issue</Form.Label>
                                     <Form.Control
                                         type='text'
                                         value={description}
@@ -192,41 +194,36 @@ const AddRepair = () => {
                                         required />
                                     {errorMessage.description && <div className="text-danger">{errorMessage.description}</div>}
                                 </Form.Group>
-                            </Col>
-                            <Form.Group style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
-                                <Form.Label>Input some images on your issue</Form.Label>
-                                <Form.Control
-                                    type='file'
-                                    accept='image/'
-                                    width={400}
-                                    onChange={onInputChange}
-                                    multiple />
-
+                            </div>
+                        </div>
+                        <Form.Group>
+                            <Form.Label>Input Some Images on Your Issue</Form.Label>
+                            <Form.Control
+                                type='file'
+                                accept='image/*'
+                                onChange={onInputChange}
+                                multiple />
+                            <div className='image-preview'>
                                 {imagePreview && imagePreview.map((preview, index) => (
-                                    <div key={index} style={{ marginRight: '10px', marginBottom: '10px' }}>
-                                        <img src={preview} alt={`Preview ${index}`} style={{ width: '150px', height: '150px' }} />
+                                    <div key={index} className='image-container'>
+                                        <img src={preview} alt={`Preview ${index}`} />
                                     </div>
                                 ))}
-                                {errorMessage.images && <div className="text-danger">{errorMessage.images}</div>}
-                            </Form.Group>
-
-                        </Row>
+                            </div>
+                            {errorMessage.images && <div className="text-danger">{errorMessage.images}</div>}
+                        </Form.Group>
                         <br />
                         <div className='addrepdiv1'>
                             <Button variant='primary' onClick={addRep}>
                                 Submit
                             </Button>
                             <Button variant='primary' onClick={Repair}>
-                                Your repairs
+                                Your Repairs
                             </Button>
                         </div>
                     </Form>
-
                 </Layout>
-                <ToastContainer
-                    position="top-right"
-                    autoClose={1500} // Close the toast after 3 seconds
-                />
+                <ToastContainer position="top-right" autoClose={1500} />
             </div>
         )
     } else {
