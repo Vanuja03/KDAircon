@@ -117,7 +117,7 @@ const AddToCart = ({ submitted, data }) => {
         <Layout>
 
           <h1 className='text-center'>Our Products...</h1>
-          <Form.Group className="search-container">
+          <Form.Group className="search-container" style={{ marginRight: '4%' }}>
             <FaSearch className='searchicon' />
             <input
               className='search-input'
@@ -132,7 +132,7 @@ const AddToCart = ({ submitted, data }) => {
             <Row>
               {filteredProducts && filteredProducts.length > 0 ? (filteredProducts.map((product) => (
                 <Col key={product._id} md={4}>
-                  <Card className='mb-4 cards cardimg' style={{ position: 'center' }}>
+                  <Card className='mb-4 cards cardimg'>
                     <Card.Img
                       variant='top'
                       src={require(`../../src/images/${product.image}`)}

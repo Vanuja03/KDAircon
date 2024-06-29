@@ -145,7 +145,7 @@ const Feedbacks = () => {
     return (
         <div data-aos="fade-up">
             <center><h1>Our valuble feedbacks !!</h1></center>
-            <Form.Group className="search-container">
+            <Form.Group className="search-container" data-aos="fade-left">
                 <FaSearch className='searchicon' />
                 <input
                     className='search-input'
@@ -165,7 +165,7 @@ const Feedbacks = () => {
                     <Card key={feedbacks._id} className='cardfeed'>
                         <Card.Title className='disflex'>{feedbacks.name}
                             <div className='starrating'>
-                                <p> {feedbacks.pname}</p>
+                                {feedbacks.pname}
                             </div>
                         </Card.Title>
                         <Card.Title>{renderStarRating(feedbacks.rating)}</Card.Title>
