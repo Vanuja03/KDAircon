@@ -34,14 +34,13 @@ const Footer = () => {
             <h4>Quick links</h4>
             <ul>
               <li><a href="/">Home</a></li>
-              <li><a href="/staff">Products</a></li>
-              <li><a href="/">Vaccine</a></li>
-              <li><a href="/">Clinic</a></li>
-              <li><a href="/">Complains</a></li>
-              <li><a href="/">Dengue</a></li>
-              <li><a href="/">Raids</a></li>
-              <li><a href="/">Midwife</a></li>
-              <li><a href="/">Fine & Court</a></li>
+              <li><a href="/cart">Store</a></li>
+              <li><a href="/repair">Inquiry</a></li>
+              <li><a href="/Checkouts">Checkouts</a></li>
+              <li><a href="/PCheckouts">Customize Checkouts</a></li>
+              <li><a href="/aboutus">About us</a></li>
+              <li><a href="/news">News</a></li>
+
             </ul>
           </div>
 

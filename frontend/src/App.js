@@ -24,18 +24,15 @@ function App() {
     <Router>
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='/login' element={<Login />} />
         <Route path='/addproduct' element={<AddProduct />} />
         <Route path='/profile' element={<Profile />} />
         <Route path='/addToCart' element={<AddToCart />} />
-        <Route path='/updateP/:pid/:pname/:pdescription/:pprice/:pquantity/:image' element={<UpdateProduct />} />
         <Route path='/cart' element={<Cart />} />
         <Route path='/prefer' element={<PreferOrders />} />
         <Route path='/repair' element={<AddRepair />} />
         <Route path='/repairs' element={<Repairs />} />
         <Route path='/feedback' element={<Feedbacks />} />
         <Route path='/updateR/:_id/:cname/:billNo/:billDate/:pname/:description/:mobile' element={<UpdateRepair />} />
-        {/* <Route path='/updaterep/:_id' element={<UpdateRepair />} /> */}
         <Route path='/addfeedback' element={<AddFeedback />} />
         <Route path='/admincheckout' element={<AdminCheckouts />} />
         <Route path='/adminpcheckout' element={<AdminPCheckouts />} />
