@@ -8,10 +8,11 @@ import { Dialog } from '@mui/material';
 
 const UpdateRepair = () => {
 
-    const { _id, billNo, billDate, pname, description, mobile } = useParams();
+    const { _id, cname, billNo, billDate, pname, description, mobile } = useParams();
     const navigate = useNavigate();
 
     const [id_u, setID] = useState(_id);
+    const [cname_u, setcname] = useState(cname)
     const [billNo_u, setbNo] = useState(billNo);
     const [billDate_u, setbdate] = useState(billDate);
     const [pname_u, setpname] = useState(pname);
@@ -20,10 +21,11 @@ const UpdateRepair = () => {
     const [errorMessage, setErrorMessage] = useState('');
     const [open, setOpen] = useState(true);
 
-    const updateRepair = async (_id, billNo, billDate, pname, description, mobile) => {
+    const updateRepair = async (_id, cname, billNo, billDate, pname, description, mobile) => {
         try {
             const response = await Axios.post('http://localhost:4000/api/updateRepair', {
                 _id: _id,
+                cname,
                 billNo,
                 billDate,
                 pname,
@@ -38,12 +40,12 @@ const UpdateRepair = () => {
 
     const update = async () => {
 
-        if (!id_u || !billNo_u || !billDate_u || !pname_u || !description_u || !mobile_u) {
+        if (!id_u || !cname_u || !billNo_u || !billDate_u || !pname_u || !description_u || !mobile_u) {
             setErrorMessage('Please dont put black fields');
             return;
         }
         try {
-            const response = await updateRepair(id_u, billNo_u, billDate_u, pname_u, description_u, mobile_u);
+            const response = await updateRepair(id_u, cname_u, billNo_u, billDate_u, pname_u, description_u, mobile_u);
             console.log(response);
             setID(_id);
             navigate('/repairs');
@@ -59,6 +61,14 @@ const UpdateRepair = () => {
                         <p style={{ fontSize: '1.5em', textAlign: 'center' }}>Update Repair id = {_id}</p><br />
                         {errorMessage && <Alert variant='danger'>{errorMessage}</Alert>}
                         <Form>
+                            <Form.Group>
+                                <Form.Label>Your name</Form.Label>
+                                <Form.Control
+                                    type='text'
+                                    value={cname_u}
+                                    onChange={e => setcname(e.target.value)}
+                                    required />
+                            </Form.Group>
                             <Form.Group >
                                 <Form.Label>Bill No</Form.Label>
                                 <Form.Control

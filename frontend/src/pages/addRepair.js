@@ -15,6 +15,7 @@ import '../styles/addrepairs.css';
 
 const AddRepair = () => {
 
+    const [cname, setcname] = useState('');
     const [billNo, setbNo] = useState('');
     const [billDate, setbdate] = useState('');
     const [pname, setpname] = useState('');
@@ -55,6 +56,7 @@ const AddRepair = () => {
     }
 
     const validateSchema = Yup.object().shape({
+        cname: Yup.string().required('Customer name is required'),
         billNo: Yup.number().required('Bill No is Required'),
         pname: Yup.string().required('Product name is required'),
         billDate: Yup.string().required('Date is required'),
@@ -69,9 +71,10 @@ const AddRepair = () => {
 
         try {
 
-            await validateSchema.validate({ billNo, billDate, pname, description, images, mobile }, { abortEarly: false });
+            await validateSchema.validate({ cname, billNo, billDate, pname, description, images, mobile }, { abortEarly: false });
 
             const formData = new FormData();
+            formData.append("cname", cname);
             formData.append("billNo", billNo);
             formData.append("billDate", billDate);
             formData.append("pname", pname);
@@ -99,6 +102,7 @@ const AddRepair = () => {
                 icon: "success",
             }).then((result) => {
                 if (result.isConfirmed) {
+                    setcname('');
                     setbNo('');
                     setbdate('');
                     setpname('');
@@ -145,6 +149,15 @@ const AddRepair = () => {
                     <Form className='addrepform'>
                         <div className='mainflex'>
                             <div className='subflex'>
+                                <Form.Group>
+                                    <Form.Label>Your name</Form.Label>
+                                    <Form.Control
+                                        type='text'
+                                        value={cname}
+                                        onChange={e => setcname(e.target.value)}
+                                        required />
+                                    {errorMessage.cname && <div className="text-danger">{errorMessage.cname}</div>}
+                                </Form.Group>
                                 <Form.Group>
                                     <Form.Label>Bill No</Form.Label>
                                     <Form.Control
@@ -202,11 +215,12 @@ const AddRepair = () => {
                                 type='file'
                                 accept='image/*'
                                 onChange={onInputChange}
-                                multiple />
-                            <div className='image-preview'>
+                                multiple
+                            />
+                            <div className='image-preview' style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', marginTop: '10px' }}>
                                 {imagePreview && imagePreview.map((preview, index) => (
-                                    <div key={index} className='image-container'>
-                                        <img src={preview} alt={`Preview ${index}`} />
+                                    <div key={index} className='image-container' style={{ marginBottom: '10px' }}>
+                                        <img src={preview} alt={`Preview ${index}`} width={130} height={130} />
                                     </div>
                                 ))}
                             </div>

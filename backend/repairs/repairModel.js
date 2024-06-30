@@ -9,6 +9,7 @@ const imageSchema = new mongoose.Schema({
 
 const AddRepair = new mongoose.Schema({
 
+    cname: String,
     billNo: String,
     billDate: String,
     pname: String,

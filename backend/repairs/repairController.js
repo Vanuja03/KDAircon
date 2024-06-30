@@ -6,7 +6,7 @@ const addRepair = async (req, res) => {
 
     try {
 
-        const { billNo, billDate, pname, description, mobile, userMail } = req.body;
+        const { cname, billNo, billDate, pname, description, mobile, userMail } = req.body;
 
         const formattedBillDate = Array.isArray(billDate) ? billDate.join(', ') : billDate;
 
@@ -17,6 +17,7 @@ const addRepair = async (req, res) => {
         ));
 
         const newRepair = new Repair({
+            cname,
             billNo,
             billDate: formattedBillDate,
             pname,
@@ -69,11 +70,12 @@ const updateRepair = async (req, res) => {
 
     try {
 
-        const { _id, billNo, billDate, pname, description, mobile } = req.body;
+        const { _id, cname, billNo, billDate, pname, description, mobile } = req.body;
         const formattedBillDate = Array.isArray(billDate) ? billDate.join(', ') : billDate;
 
         const updatedRepair = await Repair.findOneAndUpdate({ _id }, {
             _id,
+            cname,
             billNo,
             billDate: formattedBillDate,
             pname,

@@ -20,7 +20,7 @@ const Home = () => {
   return (
     <div>
       <Layout>
-        <div className='homecontainer1'>
+        <div className='homecontainer1' data-aos="fade-up">
           <div className='homediv11'>
             <h1>Be cool at your own place</h1>
             <p className='homep'>Explore the new invention of Sri Lanka for the 1st time</p>
