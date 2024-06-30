@@ -18,28 +18,52 @@ import AdminPCheckouts from './pages/AdminPCheckouts';
 import Pcheckouts from './pages/Pcheckouts';
 import AdminRepairs from './pages/AdminRepairs';
 import News from './pages/News';
+import { useEffect, useState } from 'react';
 
 function App() {
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    setIsLoggedIn(user ? true : false);
+  }, []);
+
+  const user = JSON.parse(localStorage.getItem('user'));
+  const userMail = user ? user.email : null;
+  const admin = userMail === 'vinnathvanuja@gmail.com';
   return (
     <Router>
       <Routes>
+
         <Route path='/' element={<Home />} />
-        <Route path='/addproduct' element={<AddProduct />} />
-        <Route path='/profile' element={<Profile />} />
         <Route path='/addToCart' element={<AddToCart />} />
-        <Route path='/cart' element={<Cart />} />
-        <Route path='/prefer' element={<PreferOrders />} />
-        <Route path='/repair' element={<AddRepair />} />
-        <Route path='/repairs' element={<Repairs />} />
-        <Route path='/feedback' element={<Feedbacks />} />
-        <Route path='/updateR/:_id/:cname/:billNo/:billDate/:pname/:description/:mobile' element={<UpdateRepair />} />
-        <Route path='/addfeedback' element={<AddFeedback />} />
-        <Route path='/admincheckout' element={<AdminCheckouts />} />
-        <Route path='/adminpcheckout' element={<AdminPCheckouts />} />
-        <Route path='/Checkouts' element={<Checkouts />} />
-        <Route path='/PCheckouts' element={<Pcheckouts />} />
-        <Route path='/adminRepairs' element={<AdminRepairs />} />
         <Route path='/news' element={<News />} />
+
+        {isLoggedIn && (
+          <>
+            <Route path='/feedback' element={<Feedbacks />} />
+            <Route path='/cart' element={<Cart />} />
+            <Route path='/prefer' element={<PreferOrders />} />
+            <Route path='/repair' element={<AddRepair />} />
+            <Route path='/repairs' element={<Repairs />} />
+            <Route path='/updateR/:_id/:cname/:billNo/:billDate/:pname/:description/:mobile' element={<UpdateRepair />} />
+            <Route path='/addfeedback' element={<AddFeedback />} />
+            <Route path='/Checkouts' element={<Checkouts />} />
+            <Route path='/PCheckouts' element={<Pcheckouts />} />
+            <Route path='/profile' element={<Profile />} />
+          </>
+        )}
+
+        {admin && (
+          <>
+            <Route path='/admincheckout' element={<AdminCheckouts />} />
+            <Route path='/adminpcheckout' element={<AdminPCheckouts />} />
+            <Route path='/addproduct' element={<AddProduct />} />
+            <Route path='/adminRepairs' element={<AdminRepairs />} />
+          </>
+        )}
+
       </Routes>
     </Router>
   );
