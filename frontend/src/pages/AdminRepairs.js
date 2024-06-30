@@ -1,13 +1,14 @@
 import Axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import Layout from '../components/Layout';
-import { Button, MenuItem, Paper, Select, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
-import { FaCheck, FaCheckCircle, FaDotCircle, FaSearch } from 'react-icons/fa';
+import { Button, Dialog, DialogContent, MenuItem, Paper, Select, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import { FaCheck, FaCheckCircle, FaDotCircle, FaDownload, FaSearch } from 'react-icons/fa';
 import Swal from 'sweetalert2';
 import { Form } from 'react-bootstrap';
 import '../styles/searchinput.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import '../styles/adminrep.css';
 
 const AdminRepairs = () => {
 
@@ -16,6 +17,7 @@ const AdminRepairs = () => {
     const userMail = user ? user.email : null;
     const [filterstatus, setfilterStatus] = useState('All');
     const [searchQuery, setSearchQuery] = useState('');
+    const [expandedImage, setExpandedImage] = useState(null);
 
     const [Status, setstatus] = useState('');
 
@@ -84,6 +86,18 @@ const AdminRepairs = () => {
         product.pname.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
+    const handleImageExpand = (imageData) => {
+        setExpandedImage(imageData);
+    };
+
+    const handleDownload = () => {
+        const link = document.createElement('a');
+        link.href = `data:${expandedImage.contentType};base64,${expandedImage.data}`;
+        link.download = 'image.jpg'; // Set the filename for download
+        link.click();
+        toast.success('Image download successfully');
+    };
+
     return (
         <div>
             <Layout>
@@ -121,6 +135,7 @@ const AdminRepairs = () => {
                         <TableHead>
                             <TableRow>
                                 <TableCell>#</TableCell>
+                                <TableCell style={{ fontWeight: 'bold' }}>Customer name</TableCell>
                                 <TableCell style={{ fontWeight: 'bold' }}>BIll No</TableCell>
                                 <TableCell style={{ fontWeight: 'bold' }}>Bill Date</TableCell>
                                 <TableCell style={{ fontWeight: 'bold' }}>Product name</TableCell>
@@ -136,15 +151,24 @@ const AdminRepairs = () => {
                                 searchRepairs.map((rep, index) => (
                                     <TableRow key={rep._id}>
                                         <TableCell>{index + 1}</TableCell>
+                                        <TableCell>{rep.cname}</TableCell>
                                         <TableCell>{rep.billNo}</TableCell>
                                         <TableCell>{rep.billDate}</TableCell>
                                         <TableCell>{rep.pname}</TableCell>
-                                        <TableCell>{rep.description}</TableCell>
+                                        <TableCell style={{ maxWidth: '200px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', border: '1px solid #ddd', padding: '8px', textAlign: 'left', position: 'relative' }}>
+                                            <div style={{ overflowX: 'auto', maxWidth: '100%', height: '100%' }}>
+                                                {rep.description}
+                                            </div>
+                                        </TableCell>
                                         <TableCell>
                                             {Array.isArray(rep.images) ? (
                                                 rep.images.map((image, index) => (
                                                     <div className="imge" key={index} style={{ width: "50px", height: "100px" }}>
-                                                        <img src={`data:${image.contentType};base64,${image.data}`} alt={`Image`} width={50} height={50} />
+                                                        <img src={`data:${image.contentType};base64,${image.data}`} alt={`Image`} width={50} height={50}
+                                                            className='repimgs'
+                                                            onClick={() => handleImageExpand(image)}
+                                                            style={{ cursor: 'pointer' }}
+                                                        />
                                                     </div>
                                                 ))
                                             ) : (
@@ -186,7 +210,18 @@ const AdminRepairs = () => {
                         </TableBody>
                     </Table>
                 </TableContainer>
-
+                <Dialog maxWidth="xl" open={expandedImage !== null} onClose={() => setExpandedImage(null)}>
+                    <DialogContent>
+                        <FaDownload onClick={handleDownload} style={{ marginBottom: '5%', fontSize: '2em', cursor: 'pointer', color: 'black', marginLeft: '90%' }} />
+                        {expandedImage && ( // Check if expandedImage is not null or undefined
+                            <img
+                                src={`data:${expandedImage.contentType};base64,${expandedImage.data}`}
+                                alt="Expanded Image"
+                                className='reppopimages'
+                            />
+                        )}
+                    </DialogContent>
+                </Dialog>
             </Layout>
         </div>
     )

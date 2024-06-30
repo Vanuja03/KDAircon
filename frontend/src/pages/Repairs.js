@@ -21,36 +21,8 @@ const Repairs = () => {
   const userMail = user ? user.email : null;
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
-  const [updateRepair, setUpdateRepair] = useState({});
   const [searchQuery, setSearchQuery] = useState('');
-
-  const openUpdatePopup = (repair) => {
-    setUpdateRepair(repair);
-    setOpen(true);
-  }
-
-  const closeUpdatePopup = () => {
-    setOpen(false);
-    setUpdateRepair({});
-  }
-
-  const handleUpdateChange = (e) => {
-    const { name, value } = e.target;
-    setUpdateRepair({
-      ...updateRepair,
-      [name]: value,
-    })
-  }
-  const hanndleUpdateSave = async () => {
-    try {
-      const response = await Axios.post('http://localhost:4000/api/updateRepair', updateRepair);
-      console.log('Update repair response : ', response.data);
-      getRepair(userMail);
-      closeUpdatePopup();
-    } catch (error) {
-      console.error('Error updating repair :', error);
-    }
-  }
+  const [expandedImage, setExpandedImage] = useState(null);
 
   useEffect(() => {
     if (userMail) {
@@ -211,13 +183,13 @@ const Repairs = () => {
 
   };
 
-
-
-
   const searchRepairs = repair.filter(rep =>
     rep.pname.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  const handleImageExpand = (imageData) => {
+    setExpandedImage(imageData);
+  };
 
   return (
     <div><Layout>
@@ -267,7 +239,11 @@ const Repairs = () => {
                     {Array.isArray(rep.images) ? (
                       rep.images.map((image, index) => (
                         <div className="imge" key={index} style={{ width: "50px", height: "100px" }}>
-                          <img src={`data:${image.contentType};base64,${image.data}`} alt={`Image`} width={50} height={50} />
+                          <img src={`data:${image.contentType};base64,${image.data}`} alt={`Image`} width={50} height={50}
+                            className='repimg'
+                            onClick={() => handleImageExpand(image)}
+                            style={{ cursor: 'pointer' }}
+                          />
                         </div>
                       ))
                     ) : (
@@ -308,7 +284,25 @@ const Repairs = () => {
           </TableBody>
         </Table>
       </TableContainer>
-      <Row>
+      <Dialog maxWidth="xl" open={expandedImage !== null} onClose={() => setExpandedImage(null)}>
+        <DialogContent>
+          {expandedImage && ( // Check if expandedImage is not null or undefined
+            <img
+              src={`data:${expandedImage.contentType};base64,${expandedImage.data}`}
+              alt="Expanded Image"
+              className='reppopimage'
+            />
+          )}
+        </DialogContent>
+      </Dialog>
+    </Layout>
+    </div>
+  )
+}
+
+export default Repairs;
+
+/**<Row>
         {repair.map((rep) => (
           <Col key={rep._id} md={4}>
             <Card className='mb-4 cards'>
@@ -418,10 +412,4 @@ const Repairs = () => {
             </Button>
           </Form>
         </DialogContent>
-      </Dialog>
-    </Layout>
-    </div>
-  )
-}
-
-export default Repairs;
+      </Dialog> */
