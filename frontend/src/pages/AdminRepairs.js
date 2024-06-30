@@ -2,13 +2,15 @@ import Axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import Layout from '../components/Layout';
 import { Button, Dialog, DialogContent, MenuItem, Paper, Select, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
-import { FaCheck, FaCheckCircle, FaDotCircle, FaDownload, FaSearch } from 'react-icons/fa';
+import { FaCheck, FaCheckCircle, FaDotCircle, FaDownload, FaFilePdf, FaSearch } from 'react-icons/fa';
 import Swal from 'sweetalert2';
 import { Form } from 'react-bootstrap';
 import '../styles/searchinput.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '../styles/adminrep.css';
+import jsPDF from 'jspdf';
+import kdlogo from '../images2/kdhomelg.png';
 
 const AdminRepairs = () => {
 
@@ -97,6 +99,106 @@ const AdminRepairs = () => {
         link.click();
         toast.success('Image download successfully');
     };
+
+    const genrepPdf = (repairs) => {
+        const doc = new jsPDF();
+
+        const logo = new Image();
+        logo.src = kdlogo;
+
+        // Increase the width and height of the logo
+        const logoWidth = 60;
+        const logoHeight = 25;
+        doc.addImage(logo, 'PNG', 10, 10, logoWidth, logoHeight);
+
+        doc.setFontSize(12);
+        doc.text('KD Aircon Industries Private Limited', 75, 15); // Adjusted x position to align with the wider logo
+        doc.text('321/p1, Kalderam Maduwatte Rd,', 75, 20);
+        doc.text('Panadura, Sri Lanka.', 75, 25);
+        doc.text('Tel: Tel: 038-2249772, 077-2855178, 077-2076147', 75, 30);
+
+        // Add page border
+        doc.setDrawColor(0);
+        doc.setLineWidth(0.5);
+        doc.rect(0, 0, doc.internal.pageSize.width, doc.internal.pageSize.height, 'S');
+
+        // Add horizontal line
+        doc.setLineWidth(0.5);
+        doc.line(5, 45, 205, 45);
+
+        // Leave summary topic
+        doc.setFontSize(18);
+        doc.setFont('helvetica', 'bold');
+        const text = 'Your Repair Inquiry Summary';
+        const textWidth = doc.getTextWidth(text);
+        doc.text(text, 105, 60, { align: 'center' });
+        doc.setLineWidth(0.5);
+        doc.line((doc.internal.pageSize.width - textWidth) / 2, 62, (doc.internal.pageSize.width + textWidth) / 2, 62);
+
+        // Add the repair details
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(12); // Reset font to normal
+        doc.text(`Customer name: ${repairs.cname}`, 15, 80);
+        doc.text(`Customer Email: ${repairs.userMail}`, 15, 90);
+        doc.text(`Bill No : ${repairs.billNo}`, 15, 100);
+        doc.text(`Bill Date : ${repairs.billDate}`, 15, 110);
+        doc.text(`Product name : ${repairs.pname}`, 15, 120);
+        doc.text(`Contact number : ${repairs.mobile}`.toString(), 15, 130);
+        if (repairs.status === 'Pending') {
+            doc.setTextColor(255, 0, 0); // Red color
+            doc.setFont('helvetica', 'bold');
+            doc.text(`Current status : ${repairs.status}`, 15, 140);
+        } else {
+            doc.setTextColor(0, 128, 0); // Green color
+            doc.setFont('helvetica', 'bold');
+            doc.text(`Current status : ${repairs.status}`, 15, 140);
+        }
+
+        // Add the description text
+        doc.setFont('helvetica', 'normal');
+        doc.setTextColor(0);
+        const descriptionText = `Issue: ${repairs.description}`;
+        const descriptionLines = doc.splitTextToSize(descriptionText, 190); // Adjust width as needed
+        doc.text(descriptionLines, 15, 150);
+
+        // Add the "Images:" label closer to the images
+        doc.text('Images:', 15, 175);
+
+        // Add the images with smaller size and reduced margin
+        let xPos = 15;
+        let yPos = 185; // Reduced yPos to move images closer to the text
+        if (Array.isArray(repairs.images)) {
+            repairs.images.forEach((image, index) => {
+                if (index > 0 && index % 3 === 0) {
+                    yPos += 40; // Move to the next row
+                    xPos = 15; // Reset xPos for the new row
+                }
+                const imageData = `data:${image.contentType};base64,${image.data}`;
+                doc.addImage(imageData, 'JPEG', xPos, yPos, 50, 30); // Reduced dimensions
+                xPos += 60; // Adjust horizontal spacing between images
+            });
+        } else {
+            doc.text('No images available', 15, 170);
+        }
+
+        const currentDate = new Date();
+        const formattedDate = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate()} ${currentDate.getHours()}:${currentDate.getMinutes()}:${currentDate.getSeconds()}`;
+        doc.setFontSize(10);
+        doc.text(`Generated on: ${formattedDate}`, doc.internal.pageSize.width - 15, 274, { align: 'right' });
+
+        const pageHeight = doc.internal.pageSize.height;
+        doc.setLineWidth(0.5);
+        doc.line(5, pageHeight - 20, 205, pageHeight - 20);
+
+        // Add footer text
+        doc.setFontSize(10);
+        doc.text('All rights reserved || KD Aircon Industries Pvt Limited', 105, pageHeight - 10, { align: 'center' });
+
+        doc.save(`Repair inquiry summary_${repairs.cname}.pdf`);
+
+
+    };
+
 
     return (
         <div>
@@ -199,6 +301,7 @@ const AdminRepairs = () => {
                                             <Button onClick={() => RepairUpdate(rep._id)}>
                                                 <FaCheck />
                                             </Button>
+                                            <Button onClick={() => genrepPdf(rep)}><FaFilePdf style={{ color: 'red', cursor: 'pointer' }} /></Button>
                                         </TableCell>
                                     </TableRow>
                                 ))

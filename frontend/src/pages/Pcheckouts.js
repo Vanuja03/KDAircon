@@ -2,10 +2,12 @@ import { MenuItem, Select, TableBody, TableCell, TableContainer, TableHead, Tabl
 import Axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Form, Table } from 'react-bootstrap';
-import { FaCheckCircle, FaCircleNotch, FaDotCircle, FaSearch, FaTrash } from 'react-icons/fa';
+import { FaCheckCircle, FaCircleNotch, FaDotCircle, FaFilePdf, FaSearch, FaTrash } from 'react-icons/fa';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import '../styles/searchinput.css'
+import '../styles/searchinput.css';
+import jsPDF from 'jspdf';
+import kdlogo from '../images2/kdhomelg.png';
 
 const Pcheckouts = () => {
 
@@ -43,6 +45,96 @@ const Pcheckouts = () => {
             console.error('Axios error: ', error);
             toast.error('Error deleting checkout');
         }
+    };
+
+    const genChkPdf = (Chks) => {
+        const doc = new jsPDF();
+
+        const logo = new Image();
+        logo.src = kdlogo;
+
+        // Increase the width and height of the logo
+        const logoWidth = 60;
+        const logoHeight = 25;
+        doc.addImage(logo, 'PNG', 10, 10, logoWidth, logoHeight);
+
+        doc.setFontSize(12);
+        doc.text('KD Aircon Industries Private Limited', 75, 15); // Adjusted x position to align with the wider logo
+        doc.text('321/p1, Kalderam Maduwatte Rd,', 75, 20);
+        doc.text('Panadura, Sri Lanka.', 75, 25);
+        doc.text('Tel: Tel: 038-2249772, 077-2855178, 077-2076147', 75, 30);
+
+        // Add page border
+        doc.setDrawColor(0);
+        doc.setLineWidth(0.5);
+        doc.rect(0, 0, doc.internal.pageSize.width, doc.internal.pageSize.height, 'S');
+
+        // Add horizontal line
+        doc.setLineWidth(0.5);
+        doc.line(5, 45, 205, 45);
+
+        // Leave summary topic
+        doc.setFontSize(18);
+        doc.setFont('helvetica', 'bold');
+        const text = 'Your Customized Checkout';
+        const textWidth = doc.getTextWidth(text);
+        doc.text(text, 105, 60, { align: 'center' });
+        doc.setLineWidth(0.5);
+        doc.line((doc.internal.pageSize.width - textWidth) / 2, 62, (doc.internal.pageSize.width + textWidth) / 2, 62);
+
+        // Add the repair details
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(12); // Reset font to normal
+        doc.text(`Product name: ${Chks.pname}`, 15, 80);
+        doc.text(`Size: ${Chks.psize}`, 15, 90);
+
+        if (Chks.pGasType) {
+            doc.text(`Gas type : ${Chks.pGasType}`, 15, 100);
+        }
+
+        if (Chks.pTubeSize) {
+            doc.text(`Tube Size : ${Chks.pTubeSize}`, 15, 110);
+        }
+        doc.text(`Quantity : ${Chks.quantity} `, 15, 120);
+
+
+        if (Chks.status === 'Pending') {
+            doc.setTextColor(255, 0, 0); // Red color
+            doc.setFont('helvetica', 'bold');
+            doc.text(`Current status : ${Chks.status}`, 15, 130);
+        } else if (Chks.status === 'In Progress') {
+            doc.setTextColor(0, 0, 255);//blue color
+            doc.setFont('helvetica', 'bold');
+            doc.text(`Current status : ${Chks.status}`, 15, 130);
+        }
+        else {
+            doc.setTextColor(0, 128, 0); // Green color
+            doc.setFont('helvetica', 'bold');
+            doc.text(`Current status : ${Chks.status}`, 15, 130);
+        }
+
+        // Add the description text
+        doc.setFont('helvetica', 'normal');
+        doc.setTextColor(0);
+        doc.text(`Contact No : ${Chks.mobile}`, 15, 140);
+        doc.text(`Email : ${Chks.userMail}`, 15, 150);
+
+        const currentDate = new Date();
+        const formattedDate = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate()} ${currentDate.getHours()}:${currentDate.getMinutes()}:${currentDate.getSeconds()}`;
+        doc.setFontSize(10);
+        doc.text(`Generated on: ${formattedDate}`, doc.internal.pageSize.width - 15, 274, { align: 'right' });
+
+        const pageHeight = doc.internal.pageSize.height;
+        doc.setLineWidth(0.5);
+        doc.line(5, pageHeight - 20, 205, pageHeight - 20);
+
+        // Add footer text
+        doc.setFontSize(10);
+        doc.text('All rights reserved || KD Aircon Industries Pvt Limited', 105, pageHeight - 10, { align: 'center' });
+
+        doc.save(`Checkout_${Chks.userMail}.pdf`);
+
+
     };
 
     const yourcheckouts = checkouts.filter(checkout => checkout.userMail === userMail);
@@ -124,10 +216,11 @@ const Pcheckouts = () => {
                                         )}
                                     </TableCell>
                                     <TableCell>
+                                        <FaFilePdf onClick={() => genChkPdf(checkout)} style={{ marginRight: '20%', color: 'red', cursor: 'pointer', fontSize: '1.5em' }} />
                                         {checkout.status === 'Pending' ? (
-                                            <FaTrash onClick={() => deleteCheckout(checkout._id, checkout.status)} style={{ cursor: 'pointer' }} />
+                                            <FaTrash onClick={() => deleteCheckout(checkout._id, checkout.status)} style={{ cursor: 'pointer', fontSize: '1.5em' }} />
                                         ) : (
-                                            <span style={{ color: 'gray', cursor: 'not-allowed' }}>
+                                            <span style={{ color: 'gray', cursor: 'not-allowed', fontSize: '1.5em' }}>
                                                 <FaTrash />
                                             </span>
                                         )}
