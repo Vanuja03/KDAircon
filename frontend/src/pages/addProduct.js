@@ -199,7 +199,7 @@ const AddProduct = () => {
                             </Col>
                         </Row>
                         <br />
-                        <Button variant='primary' style={{ backgroundColor: '#55c2da ' }} onClick={addProduct}>
+                        <Button variant='primary' /*style={{ backgroundColor: '#55c2da ' }}*/ onClick={addProduct}>
                             Add Product for the world
                         </Button>
                     </Form>
