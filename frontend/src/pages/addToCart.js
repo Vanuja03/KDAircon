@@ -10,7 +10,9 @@ import '../styles/addCarts.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import * as Yup from 'yup';
-import '../styles/searchinput.css'
+import '../styles/searchinput.css';
+import Aos from 'aos';
+import 'aos/dist/aos.css';
 
 
 
@@ -26,6 +28,11 @@ const AddToCart = ({ submitted, data }) => {
   useEffect(() => {
     getProducts();
   }, []);
+
+  useEffect(() => {
+    Aos.init({ duration: 1000 });
+  }, []);
+
   const getProducts = async () => {
     try {
       const response = await Axios.get('http://localhost:4000/api/products')
@@ -103,8 +110,8 @@ const AddToCart = ({ submitted, data }) => {
     return (
       <div>
         <Layout>
-          <h1 className='text-center'>Our Products...</h1>
-          <Form.Group className="search-container" style={{ marginRight: '4%' }}>
+          <h1 className='text-center' data-aos="fade-up">Our Products...</h1>
+          <Form.Group className="search-container" style={{ marginRight: '4%' }} data-aos="fade-left">
             <FaSearch className='searchicon' />
             <input
               className='search-input'
@@ -114,11 +121,11 @@ const AddToCart = ({ submitted, data }) => {
               onChange={e => setSearchQuery(e.target.value)}
             />
           </Form.Group>
-          <Container>
+          <Container data-aos="fade-up">
             <Row>
               {filteredProducts && filteredProducts.length > 0 ? (filteredProducts.map((product) => (
-                <Col key={product._id} md={4}>
-                  <Card className='mb-4 cards cardimg'>
+                <Col key={product._id} md={4} data-aos="fade-up">
+                  <Card className='mb-4 cards cardimg' data-aos="fade-up">
                     <Card.Img
                       variant='top'
                       src={require(`../../src/images/${product.image}`)}

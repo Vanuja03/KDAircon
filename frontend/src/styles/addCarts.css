@@ -2,7 +2,9 @@
     width: 80%;
 }
 
-
+.cards:hover {
+    transform: scale(1.3);
+}
 
 .cardimg img:hover {
     transition: transform 1s ease;

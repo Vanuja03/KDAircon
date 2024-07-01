@@ -11,7 +11,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import 'jspdf-autotable';
 import '../styles/Nv.css';
 import * as Yup from 'yup';
-import '../styles/searchinput.css'
+import '../styles/searchinput.css';
+import Aos from 'aos';
+import 'aos/dist/aos.css';
 
 const Cart = () => {
 
@@ -25,6 +27,9 @@ const Cart = () => {
 
   const [checkout, setcheckout] = useState([]);
 
+  useEffect(() => {
+    Aos.init({ duration: 1000 });
+  }, []);
 
   const [open, setopen] = useState(false);
 
@@ -163,7 +168,7 @@ const Cart = () => {
       <Layout>
 
         <h1 className='text-center'>Your cart</h1>
-        <Form.Group className="search-container">
+        <Form.Group className="search-container" data-aos="fade-left">
           <FaSearch className='searchicon' />
           <input
             className='search-input'
@@ -173,7 +178,7 @@ const Cart = () => {
             onChange={e => setSearchQuery(e.target.value)}
           />
         </Form.Group>
-        <TableContainer component={Paper}>
+        <TableContainer component={Paper} data-aos="fade-up">
           <Table>
             <TableHead>
               <TableRow>

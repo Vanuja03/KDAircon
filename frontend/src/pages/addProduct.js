@@ -8,6 +8,7 @@ import * as Yup from 'yup';
 import Aos from 'aos';
 import 'aos/dist/aos.css';
 
+
 const AddProduct = () => {
 
     const [pid, setpid] = useState(0);
@@ -116,12 +117,16 @@ const AddProduct = () => {
         }
     }
 
+    useEffect(() => {
+        Aos.init({ duration: 1000 });
+    }, []);
+
     return (
         <>
             <div className='page'>
                 <Layout>
-                    <h1 className='text-center'>Add product</h1>
-                    <Form style={{ marginLeft: '2%', marginRight: '2%' }}>
+                    <h1 className='text-center' data-aos="fade-bottom">Add product</h1>
+                    <Form style={{ marginLeft: '2%', marginRight: '2%' }} data-aos="fade-right">
                         <Row>
                             <Col>
                                 <Form.Group controlId='pID'>
@@ -194,7 +199,7 @@ const AddProduct = () => {
                             </Col>
                         </Row>
                         <br />
-                        <Button variant='primary' onClick={addProduct}>
+                        <Button variant='primary' style={{ backgroundColor: '#55c2da ' }} onClick={addProduct}>
                             Add Product for the world
                         </Button>
                     </Form>

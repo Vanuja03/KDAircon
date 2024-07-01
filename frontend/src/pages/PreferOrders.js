@@ -4,6 +4,8 @@ import { Alert, Button, Card, Col, Container, Form, Row } from 'react-bootstrap'
 import Axios from 'axios';
 import Swal from 'sweetalert2';
 import * as Yup from 'yup';
+import Aos from 'aos';
+import 'aos/dist/aos.css';
 
 const PreferOrders = () => {
 
@@ -24,7 +26,11 @@ const PreferOrders = () => {
     quantity: Yup.number().required('Quantity is required').min(1, 'Quantity must be at least 1'),
     pTubeSize: pname === 'Condenser' ? Yup.string().required('Tube size is required') : Yup.string(),
     pGasType: pname === 'Brand new outdoor unit air conditioner' ? Yup.string().required('Gas type is required') : Yup.string()
-  })
+  });
+
+  useEffect(() => {
+    Aos.init({ duration: 1000 });
+  }, []);
 
   const addPrefer = async () => {
 
@@ -73,11 +79,11 @@ const PreferOrders = () => {
       <br />
       <br />
       <Container>
-        <h1 className='text-center'>Customized products</h1>
+        <h1 className='text-center' data-aos="fade-left">Customized products</h1>
         <Row>
           {errorMessage && <Alert variant='danger'>{errorMessage}</Alert>}
           <Col md={4}>
-            <Card className='mb-4 cards'>
+            <Card className='mb-4 cards' data-aos="fade-up">
               <Card.Img
                 variant='top'
                 height={250}
@@ -179,7 +185,7 @@ const PreferOrders = () => {
             </Card>
           </Col>
           <Col md={4}>
-            <Card className='mb-4 cards'>
+            <Card className='mb-4 cards' data-aos="fade-up">
               <Card.Img
                 variant='top'
                 height={250}
@@ -220,7 +226,7 @@ const PreferOrders = () => {
             </Card>
           </Col>
           <Col md={4}>
-            <Card className='mb-4 cards'>
+            <Card className='mb-4 cards' data-aos="fade-up">
               <Card.Img
                 variant='top'
                 height={250}

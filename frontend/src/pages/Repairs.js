@@ -11,6 +11,8 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import '../styles/searchinput.css';
 import jsPDF from 'jspdf';
 import kdlogo from '../images2/kdhomelg.png';
+import Aos from 'aos';
+import 'aos/dist/aos.css';
 
 import 'swiper/css';
 
@@ -29,6 +31,10 @@ const Repairs = () => {
       getRepair(userMail);
     }
   }, [userMail]);
+
+  useEffect(() => {
+    Aos.init({ duration: 1000 });
+  }, []);
 
   const getRepair = (userMail) => {
 
@@ -193,8 +199,8 @@ const Repairs = () => {
 
   return (
     <div><Layout>
-      <h1 className='text-center'>Your inquiries</h1>
-      <Form.Group className="search-container">
+      <h1 className='text-center' data-aos="fade-up">Your inquiries</h1>
+      <Form.Group className="search-container" data-aos="fade-left">
         <FaSearch className='searchicon' />
         <input
           className='search-input'
@@ -204,7 +210,7 @@ const Repairs = () => {
           onChange={e => setSearchQuery(e.target.value)}
         />
       </Form.Group>
-      <TableContainer component={Paper}>
+      <TableContainer component={Paper} data-aos="fade-up">
         <Table>
           <TableHead>
             <TableRow>

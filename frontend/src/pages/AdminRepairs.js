@@ -11,6 +11,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import '../styles/adminrep.css';
 import jsPDF from 'jspdf';
 import kdlogo from '../images2/kdhomelg.png';
+import Aos from 'aos';
+import 'aos/dist/aos.css';
 
 const AdminRepairs = () => {
 
@@ -22,6 +24,10 @@ const AdminRepairs = () => {
     const [expandedImage, setExpandedImage] = useState(null);
 
     const [Status, setstatus] = useState('');
+
+    useEffect(() => {
+        Aos.init({ duration: 1000 });
+    }, []);
 
     const getRepairs = () => {
         Axios.get('http://localhost:4000/api/Allrepairs')
@@ -208,7 +214,7 @@ const AdminRepairs = () => {
                     hideProgressBar={false} // Show a progress bar
                     closeOnClick={false} />
                 <h1 className='text-center'>Review repair inquiries</h1>
-                <Form.Group style={{ marginLeft: '5%', fontWeight: 'bold' }}>
+                <Form.Group style={{ marginLeft: '5%', fontWeight: 'bold' }} data-aos="fade-right">
                     <Form.Label>Filter by status</Form.Label>
                     <Select
                         value={filterstatus}
@@ -222,7 +228,7 @@ const AdminRepairs = () => {
                         <MenuItem value='Reviewed' style={{ color: 'green', fontWeight: 'bold' }}>Reviewed</MenuItem>
                     </Select>
                 </Form.Group>
-                <Form.Group className="search-container">
+                <Form.Group className="search-container" data-aos="fade-right">
                     <FaSearch className='searchicon' />
                     <input
                         className='search-input'
@@ -232,7 +238,7 @@ const AdminRepairs = () => {
                         onChange={e => setSearchQuery(e.target.value)}
                     />
                 </Form.Group>
-                <TableContainer component={Paper}>
+                <TableContainer component={Paper} data-aos="fade-up">
                     <Table>
                         <TableHead>
                             <TableRow>

@@ -8,6 +8,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import '../styles/searchinput.css';
 import jsPDF from 'jspdf';
 import kdlogo from '../images2/kdhomelg.png';
+import Aos from 'aos';
+import 'aos/dist/aos.css';
 
 const Pcheckouts = () => {
 
@@ -16,6 +18,10 @@ const Pcheckouts = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const userMail = user ? user.email : null;
     const [filterstatus, setfilterStatus] = useState('All');
+
+    useEffect(() => {
+        Aos.init({ duration: 1000 });
+    }, []);
 
     const getCheckout = async () => {
         try {
@@ -153,7 +159,7 @@ const Pcheckouts = () => {
         <div>
             <h1 className='text-center'>Customized order checkouts</h1>
             <ToastContainer />
-            <Form.Group style={{ marginLeft: '5%', fontWeight: 'bold' }}>
+            <Form.Group style={{ marginLeft: '5%', fontWeight: 'bold' }} data-aos="fade-right">
                 <Form.Label>Filter by Status</Form.Label>
                 <Select
                     value={filterstatus}
@@ -168,7 +174,7 @@ const Pcheckouts = () => {
                     <MenuItem value='Completed' style={{ color: 'green', fontWeight: 'bold' }}>Completed</MenuItem>
                 </Select>
             </Form.Group>
-            <Form.Group className="search-container">
+            <Form.Group className="search-container" data-aos="fade-left">
                 <FaSearch className='searchicon' />
                 <input
                     className='search-input'
@@ -178,7 +184,7 @@ const Pcheckouts = () => {
                     onChange={e => setSearchQuery(e.target.value)}
                 />
             </Form.Group>
-            <TableContainer>
+            <TableContainer data-aos="fade-up">
                 <Table>
                     <TableHead>
                         <TableRow>

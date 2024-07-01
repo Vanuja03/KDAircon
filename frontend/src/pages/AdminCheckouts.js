@@ -8,6 +8,8 @@ import Layout from '../components/Layout';
 import '../styles/searchinput.css'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Aos from 'aos';
+import 'aos/dist/aos.css';
 
 const AdminCheckouts = () => {
     const [checkouts, setcheckouts] = useState([]);
@@ -36,6 +38,10 @@ const AdminCheckouts = () => {
 
     useEffect(() => {
         getcheckout();
+    }, []);
+
+    useEffect(() => {
+        Aos.init({ duration: 1000 });
     }, []);
 
 
@@ -103,7 +109,7 @@ const AdminCheckouts = () => {
                     hideProgressBar={false} // Show a progress bar
                     closeOnClick={false} />
                 <center><h1>Normal Checkouts</h1></center>
-                <Form.Group style={{ marginLeft: '5%', fontWeight: 'bold' }}>
+                <Form.Group style={{ marginLeft: '5%', fontWeight: 'bold' }} data-aos="fade-right">
                     <Form.Label>Filter by Status</Form.Label>
                     <Select
                         value={filterstatus}
@@ -118,7 +124,7 @@ const AdminCheckouts = () => {
                         <MenuItem value='Completed' style={{ color: 'green', fontWeight: 'bold' }}>Completed</MenuItem>
                     </Select>
                 </Form.Group>
-                <Form.Group className="search-container">
+                <Form.Group className="search-container" data-aos="fade-left">
                     <FaSearch className='searchicon' />
                     <input
                         className='search-input'
@@ -128,7 +134,7 @@ const AdminCheckouts = () => {
                         onChange={e => setSearchQuery(e.target.value)}
                     />
                 </Form.Group>
-                <TableContainer>
+                <TableContainer data-aos="fade-up">
                     <Table>
                         <TableHead>
                             <TableRow>

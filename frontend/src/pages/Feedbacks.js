@@ -215,7 +215,7 @@ const Feedbacks = () => {
             <Dialog open={openyf} maxWidth='xl'>
                 <DialogTitle className='text-center' style={{ fontSize: '2em' }}>Your feedbacks <Button variant='danger' style={{ marginLeft: '4%' }} onClick={() => setopenyf(false)}><FaTimes /></Button></DialogTitle>
                 <DialogContent>
-                    <Form.Group className="search-container">
+                    <Form.Group className="search-container" data-aos="fade-left">
                         <FaSearch className='searchicon' />
                         <input
                             className='search-input'
@@ -227,7 +227,7 @@ const Feedbacks = () => {
                     </Form.Group>
                     {searchYourFeedbacks && searchYourFeedbacks.length > 0 ? (
                         searchYourFeedbacks.map((feedbacks) => (
-                            <Card key={feedbacks._id} className='cardfeed'>
+                            <Card key={feedbacks._id} className='cardfeed' data-aos="fade-up">
                                 <Card.Title className='disflex'>{feedbacks.name}
                                     <div className='starrating' style={{}}>
                                         {feedbacks.pname} -

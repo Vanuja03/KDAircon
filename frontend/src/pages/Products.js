@@ -5,7 +5,10 @@ import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { FaEdit, FaSearch, FaTrash } from 'react-icons/fa';
 import { Col, Form, Row } from 'react-bootstrap';
-import '../styles/searchinput.css'
+import '../styles/searchinput.css';
+import Aos from 'aos';
+import 'aos/dist/aos.css';
+
 
 const Products = () => {
     const [products, setProducts] = useState([]);
@@ -13,6 +16,7 @@ const Products = () => {
     const [updateProduct, setUpdateProduct] = useState({});
     const [open, setOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
+
 
     const getProducts = async () => {
         try {
@@ -44,22 +48,6 @@ const Products = () => {
             [name]: value,
         });
     }
-
-    const updateProducts = async (pid, pname, pdescription, pprice, pquantity) => {
-        try {
-            const response = await Axios.post('http://localhost:4000/api/updateProduct', {
-                pid,
-                pname,
-                pdescription,
-                pprice,
-                pquantity,
-            });
-            console.log('Update product response : ', response.data);
-            return response.data;
-        } catch (error) {
-            console.error('Error updating product axios error : ', error);
-        }
-    };
 
     const handleUpdateSave = async () => {
         try {
@@ -136,9 +124,13 @@ const Products = () => {
         product.pname.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
+    useEffect(() => {
+        Aos.init({ duration: 1000 });
+    }, []);
+
     return (
-        <div>
-            <Form.Group className="search-container">
+        <div data-aos="fade-up">
+            <Form.Group className="search-container" data-aos="fade-left">
                 <FaSearch className='searchicon' />
                 <input
                     className='search-input'

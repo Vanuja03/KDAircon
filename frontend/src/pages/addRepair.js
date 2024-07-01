@@ -12,6 +12,8 @@ import '../styles/addrep.css';
 import Login from './googlelogin'
 import { Dialog } from '@mui/material'
 import '../styles/addrepairs.css';
+import Aos from 'aos';
+import 'aos/dist/aos.css';
 
 const AddRepair = () => {
 
@@ -141,12 +143,16 @@ const AddRepair = () => {
         navigate('/repairs');
     }
 
+    useEffect(() => {
+        Aos.init({ duration: 1000 });
+    }, []);
+
     if (user) {
         return (
             <div>
                 <Layout>
-                    <h1 className='text-center' style={{ marginTop: '20px' }}>Add a Repair Inquiry</h1><br />
-                    <Form className='addrepform'>
+                    <h1 className='text-center' style={{ marginTop: '20px' }} data-aos="fade-up">Add a Repair Inquiry</h1><br />
+                    <Form className='addrepform' data-aos="fade-up">
                         <div className='mainflex'>
                             <div className='subflex'>
                                 <Form.Group>
@@ -228,10 +234,10 @@ const AddRepair = () => {
                         </Form.Group>
                         <br />
                         <div className='addrepdiv1'>
-                            <Button variant='primary' onClick={addRep}>
+                            <Button variant='primary' onClick={addRep} data-aos="fade-right">
                                 Submit
                             </Button>
-                            <Button variant='primary' onClick={Repair}>
+                            <Button variant='primary' onClick={Repair} data-aos="fade-left">
                                 Your Repairs
                             </Button>
                         </div>

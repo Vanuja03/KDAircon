@@ -10,6 +10,8 @@ import Pcheckouts from './Pcheckouts';
 import Layout from '../components/Layout';
 import jsPDF from 'jspdf';
 import kdlogo from '../images2/kdhomelg.png';
+import Aos from 'aos';
+import 'aos/dist/aos.css';
 
 const Checkouts = () => {
     const [checkouts, setCheckouts] = useState([]);
@@ -32,7 +34,9 @@ const Checkouts = () => {
         getCheckout();
     }, []);
 
-
+    useEffect(() => {
+        Aos.init({ duration: 1000 });
+    }, []);
 
     const deleteCheckout = async (_id, status) => {
         if (status === 'Completed') {
@@ -151,8 +155,8 @@ const Checkouts = () => {
     return (
         <div>
             <Layout>
-                <h1 className='text-center'>Your checkouts</h1>
-                <Form.Group style={{ marginLeft: '5%', fontWeight: 'bold' }}>
+                <h1 className='text-center' >Your checkouts</h1>
+                <Form.Group style={{ marginLeft: '5%', fontWeight: 'bold' }} data-aos="fade-right">
                     <Form.Label>Filter by Status</Form.Label>
                     <Select
                         value={filterstatus}
@@ -167,7 +171,7 @@ const Checkouts = () => {
                         <MenuItem value='Completed' style={{ color: 'green', fontWeight: 'bold' }}>Completed</MenuItem>
                     </Select>
                 </Form.Group>
-                <Form.Group className="search-container">
+                <Form.Group className="search-container" data-aos="fade-left">
                     <FaSearch className='searchicon' />
                     <input
                         className='search-input'
@@ -178,7 +182,7 @@ const Checkouts = () => {
                     />
                 </Form.Group>
                 <ToastContainer />
-                <TableContainer>
+                <TableContainer data-aos="fade-up">
                     <Table>
                         <TableHead>
                             <TableRow>
