@@ -9,6 +9,7 @@ import Swal from 'sweetalert2';
 import Aos from 'aos';
 import 'aos/dist/aos.css';
 import '../styles/searchinput.css';
+import '../styles/topics.css';
 
 const Feedbacks = () => {
     const [feedback, setFeedbacks] = useState([]);
@@ -155,7 +156,7 @@ const Feedbacks = () => {
 
     return (
         <div data-aos="fade-up">
-            <center><h1>Our valuable feedbacks !!</h1></center>
+            <h1 className='topic'>Our valuable feedbacks !!</h1>
             <Form.Group className="search-container" data-aos="fade-left">
                 <FaSearch className='searchicon' />
                 <input

@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 import * as Yup from 'yup';
 import Aos from 'aos';
 import 'aos/dist/aos.css';
-
+import '../styles/topics.css';
 
 const AddProduct = () => {
 
@@ -125,7 +125,7 @@ const AddProduct = () => {
         <>
             <div className='page'>
                 <Layout>
-                    <h1 className='text-center' data-aos="fade-bottom">Add product</h1>
+                    <h1 className='topic' data-aos="fade-bottom">Add product</h1><br />
                     <Form style={{ marginLeft: '2%', marginRight: '2%' }} data-aos="fade-right">
                         <Row>
                             <Col>

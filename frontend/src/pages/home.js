@@ -10,6 +10,9 @@ import service from '../images2/service.png';
 import warranty from '../images2/warant.png';
 import Aos from 'aos';
 import 'aos/dist/aos.css';
+import News from './News';
+import '../styles/topics.css';
+
 
 const Home = () => {
   useEffect(() => {
@@ -52,8 +55,9 @@ const Home = () => {
             </div>
           </div>
         </div>
+        <News />
         <Container>
-          <h1>About us</h1>
+          <h1 className='topic'>About us</h1>
           <div className='homeflex3'>
 
           </div>

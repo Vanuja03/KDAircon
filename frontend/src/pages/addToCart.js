@@ -13,6 +13,7 @@ import * as Yup from 'yup';
 import '../styles/searchinput.css';
 import Aos from 'aos';
 import 'aos/dist/aos.css';
+import '../styles/topics.css';
 
 
 
@@ -110,7 +111,8 @@ const AddToCart = ({ submitted, data }) => {
     return (
       <div>
         <Layout>
-          <h1 className='text-center' data-aos="fade-up">Our Products...</h1>
+          <PreferOrders />
+          <h1 className='topic' data-aos="fade-up">Our Products...</h1>
           <Form.Group className="search-container" style={{ marginRight: '4%' }} data-aos="fade-left">
             <FaSearch className='searchicon' />
             <input
@@ -155,7 +157,7 @@ const AddToCart = ({ submitted, data }) => {
               )}
             </Row>
           </Container>
-          <PreferOrders />
+
         </Layout>
         <ToastContainer
           position="bottom-right"

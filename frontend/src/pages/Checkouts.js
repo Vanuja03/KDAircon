@@ -12,6 +12,7 @@ import jsPDF from 'jspdf';
 import kdlogo from '../images2/kdhomelg.png';
 import Aos from 'aos';
 import 'aos/dist/aos.css';
+import '../styles/topics.css';
 
 const Checkouts = () => {
     const [checkouts, setCheckouts] = useState([]);
@@ -155,7 +156,8 @@ const Checkouts = () => {
     return (
         <div>
             <Layout>
-                <h1 className='text-center' >Your checkouts</h1>
+                <Pcheckouts /><br />
+                <h1 className='topic' >Your checkouts</h1>
                 <Form.Group style={{ marginLeft: '5%', fontWeight: 'bold' }} data-aos="fade-right">
                     <Form.Label>Filter by Status</Form.Label>
                     <Select
@@ -238,7 +240,7 @@ const Checkouts = () => {
                     </Table>
                 </TableContainer>
                 <br />
-                <Pcheckouts />
+
             </Layout>
         </div>
     );

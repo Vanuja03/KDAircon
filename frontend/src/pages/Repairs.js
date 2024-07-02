@@ -13,7 +13,7 @@ import jsPDF from 'jspdf';
 import kdlogo from '../images2/kdhomelg.png';
 import Aos from 'aos';
 import 'aos/dist/aos.css';
-
+import '../styles/topics.css';
 import 'swiper/css';
 
 const Repairs = () => {
@@ -199,7 +199,7 @@ const Repairs = () => {
 
   return (
     <div><Layout>
-      <h1 className='text-center' data-aos="fade-up">Your inquiries</h1>
+      <h1 className='topic' data-aos="fade-up">Your inquiries</h1>
       <Form.Group className="search-container" data-aos="fade-left">
         <FaSearch className='searchicon' />
         <input

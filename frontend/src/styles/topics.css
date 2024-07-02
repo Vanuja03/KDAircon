@@ -1,0 +1,38 @@
+.topic {
+    font-weight: bold;
+    text-align: center;
+    margin: 20px 0;
+    position: relative;
+
+    /* Adjust the font size as needed */
+    background: linear-gradient(90deg, blue, black);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.topic::after {
+    content: '';
+    display: block;
+    height: 4px;
+    /* Height of the bottom border */
+    width: 50%;
+    /* Width of the bottom border */
+    background: linear-gradient(90deg, blue, black);
+    position: absolute;
+    bottom: -10px;
+    /* Adjust to position the border below the text */
+    left: 50%;
+    transform: translateX(-50%);
+    /* Center the border */
+}
+
+/* .topic::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    background-color: black;
+    height: 2px;
+    box-sizing: border-box;
+    width: 50px;
+} */

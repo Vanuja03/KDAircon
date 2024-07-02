@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import * as Yup from 'yup';
 import Aos from 'aos';
 import 'aos/dist/aos.css';
+import '../styles/topics.css';
 
 const PreferOrders = () => {
 
@@ -79,7 +80,7 @@ const PreferOrders = () => {
       <br />
       <br />
       <Container>
-        <h1 className='text-center' data-aos="fade-left">Customized products</h1>
+        <h1 className='topic' data-aos="fade-left">Customized products</h1>
         <Row>
           {errorMessage && <Alert variant='danger'>{errorMessage}</Alert>}
           <Col md={4}>

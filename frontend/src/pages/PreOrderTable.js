@@ -12,6 +12,7 @@ import * as Yup from 'yup';
 import '../styles/searchinput.css';
 import Aos from 'aos';
 import 'aos/dist/aos.css';
+import '../styles/topics.css';
 
 const PreOrderTable = () => {
 
@@ -157,7 +158,7 @@ const PreOrderTable = () => {
         <div>
             <br />
             <br />
-            <h1 className='text-center'>Prefer cart</h1>
+            <h1 className='topic'>Prefer cart</h1>
             <Form.Group className="search-container" data-aos="fade-left">
                 <FaSearch className='searchicon' />
                 <input

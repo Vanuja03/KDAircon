@@ -1,1 +1,70 @@
-/**/
+.imges {
+    width: 100%;
+
+}
+
+.swiper-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    /* Align items to the top */
+    align-items: flex-start;
+    /* Align items to the left */
+    color: white;
+    background: rgba(0, 0, 0, 0.5);
+    text-align: left;
+    /* Align text to the left */
+    padding: 20px;
+    /* Add some padding */
+}
+
+.overlay h3,
+.overlay p {
+    margin: 0;
+    padding: 0;
+}
+
+.overlay h3 {
+    margin-top: 10%;
+    margin-left: 8%;
+    /* Add some space below the h3 */
+    font-size: 30px;
+    /* Adjust the font size as needed */
+}
+
+.overlay p {
+    font-size: 20px;
+    margin-left: 15%;
+    margin-top: 3%;
+    margin-right: 5%;
+}
+
+.swip {}
+
+
+@media (max-width: 800px) {
+    .imges {
+        width: 100%;
+        height: 300px;
+    }
+
+    .overlay h3 {
+        font-size: 20px;
+    }
+
+    .overlay p {
+        font-size: medium;
+    }
+
+}

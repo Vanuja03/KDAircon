@@ -14,6 +14,7 @@ import * as Yup from 'yup';
 import '../styles/searchinput.css';
 import Aos from 'aos';
 import 'aos/dist/aos.css';
+import '../styles/topics.css';
 
 const Cart = () => {
 
@@ -166,8 +167,8 @@ const Cart = () => {
   return (
     <div>
       <Layout>
-
-        <h1 className='text-center'>Your cart</h1>
+        <PreOrderTable /><br />
+        <h1 className='topic' data-aos="fade-up">Your cart</h1>
         <Form.Group className="search-container" data-aos="fade-left">
           <FaSearch className='searchicon' />
           <input
@@ -233,7 +234,7 @@ const Cart = () => {
             </TableBody>
           </Table>
         </TableContainer>
-        <PreOrderTable />
+
         <Dialog open={open} fullWidth>
           <Card>
             <br />

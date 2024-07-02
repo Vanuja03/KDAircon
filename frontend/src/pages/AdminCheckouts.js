@@ -10,6 +10,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Aos from 'aos';
 import 'aos/dist/aos.css';
+import '../styles/topics.css';
 
 const AdminCheckouts = () => {
     const [checkouts, setcheckouts] = useState([]);
@@ -108,7 +109,7 @@ const AdminCheckouts = () => {
                     autoClose={10000} // Close the toast after 3 seconds
                     hideProgressBar={false} // Show a progress bar
                     closeOnClick={false} />
-                <center><h1>Normal Checkouts</h1></center>
+                <h1 className='topic'>Normal Checkouts</h1>
                 <Form.Group style={{ marginLeft: '5%', fontWeight: 'bold' }} data-aos="fade-right">
                     <Form.Label>Filter by Status</Form.Label>
                     <Select

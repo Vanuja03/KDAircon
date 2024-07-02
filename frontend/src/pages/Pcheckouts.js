@@ -10,6 +10,7 @@ import jsPDF from 'jspdf';
 import kdlogo from '../images2/kdhomelg.png';
 import Aos from 'aos';
 import 'aos/dist/aos.css';
+import '../styles/topics.css';
 
 const Pcheckouts = () => {
 
@@ -157,7 +158,7 @@ const Pcheckouts = () => {
     );
     return (
         <div>
-            <h1 className='text-center'>Customized order checkouts</h1>
+            <h1 className='topic'>Customized order checkouts</h1>
             <ToastContainer />
             <Form.Group style={{ marginLeft: '5%', fontWeight: 'bold' }} data-aos="fade-right">
                 <Form.Label>Filter by Status</Form.Label>

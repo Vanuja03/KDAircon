@@ -14,6 +14,7 @@ import { Dialog } from '@mui/material'
 import '../styles/addrepairs.css';
 import Aos from 'aos';
 import 'aos/dist/aos.css';
+import '../styles/topics.css';
 
 const AddRepair = () => {
 
@@ -151,7 +152,7 @@ const AddRepair = () => {
         return (
             <div>
                 <Layout>
-                    <h1 className='text-center' style={{ marginTop: '20px' }} data-aos="fade-up">Add a Repair Inquiry</h1><br />
+                    <h1 className='topic' style={{ marginTop: '20px' }} data-aos="fade-up">Add a Repair Inquiry</h1><br />
                     <Form className='addrepform' data-aos="fade-up">
                         <div className='mainflex'>
                             <div className='subflex'>
