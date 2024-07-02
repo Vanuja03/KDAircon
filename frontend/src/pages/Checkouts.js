@@ -135,8 +135,6 @@ const Checkouts = () => {
         doc.text('All rights reserved || KD Aircon Industries Pvt Limited', 105, pageHeight - 10, { align: 'center' });
 
         doc.save(`Checkout_${Chks.userMail}.pdf`);
-
-
     };
 
     const yourcheckouts = checkouts.filter(checkout => checkout.userMail === userMail);
