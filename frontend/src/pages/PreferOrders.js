@@ -7,6 +7,7 @@ import * as Yup from 'yup';
 import Aos from 'aos';
 import 'aos/dist/aos.css';
 import '../styles/topics.css';
+import { FaCheckCircle } from 'react-icons/fa';
 
 const PreferOrders = () => {
 
@@ -71,9 +72,6 @@ const PreferOrders = () => {
       }
     }
   };
-  // const filteredproductData = p.filter(clin => {
-  //   return clin.ff.toLowerCase().includes(searchQuery.toLowerCase());
-  // });
 
   return (
     <div>
@@ -84,12 +82,13 @@ const PreferOrders = () => {
         <Row>
           {errorMessage && <Alert variant='danger'>{errorMessage}</Alert>}
           <Col md={4}>
-            <Card className='mb-4 cards' data-aos="fade-up">
+            <Card className='mb-4 cards' data-aos="fade-up" style={{ minHeight: '650px' }}>
               <Card.Img
                 variant='top'
                 height={250}
                 src={require(`../images2/Condenser1.jpg`)} />
               <Card.Body>
+                <p style={{ color: 'green', textAlign: 'end', fontWeight: 'bold' }}><FaCheckCircle /> Vertified product</p>
                 <Card.Title>Condenser</Card.Title>
                 <Card.Text>Condenser test</Card.Text>
                 <Form.Group>
@@ -186,12 +185,13 @@ const PreferOrders = () => {
             </Card>
           </Col>
           <Col md={4}>
-            <Card className='mb-4 cards' data-aos="fade-up">
+            <Card className='mb-4 cards' data-aos="fade-up" style={{ minHeight: '650px' }}>
               <Card.Img
                 variant='top'
                 height={250}
                 src={require(`../images2/Condenser1.jpg`)} />
               <Card.Body>
+                <p style={{ color: 'green', textAlign: 'end', fontWeight: 'bold' }}><FaCheckCircle /> Vertified product</p>
                 <Card.Title >Fiber Glass Outdoor Casing</Card.Title>
                 <Card.Text>kkkkkkkkk</Card.Text>
                 <Form.Group>
@@ -227,12 +227,13 @@ const PreferOrders = () => {
             </Card>
           </Col>
           <Col md={4}>
-            <Card className='mb-4 cards' data-aos="fade-up">
+            <Card className='mb-4 cards' data-aos="fade-up" style={{ minHeight: '650px' }}>
               <Card.Img
                 variant='top'
                 height={250}
                 src={require(`../images2/Condenser1.jpg`)} />
               <Card.Body>
+                <p style={{ color: 'green', textAlign: 'end', fontWeight: 'bold' }}><FaCheckCircle /> Vertified product</p>
                 <Card.Title >Brand new outdoor unit air conditioner</Card.Title>
                 <Card.Text>kkkkkkkkk</Card.Text>
                 <Form.Group>
@@ -273,6 +274,7 @@ const PreferOrders = () => {
                 </Form.Group>
                 <br />
                 <Button onClick={addPrefer} variant='primary'>Add to Cart</Button>
+
               </Card.Body>
             </Card>
           </Col>

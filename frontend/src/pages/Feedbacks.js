@@ -157,19 +157,21 @@ const Feedbacks = () => {
     return (
         <div data-aos="fade-up">
             <h1 className='topic'>Our valuable feedbacks !!</h1>
-            <Form.Group className="search-container" data-aos="fade-left">
-                <FaSearch className='searchicon' />
-                <input
-                    className='search-input'
-                    type='search'
-                    placeholder='Search by your name'
-                    value={searchQuery}
-                    onChange={e => setSearchQuery(e.target.value)}
-                />
-            </Form.Group>
-            <div className='flx3' data-aos="fade-left">
-                <Button onClick={() => setopenadd(true)}><FaPlus /></Button>
-                <Button onClick={() => setopenyf(true)}>Your Feedbacks</Button>
+            <div className='feedflx'>
+                <Form.Group className="search-container" data-aos="fade-left">
+                    <FaSearch className='searchicon' />
+                    <input
+                        className='search-input'
+                        type='search'
+                        placeholder='Search by your name'
+                        value={searchQuery}
+                        onChange={e => setSearchQuery(e.target.value)}
+                    />
+                </Form.Group>
+                <div className='flx3' data-aos="fade-left">
+                    <Button onClick={() => setopenadd(true)}><FaPlus /></Button>
+                    <Button onClick={() => setopenyf(true)}>Your Feedbacks</Button>
+                </div>
             </div>
             {searchFeedbacks && searchFeedbacks.length > 0 ? (
                 searchFeedbacks.slice(0, visibleFeedbacks).map((feedbacks) => (

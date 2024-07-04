@@ -5,6 +5,7 @@
 
 .star:hover {
     font-size: 30px;
+    transition: all 0.5s;
     cursor: pointer;
 }
 

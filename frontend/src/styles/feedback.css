@@ -69,3 +69,14 @@
     margin-left: 1%;
     margin-top: 0.4%;
 }
+
+
+@media (max-width: 800px) {
+    .feedflx {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
+
+}
