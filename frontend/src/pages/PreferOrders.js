@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import Layout from '../components/Layout';
 import { Alert, Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 import Axios from 'axios';
 import Swal from 'sweetalert2';
