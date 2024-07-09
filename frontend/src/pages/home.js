@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Layout from '../components/Layout';
 import backq from '../images2/backtest.mp4';
 import '../styles/home.css'
@@ -15,23 +15,40 @@ import '../styles/topics.css';
 
 
 const Home = () => {
+
+  const [greet, setGreet] = useState('');
+  const user = JSON.parse(localStorage.getItem('user'));
+
   useEffect(() => {
     Aos.init({ duration: 1000 });
-  }, []);
 
+    const currentHour = new Date().getHours();
+
+    if (currentHour >= 0 && currentHour < 12) {
+      setGreet('Morning');
+    } else if (currentHour >= 12 && currentHour < 15) {
+      setGreet('Afternoon');
+    } else if (currentHour >= 15 && currentHour < 19) {
+      setGreet('Evening');
+    } else {
+      setGreet('Night');
+    }
+  }, []);
 
   return (
     <div>
       <Layout>
         <div className='homecontainer1' data-aos="fade-up">
           <div className='homediv11'>
-            <h1>Be cool at your own place</h1>
+            <h1>Good {greet}!!</h1>
             <p className='homep'>Explore the new invention of Sri Lanka for the 1st time</p>
             <Button data-aos="fade-up" className='homecontbutton'>Visit now</Button>
           </div>
+
           <video className='videoss' autoPlay loop muted disablePictureInPicture>
             <source src={backq} type="video/mp4" />
           </video>
+
         </div>
         <div className='homecontainer2' data-aos="fade-up">
           <div className='ct1'>
@@ -56,12 +73,7 @@ const Home = () => {
           </div>
         </div>
         <News />
-        <Container>
-          <h1 className='topic'>About us</h1>
-          <div className='homeflex3'>
 
-          </div>
-        </Container>
 
         <Feedbacks />
       </Layout>
