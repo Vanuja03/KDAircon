@@ -4,7 +4,7 @@ import '../styles/news.css';
 import 'swiper/swiper-bundle.css';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
+import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from 'swiper/modules';
 
 // Import Swiper styles
 import 'swiper/css';
@@ -26,10 +26,12 @@ const News = () => {
             <h1 className='topic'>News</h1>
             <Swiper
                 spaceBetween={50}
-                modules={[Navigation, Pagination, Scrollbar, A11y]}
+                modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
                 slidesPerView={1}
                 navigation
                 pagination={{ clickable: true }}
+                autoplay={{ delay: 5000 }}
+                speed={1000}
                 onSlideChange={() => console.log('slide change')}
                 onSwiper={(swiper) => console.log(swiper)}
                 className='swip'

@@ -181,7 +181,7 @@ const Checkouts = () => {
                         onChange={e => setSearchQuery(e.target.value)}
                     />
                 </Form.Group>
-                <ToastContainer />
+                <ToastContainer autoClose={3000} />
                 <TableContainer data-aos="fade-up">
                     <Table>
                         <TableHead>

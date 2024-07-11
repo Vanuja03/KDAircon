@@ -17,6 +17,7 @@ const Profile = () => {
   const user = JSON.parse(localStorage.getItem('user'));
   const navigate = useNavigate();
   const [checkouts, setCheckouts] = useState([]);
+  const [pcheckouts, setPCheckouts] = useState([]);
   const [booking, setBooking] = useState([]);
   const [pbooking, setPBooking] = useState([]);
   const [open1, setopen1] = useState(false);
@@ -33,7 +34,18 @@ const Profile = () => {
     }
   };
 
+  const getPCheckout = async () => {
+    try {
+      const response = await Axios.get('http://localhost:4000/api/PCheckout');
+      console.log(response.data);
+      setPCheckouts(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const yourcheckouts = checkouts.filter(checkout => checkout.userMail === userMail);
+  const yourpcheckouts = pcheckouts.filter(checkout => checkout.userMail === userMail);
 
   const getBooking = (userMail) => {
     Axios.get(`http://localhost:4000/api/Booking/${userMail}`)
@@ -59,6 +71,7 @@ const Profile = () => {
 
   useEffect(() => {
     getCheckout();
+    getPCheckout();
   }, []);
 
   useEffect(() => {
@@ -100,7 +113,7 @@ const Profile = () => {
               </MDBCardText>
               <hr style={{ color: 'black', marginTop: '-10px' }} />
               <div className="mb-4 pb-2" style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
-                <Button onClick={() => navigate('/Checkouts')}><FaShoppingBag /> ({yourcheckouts.length})</Button>
+                <Button onClick={() => navigate('/Checkouts')}><FaShoppingBag /> ({yourcheckouts.length + yourpcheckouts.length})</Button>
                 <Button onClick={() => navigate('/Cart')}><FaShoppingCart /> {booking.length + pbooking.length}</Button>
               </div>
             </div>

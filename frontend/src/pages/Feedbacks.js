@@ -153,110 +153,170 @@ const Feedbacks = () => {
     const handleLoadLess = () => {
         setVisibleFeedbacks(5);
     };
-
-    return (
-        <div data-aos="fade-up">
-            <h1 className='topic'>Our valuable feedbacks !!</h1>
-            <div className='feedflx'>
-                <Form.Group className="search-container" data-aos="fade-left">
-                    <FaSearch className='searchicon' />
-                    <input
-                        className='search-input'
-                        type='search'
-                        placeholder='Search by your name'
-                        value={searchQuery}
-                        onChange={e => setSearchQuery(e.target.value)}
-                    />
-                </Form.Group>
-                <div className='flx3' data-aos="fade-left">
-                    <Button onClick={() => setopenadd(true)}><FaPlus /></Button>
-                    <Button onClick={() => setopenyf(true)}>Your Feedbacks</Button>
-                </div>
-            </div>
-            {searchFeedbacks && searchFeedbacks.length > 0 ? (
-                searchFeedbacks.slice(0, visibleFeedbacks).map((feedbacks) => (
-                    <Card key={feedbacks._id} className='cardfeed'>
-                        <Card.Title className='disflex'>{feedbacks.name}
-                            <div className='starrating'>
-                                {feedbacks.pname}
-                            </div>
-                        </Card.Title>
-                        <Card.Title>{renderStarRating(feedbacks.rating)}</Card.Title>
-                        <Card.Body className='flex2dis card-body'>
-                            <Card.Text className='carddest'>{feedbacks.feedback}</Card.Text>
-                            <div className='actionbuttons'>
-                                <FaThumbsUp
-                                    className={`likes ${JSON.parse(localStorage.getItem('likedFeedbacks'))?.includes(feedbacks._id) ? 'liked' : ''}`}
-                                    onClick={() => handleLike(feedbacks._id)}
-                                >({feedbacks.likes || 0})</FaThumbsUp>
-                                <FaThumbsDown
-                                    className={`dislikes ${JSON.parse(localStorage.getItem('dislikedFeedbacks'))?.includes(feedbacks._id) ? 'disliked' : ''}`}
-                                    onClick={() => handledisLike(feedbacks._id)}
-                                >({feedbacks.dislikes || 0})</FaThumbsDown>
-                            </div>
-                        </Card.Body>
-                        <Card.Text>{timeAgo(feedbacks.createdAt)}</Card.Text>
-                    </Card>
-                ))
-            ) : (
-                <span>No feedbacks yet</span>
-            )}
-            {searchFeedbacks.length > 5 && visibleFeedbacks < searchFeedbacks.length && (
-                <Button data-aos="fade-right" className='loadbtn' onClick={handleLoadMore}>Load More</Button>
-            )}
-            {visibleFeedbacks > 5 && (
-                <Button data-aos="fade-right" className='loadbtn' onClick={handleLoadLess}>Load Less</Button>
-            )}
-
-            <Dialog open={openaddf}>
-                <DialogTitle className='text-center' style={{ fontSize: '1.5em' }}>Add your feedback <Button onClick={() => setopenadd(false)} variant='danger' style={{ marginLeft: '3%' }} ><FaTimes /></Button></DialogTitle>
-                <DialogContent>
-                    <AddFeedBack onFeedbackAdded={handleFeedbackAdded} />
-                </DialogContent>
-            </Dialog>
-
-            <Dialog open={openyf} maxWidth='xl'>
-                <DialogTitle className='text-center' style={{ fontSize: '2em' }}>Your feedbacks <Button variant='danger' style={{ marginLeft: '4%' }} onClick={() => setopenyf(false)}><FaTimes /></Button></DialogTitle>
-                <DialogContent>
+    if (user) {
+        return (
+            <div data-aos="fade-up">
+                <h1 className='topic'>Our valuable feedbacks !!</h1>
+                <div className='feedflx'>
                     <Form.Group className="search-container" data-aos="fade-left">
                         <FaSearch className='searchicon' />
                         <input
                             className='search-input'
                             type='search'
-                            placeholder='Search by product name'
-                            value={searchYQuery}
-                            onChange={e => setSearchYQuery(e.target.value)}
+                            placeholder='Search by your name'
+                            value={searchQuery}
+                            onChange={e => setSearchQuery(e.target.value)}
                         />
                     </Form.Group>
-                    {searchYourFeedbacks && searchYourFeedbacks.length > 0 ? (
-                        searchYourFeedbacks.map((feedbacks) => (
-                            <Card key={feedbacks._id} className='cardfeed' data-aos="fade-up">
-                                <Card.Title className='disflex'>{feedbacks.name}
-                                    <div className='starrating' style={{}}>
-                                        {feedbacks.pname} -
-                                        {renderStarRating(feedbacks.rating)}
-                                    </div>
-                                </Card.Title>
-                                <Card.Body className='flex2dis card-body'>
-                                    <Card.Text style={{ maxWidth: '80%' }}>{feedbacks.feedback}</Card.Text>
-                                    <div className='actionbuttons'>
-                                        <FaThumbsUp />{feedbacks.likes}
-                                        <FaThumbsDown />{feedbacks.dislikes}
-                                    </div>
-                                </Card.Body>
-                                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-                                    <Card.Text>{timeAgo(feedbacks.createdAt)}</Card.Text>
-                                    <Button variant='danger' onClick={() => deleteFeedback(feedbacks._id)}><FaTrash /></Button>
+                    <div className='flx3' data-aos="fade-left">
+                        <Button onClick={() => setopenadd(true)}><FaPlus /></Button>
+                        <Button onClick={() => setopenyf(true)}>Your Feedbacks</Button>
+                    </div>
+                </div>
+                {searchFeedbacks && searchFeedbacks.length > 0 ? (
+                    searchFeedbacks.slice(0, visibleFeedbacks).map((feedbacks) => (
+                        <Card key={feedbacks._id} className='cardfeed'>
+                            <Card.Title className='disflex'>{feedbacks.name}
+                                <div className='starrating'>
+                                    {feedbacks.pname}
                                 </div>
-                            </Card>
-                        ))
-                    ) : (
-                        <span>You have no feedbacks yet</span>
-                    )}
-                </DialogContent>
-            </Dialog>
-        </div>
-    );
+                            </Card.Title>
+                            <Card.Title>{renderStarRating(feedbacks.rating)}</Card.Title>
+                            <Card.Body className='flex2dis card-body'>
+                                <Card.Text className='carddest'>{feedbacks.feedback}</Card.Text>
+                                <div className='actionbuttons'>
+                                    <FaThumbsUp
+                                        className={`likes ${JSON.parse(localStorage.getItem('likedFeedbacks'))?.includes(feedbacks._id) ? 'liked' : ''}`}
+                                        onClick={() => handleLike(feedbacks._id)}
+                                    >({feedbacks.likes || 0})</FaThumbsUp>
+                                    <FaThumbsDown
+                                        className={`dislikes ${JSON.parse(localStorage.getItem('dislikedFeedbacks'))?.includes(feedbacks._id) ? 'disliked' : ''}`}
+                                        onClick={() => handledisLike(feedbacks._id)}
+                                    >({feedbacks.dislikes || 0})</FaThumbsDown>
+                                </div>
+                            </Card.Body>
+                            <Card.Text>{timeAgo(feedbacks.createdAt)}</Card.Text>
+                        </Card>
+                    ))
+                ) : (
+                    <span>No feedbacks yet</span>
+                )}
+                {searchFeedbacks.length > 5 && visibleFeedbacks < searchFeedbacks.length && (
+                    <Button data-aos="fade-right" className='loadbtn' onClick={handleLoadMore}>Load More</Button>
+                )}
+                {visibleFeedbacks > 5 && (
+                    <Button data-aos="fade-right" className='loadbtn' onClick={handleLoadLess}>Load Less</Button>
+                )}
+
+                <Dialog open={openaddf}>
+                    <DialogTitle className='text-center' style={{ fontSize: '1.5em' }}>Add your feedback <Button onClick={() => setopenadd(false)} variant='danger' style={{ marginLeft: '3%' }} ><FaTimes /></Button></DialogTitle>
+                    <DialogContent>
+                        <AddFeedBack onFeedbackAdded={handleFeedbackAdded} />
+                    </DialogContent>
+                </Dialog>
+
+                <Dialog open={openyf} maxWidth='xl'>
+                    <DialogTitle className='text-center' style={{ fontSize: '2em' }}>Your feedbacks <Button variant='danger' style={{ marginLeft: '4%' }} onClick={() => setopenyf(false)}><FaTimes /></Button></DialogTitle>
+                    <DialogContent>
+                        <Form.Group className="search-container" data-aos="fade-left">
+                            <FaSearch className='searchicon' />
+                            <input
+                                className='search-input'
+                                type='search'
+                                placeholder='Search by product name'
+                                value={searchYQuery}
+                                onChange={e => setSearchYQuery(e.target.value)}
+                            />
+                        </Form.Group>
+                        {searchYourFeedbacks && searchYourFeedbacks.length > 0 ? (
+                            searchYourFeedbacks.map((feedbacks) => (
+                                <Card key={feedbacks._id} className='cardfeed' data-aos="fade-up">
+                                    <Card.Title className='disflex'>{feedbacks.name}
+                                        <div className='starrating' style={{}}>
+                                            {feedbacks.pname} -
+                                            {renderStarRating(feedbacks.rating)}
+                                        </div>
+                                    </Card.Title>
+                                    <Card.Body className='flex2dis card-body'>
+                                        <Card.Text style={{ maxWidth: '80%' }}>{feedbacks.feedback}</Card.Text>
+                                        <div className='actionbuttons'>
+                                            <FaThumbsUp />{feedbacks.likes}
+                                            <FaThumbsDown />{feedbacks.dislikes}
+                                        </div>
+                                    </Card.Body>
+                                    <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+                                        <Card.Text>{timeAgo(feedbacks.createdAt)}</Card.Text>
+                                        <Button variant='danger' onClick={() => deleteFeedback(feedbacks._id)}><FaTrash /></Button>
+                                    </div>
+                                </Card>
+                            ))
+                        ) : (
+                            <span>You have no feedbacks yet</span>
+                        )}
+                    </DialogContent>
+                </Dialog>
+            </div>
+        );
+    } else {
+        return (
+            <div data-aos="fade-up">
+                <h1 className='topic'>Our valuable feedbacks !!</h1>
+                <div className='feedflx'>
+                    <Form.Group className="search-container" data-aos="fade-left">
+                        <FaSearch className='searchicon' />
+                        <input
+                            className='search-input'
+                            type='search'
+                            placeholder='Search by your name'
+                            value={searchQuery}
+                            onChange={e => setSearchQuery(e.target.value)}
+                        />
+                    </Form.Group>
+                    <div className='flx3' data-aos="fade-left">
+                        <Button onClick={() => setopenadd(true)}><FaPlus /></Button>
+                    </div>
+                </div>
+                {searchFeedbacks && searchFeedbacks.length > 0 ? (
+                    searchFeedbacks.slice(0, visibleFeedbacks).map((feedbacks) => (
+                        <Card key={feedbacks._id} className='cardfeed'>
+                            <Card.Title className='disflex'>{feedbacks.name}
+                                <div className='starrating'>
+                                    {feedbacks.pname}
+                                </div>
+                            </Card.Title>
+                            <Card.Title>{renderStarRating(feedbacks.rating)}</Card.Title>
+                            <Card.Body className='flex2dis card-body'>
+                                <Card.Text className='carddest'>{feedbacks.feedback}</Card.Text>
+                                <div className='actionbuttons'>
+                                    <FaThumbsUp
+                                        className={`likes ${JSON.parse(localStorage.getItem('likedFeedbacks'))?.includes(feedbacks._id) ? 'liked' : ''}`}
+                                        onClick={() => handleLike(feedbacks._id)}
+                                    >({feedbacks.likes || 0})</FaThumbsUp>
+                                    <FaThumbsDown
+                                        className={`dislikes ${JSON.parse(localStorage.getItem('dislikedFeedbacks'))?.includes(feedbacks._id) ? 'disliked' : ''}`}
+                                        onClick={() => handledisLike(feedbacks._id)}
+                                    >({feedbacks.dislikes || 0})</FaThumbsDown>
+                                </div>
+                            </Card.Body>
+                            <Card.Text>{timeAgo(feedbacks.createdAt)}</Card.Text>
+                        </Card>
+                    ))
+                ) : (
+                    <span>No feedbacks yet</span>
+                )}
+                {searchFeedbacks.length > 5 && visibleFeedbacks < searchFeedbacks.length && (
+                    <Button data-aos="fade-right" className='loadbtn' onClick={handleLoadMore}>Load More</Button>
+                )}
+                {visibleFeedbacks > 5 && (
+                    <Button data-aos="fade-right" className='loadbtn' onClick={handleLoadLess}>Load Less</Button>
+                )}
+
+                <Dialog open={openaddf}>
+                    <DialogTitle className='text-center' style={{ fontSize: '1.5em' }}>Please login to add feedbacks <Button onClick={() => setopenadd(false)} variant='danger' style={{ marginLeft: '3%' }} ><FaTimes /></Button></DialogTitle>
+                </Dialog>
+            </div>
+        );
+    }
 };
 
 export default Feedbacks;

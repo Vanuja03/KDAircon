@@ -89,43 +89,54 @@ const Pcheckouts = () => {
         doc.setLineWidth(0.5);
         doc.line((doc.internal.pageSize.width - textWidth) / 2, 62, (doc.internal.pageSize.width + textWidth) / 2, 62);
 
-        // Add the repair details
+        // Add the repair details in table format
         doc.setFont('helvetica', 'normal');
         doc.setFontSize(12); // Reset font to normal
-        doc.text(`Product name: ${Chks.pname}`, 15, 80);
-        doc.text(`Size: ${Chks.psize}`, 15, 90);
 
-        if (Chks.pGasType) {
-            doc.text(`Gas type : ${Chks.pGasType}`, 15, 100);
-        }
+        const startX = 15;
+        const startY = 80;
+        const rowHeight = 10;
+        let currentY = startY;
 
-        if (Chks.pTubeSize) {
-            doc.text(`Tube Size : ${Chks.pTubeSize}`, 15, 110);
-        }
-        doc.text(`Quantity : ${Chks.quantity} `, 15, 120);
+        const tableData = [
+            ['Product name', Chks.pname],
+            ['Size', Chks.psize],
+            Chks.pGasType ? ['Gas type', Chks.pGasType] : null,
+            Chks.pTubeSize ? ['Tube Size', Chks.pTubeSize] : null,
+            ['Quantity', Chks.quantity],
+            ['Current status', Chks.status],
+            ['Contact No', Chks.mobile],
+            ['Email', Chks.userMail]
+        ].filter(row => row !== null); // Remove null rows
 
+        // Draw table
+        tableData.forEach(([key, value]) => {
+            doc.text(key, startX, currentY);
+            doc.text(':', startX + 50, currentY);
+            doc.text(value.toString(), startX + 55, currentY);
+            currentY += rowHeight;
+        });
 
+        // Change the color based on status
         if (Chks.status === 'Pending') {
             doc.setTextColor(255, 0, 0); // Red color
-            doc.setFont('helvetica', 'bold');
-            doc.text(`Current status : ${Chks.status}`, 15, 130);
         } else if (Chks.status === 'In Progress') {
-            doc.setTextColor(0, 0, 255);//blue color
-            doc.setFont('helvetica', 'bold');
-            doc.text(`Current status : ${Chks.status}`, 15, 130);
-        }
-        else {
+            doc.setTextColor(0, 0, 255); // Blue color
+        } else {
             doc.setTextColor(0, 128, 0); // Green color
-            doc.setFont('helvetica', 'bold');
-            doc.text(`Current status : ${Chks.status}`, 15, 130);
         }
+        doc.setFont('helvetica', 'bold');
+        doc.text(`Current status : ${Chks.status}`, startX, currentY);
+        doc.setTextColor(0); // Reset color to black
 
         // Add the description text
+        currentY += rowHeight;
         doc.setFont('helvetica', 'normal');
-        doc.setTextColor(0);
-        doc.text(`Contact No : ${Chks.mobile}`, 15, 140);
-        doc.text(`Email : ${Chks.userMail}`, 15, 150);
+        doc.text(`Contact No : ${Chks.mobile}`, startX, currentY);
+        currentY += rowHeight;
+        doc.text(`Email : ${Chks.userMail}`, startX, currentY);
 
+        // Add generation date
         const currentDate = new Date();
         const formattedDate = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate()} ${currentDate.getHours()}:${currentDate.getMinutes()}:${currentDate.getSeconds()}`;
         doc.setFontSize(10);
@@ -140,9 +151,98 @@ const Pcheckouts = () => {
         doc.text('All rights reserved || KD Aircon Industries Pvt Limited', 105, pageHeight - 10, { align: 'center' });
 
         doc.save(`Checkout_${Chks.userMail}.pdf`);
-
-
     };
+
+    /*
+    const genChkPdf = (Chks) => {
+            const doc = new jsPDF();
+    
+            const logo = new Image();
+            logo.src = kdlogo;
+    
+            // Increase the width and height of the logo
+            const logoWidth = 60;
+            const logoHeight = 25;
+            doc.addImage(logo, 'PNG', 10, 10, logoWidth, logoHeight);
+    
+            doc.setFontSize(12);
+            doc.text('KD Aircon Industries Private Limited', 75, 15); // Adjusted x position to align with the wider logo
+            doc.text('321/p1, Kalderam Maduwatte Rd,', 75, 20);
+            doc.text('Panadura, Sri Lanka.', 75, 25);
+            doc.text('Tel: Tel: 038-2249772, 077-2855178, 077-2076147', 75, 30);
+    
+            // Add page border
+            doc.setDrawColor(0);
+            doc.setLineWidth(0.5);
+            doc.rect(0, 0, doc.internal.pageSize.width, doc.internal.pageSize.height, 'S');
+    
+            // Add horizontal line
+            doc.setLineWidth(0.5);
+            doc.line(5, 45, 205, 45);
+    
+            // Leave summary topic
+            doc.setFontSize(18);
+            doc.setFont('helvetica', 'bold');
+            const text = 'Your Customized Checkout';
+            const textWidth = doc.getTextWidth(text);
+            doc.text(text, 105, 60, { align: 'center' });
+            doc.setLineWidth(0.5);
+            doc.line((doc.internal.pageSize.width - textWidth) / 2, 62, (doc.internal.pageSize.width + textWidth) / 2, 62);
+    
+            // Add the repair details
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(12); // Reset font to normal
+            doc.text(`Product name: ${Chks.pname}`, 15, 80);
+            doc.text(`Size: ${Chks.psize}`, 15, 90);
+    
+            if (Chks.pGasType) {
+                doc.text(`Gas type : ${Chks.pGasType}`, 15, 100);
+            }
+    
+            if (Chks.pTubeSize) {
+                doc.text(`Tube Size : ${Chks.pTubeSize}`, 15, 110);
+            }
+            doc.text(`Quantity : ${Chks.quantity} `, 15, 120);
+    
+    
+            if (Chks.status === 'Pending') {
+                doc.setTextColor(255, 0, 0); // Red color
+                doc.setFont('helvetica', 'bold');
+                doc.text(`Current status : ${Chks.status}`, 15, 130);
+            } else if (Chks.status === 'In Progress') {
+                doc.setTextColor(0, 0, 255);//blue color
+                doc.setFont('helvetica', 'bold');
+                doc.text(`Current status : ${Chks.status}`, 15, 130);
+            }
+            else {
+                doc.setTextColor(0, 128, 0); // Green color
+                doc.setFont('helvetica', 'bold');
+                doc.text(`Current status : ${Chks.status}`, 15, 130);
+            }
+    
+            // Add the description text
+            doc.setFont('helvetica', 'normal');
+            doc.setTextColor(0);
+            doc.text(`Contact No : ${Chks.mobile}`, 15, 140);
+            doc.text(`Email : ${Chks.userMail}`, 15, 150);
+    
+            const currentDate = new Date();
+            const formattedDate = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate()} ${currentDate.getHours()}:${currentDate.getMinutes()}:${currentDate.getSeconds()}`;
+            doc.setFontSize(10);
+            doc.text(`Generated on: ${formattedDate}`, doc.internal.pageSize.width - 15, 274, { align: 'right' });
+    
+            const pageHeight = doc.internal.pageSize.height;
+            doc.setLineWidth(0.5);
+            doc.line(5, pageHeight - 20, 205, pageHeight - 20);
+    
+            // Add footer text
+            doc.setFontSize(10);
+            doc.text('All rights reserved || KD Aircon Industries Pvt Limited', 105, pageHeight - 10, { align: 'center' });
+    
+            doc.save(`Checkout_${Chks.userMail}.pdf`);
+    
+    
+        };*/
 
     const yourcheckouts = checkouts.filter(checkout => checkout.userMail === userMail);
 
@@ -159,7 +259,7 @@ const Pcheckouts = () => {
     return (
         <div>
             <h1 className='topic'>Customized order checkouts</h1>
-            <ToastContainer />
+            <ToastContainer autoClose={3000} />
             <Form.Group style={{ marginLeft: '5%', fontWeight: 'bold' }} data-aos="fade-right">
                 <Form.Label>Filter by Status</Form.Label>
                 <Select

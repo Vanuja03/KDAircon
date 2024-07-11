@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Layout from '../components/Layout';
-import backq from '../images2/backtest.mp4';
+import backq from '../images2/hm1.mp4';
 import '../styles/home.css'
 import Feedbacks from './Feedbacks';
 import { Button, Card, Container } from 'react-bootstrap';
@@ -12,6 +12,8 @@ import Aos from 'aos';
 import 'aos/dist/aos.css';
 import News from './News';
 import '../styles/topics.css';
+import { useNavigate } from 'react-router-dom';
+
 
 
 const Home = () => {
@@ -35,47 +37,49 @@ const Home = () => {
     }
   }, []);
 
+  const navigate = useNavigate();
+
   return (
     <div>
       <Layout>
-        <div className='homecontainer1' data-aos="fade-up">
-          <div className='homediv11'>
-            <h1>Good {greet}!!</h1>
-            <p className='homep'>Explore the new invention of Sri Lanka for the 1st time</p>
-            <Button data-aos="fade-up" className='homecontbutton'>Visit now</Button>
+        <div className='hmmain'>
+          <div className='homecontainer1' data-aos="fade-up">
+            <div className='homediv11'>
+              <h1>Good {greet}!!</h1>
+              <p className='homep'>Explore the new invention of Sri Lanka for the 1st time</p>
+              <Button onClick={() => navigate('/addtocart')} data-aos="fade-up" className='homecontbutton'>Visit now</Button>
+            </div>
+            <video className='videoss' autoPlay loop muted disablePictureInPicture>
+              <source src={backq} type="video/mp4" />
+            </video>
           </div>
+          <div className='homecontainer2' data-aos="fade-up">
+            <div className='ct1'>
+              <div className='content' data-aos="fade-right">
+                <img className='img1fx' src={service} />
+                <p>Instant Service</p>
+              </div>
+              <div className='content' data-aos="fade-up">
+                <img className='img2fx' src={delivery} />
+                <p>Fast Delivery</p>
+              </div>
+            </div>
+            <div className='ct2'>
+              <div className='content' data-aos="fade-up">
+                <img className='img3fx' src={gov} />
+                <p>Government Approved</p>
+              </div>
+              <div className='content' data-aos="fade-left">
+                <img className='img4fx' src={warranty} />
+                <p>Warranties Included</p>
+              </div>
+            </div>
+          </div>
+          <News />
 
-          <video className='videoss' autoPlay loop muted disablePictureInPicture>
-            <source src={backq} type="video/mp4" />
-          </video>
 
+          <Feedbacks />
         </div>
-        <div className='homecontainer2' data-aos="fade-up">
-          <div className='ct1'>
-            <div className='content' data-aos="fade-right">
-              <img className='img1fx' src={service} />
-              <p>Instant Service</p>
-            </div>
-            <div className='content' data-aos="fade-up">
-              <img className='img2fx' src={delivery} />
-              <p>Fast Delivery</p>
-            </div>
-          </div>
-          <div className='ct2'>
-            <div className='content' data-aos="fade-up">
-              <img className='img3fx' src={gov} />
-              <p>Government Approved</p>
-            </div>
-            <div className='content' data-aos="fade-left">
-              <img className='img4fx' src={warranty} />
-              <p>Warranties Included</p>
-            </div>
-          </div>
-        </div>
-        <News />
-
-
-        <Feedbacks />
       </Layout>
     </div>
   )
