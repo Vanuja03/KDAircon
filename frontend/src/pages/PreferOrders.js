@@ -85,7 +85,7 @@ const PreferOrders = () => {
               <Card.Img
                 variant='top'
                 height={250}
-                src={require(`../images2/Condenser1.jpg`)} />
+                src={require(`../images2/cndnsr.jpg`)} />
               <Card.Body>
                 <p style={{ color: 'green', textAlign: 'end', fontWeight: 'bold' }}><FaCheckCircle /> Vertified product</p>
                 <Card.Title>Condenser</Card.Title>
@@ -188,7 +188,7 @@ const PreferOrders = () => {
               <Card.Img
                 variant='top'
                 height={250}
-                src={require(`../images2/Condenser1.jpg`)} />
+                src={require(`../images2/casing.jpg`)} />
               <Card.Body>
                 <p style={{ color: 'green', textAlign: 'end', fontWeight: 'bold' }}><FaCheckCircle /> Vertified product</p>
                 <Card.Title >Fiber Glass Outdoor Casing</Card.Title>
@@ -230,7 +230,7 @@ const PreferOrders = () => {
               <Card.Img
                 variant='top'
                 height={250}
-                src={require(`../images2/Condenser1.jpg`)} />
+                src={require(`../images2/outdor.jpg`)} />
               <Card.Body>
                 <p style={{ color: 'green', textAlign: 'end', fontWeight: 'bold' }}><FaCheckCircle /> Vertified product</p>
                 <Card.Title >Brand new outdoor unit air conditioner</Card.Title>

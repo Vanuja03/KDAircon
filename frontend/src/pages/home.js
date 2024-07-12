@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Layout from '../components/Layout';
-import backq from '../images2/hm1.mp4';
+import backq from '../images2/hmset.mp4';
 import '../styles/home.css'
 import Feedbacks from './Feedbacks';
 import { Button, Card, Container } from 'react-bootstrap';
