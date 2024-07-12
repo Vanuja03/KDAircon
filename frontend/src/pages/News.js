@@ -1,12 +1,8 @@
 import React, { useEffect } from 'react';
-import ti from '../images2/Condenser1.jpg';
 import '../styles/news.css';
 import 'swiper/swiper-bundle.css';
-
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from 'swiper/modules';
-
-// Import Swiper styles
 import 'swiper/css';
 import img1 from '../images2/kalutara.jpg';
 import img2 from '../images2/ac1.jpg';
