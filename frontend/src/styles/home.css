@@ -16,19 +16,36 @@
     align-items: center;
     gap: 100px;
     margin-top: 0;
+    background-color: black;
+}
+
+
+.overlayImage {
+    position: absolute;
+    top: -30px;
+    /* Adjust as needed */
+    left: -42px;
+    /* Adjust as needed */
+    transform: rotate(-10deg);
+    /* Adjust the rotation angle as needed */
+    width: 500px;
+    /* Adjust the size as needed */
+    height: auto;
+    z-index: 0;
 }
 
 .homediv11 {
     margin-left: 10%;
     color: blue;
-
+    z-index: 2;
 }
+
 
 .homediv11 h1 {
     font-family: 'Poppins', sans-serif;
     /* Modern and clean font */
-    font-size: 3em;
-    color: #343a40;
+    font-size: 4em;
+    color: white;
     /* Darker color for good contrast */
     margin-bottom: 20px;
     animation: fadeIn 2s ease-in-out;
@@ -39,7 +56,7 @@
     font-family: 'Roboto', sans-serif;
     /* Easy to read font */
     font-size: 1.2em;
-    color: #6c757d;
+    color: cyan;
     /* Soft grey color */
     margin-bottom: 30px;
     line-height: 1.6;
@@ -181,7 +198,7 @@
     }
 
     .homecontainer1 {
-        margin-top: 10%;
+        padding-top: 10%;
         width: 100%;
         display: flex;
         flex-direction: column;
@@ -201,14 +218,17 @@
     .homediv11 p.homep {
         font-size: 1em;
     }
+
+    .overlayImage {
+        position: absolute;
+        top: 70px;
+        /* Adjust as needed */
+        left: -42px;
+        /* Adjust as needed */
+        transform: rotate(-10deg);
+        /* Adjust the rotation angle as needed */
+        width: 300px;
+        /* Adjust the size as needed */
+        z-index: 0;
+    }
 }
-
-
-/*
-position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    color: white;
-    z-index: 2;*/

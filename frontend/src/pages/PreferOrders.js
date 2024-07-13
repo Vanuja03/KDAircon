@@ -89,7 +89,7 @@ const PreferOrders = () => {
               <Card.Body>
                 <p style={{ color: 'green', textAlign: 'end', fontWeight: 'bold' }}><FaCheckCircle /> Vertified product</p>
                 <Card.Title>Condenser</Card.Title>
-                <Card.Text>Condenser test</Card.Text>
+                <Card.Text>Gold coiled brand new condensers</Card.Text>
                 <Form.Group>
                   <Form.Label>Select your size</Form.Label>
                   <Form.Control as='select' size='sm' custom onChange={(e) => {
@@ -192,7 +192,7 @@ const PreferOrders = () => {
               <Card.Body>
                 <p style={{ color: 'green', textAlign: 'end', fontWeight: 'bold' }}><FaCheckCircle /> Vertified product</p>
                 <Card.Title >Fiber Glass Outdoor Casing</Card.Title>
-                <Card.Text>kkkkkkkkk</Card.Text>
+                <Card.Text>Made with fiber technology</Card.Text>
                 <Form.Group>
                   <Form.Label>Select your size</Form.Label>
                   <Form.Control as='select' size='sm' onChange={(e) => {
@@ -234,7 +234,7 @@ const PreferOrders = () => {
               <Card.Body>
                 <p style={{ color: 'green', textAlign: 'end', fontWeight: 'bold' }}><FaCheckCircle /> Vertified product</p>
                 <Card.Title >Brand new outdoor unit air conditioner</Card.Title>
-                <Card.Text>kkkkkkkkk</Card.Text>
+                <Card.Text>Outdoor unit</Card.Text>
                 <Form.Group>
                   <Form.Label>Select your size</Form.Label>
                   <Form.Control as='select' size='sm' onChange={(e) => {

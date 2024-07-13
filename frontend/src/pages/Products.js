@@ -9,7 +9,6 @@ import '../styles/searchinput.css';
 import Aos from 'aos';
 import 'aos/dist/aos.css';
 
-
 const Products = () => {
     const [products, setProducts] = useState([]);
     const navigate = useNavigate();
@@ -130,6 +129,7 @@ const Products = () => {
 
     return (
         <div data-aos="fade-up">
+
             <Form.Group className="search-container" data-aos="fade-left">
                 <FaSearch className='searchicon' />
                 <input

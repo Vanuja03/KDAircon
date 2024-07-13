@@ -15,6 +15,8 @@ import '../styles/searchinput.css';
 import Aos from 'aos';
 import 'aos/dist/aos.css';
 import '../styles/topics.css';
+import cartimg from '../images2/cartimgs.png';
+import '../styles/cart.css';
 
 const Cart = () => {
 
@@ -277,6 +279,7 @@ const Cart = () => {
             <Button onClick={() => setopen(false)}>Cancel</Button>
           </Card>
         </Dialog>
+        <img src={cartimg} className='cartimg' alt='cartimg' />
       </Layout>
       <ToastContainer
         position="top-right"

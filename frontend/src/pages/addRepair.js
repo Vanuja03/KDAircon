@@ -15,6 +15,7 @@ import '../styles/addrepairs.css';
 import Aos from 'aos';
 import 'aos/dist/aos.css';
 import '../styles/topics.css';
+import repimg from '../images2/repimg.png';
 
 const AddRepair = () => {
 
@@ -243,6 +244,7 @@ const AddRepair = () => {
                             </Button>
                         </div>
                     </Form>
+                    <img src={repimg} className='repimg' alt='repimg' />
                 </Layout>
                 <ToastContainer position="top-right" autoClose={1500} />
             </div>

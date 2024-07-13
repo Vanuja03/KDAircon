@@ -19,6 +19,7 @@ import Pcheckouts from './pages/Pcheckouts';
 import AdminRepairs from './pages/AdminRepairs';
 import News from './pages/News';
 import { useEffect, useState } from 'react';
+import Transtion from './pages/Transtion';
 
 function App() {
 
@@ -64,6 +65,7 @@ function App() {
           </>
         )}
 
+        <Route path='/trs' element={<Transtion />} />
       </Routes>
     </Router>
   );

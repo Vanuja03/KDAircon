@@ -13,8 +13,7 @@ import 'aos/dist/aos.css';
 import News from './News';
 import '../styles/topics.css';
 import { useNavigate } from 'react-router-dom';
-
-
+import overlayImage from '../images2/inback.png';
 
 const Home = () => {
 
@@ -40,46 +39,45 @@ const Home = () => {
   const navigate = useNavigate();
 
   return (
-    <div>
+    <div className='hmmain'>
       <Layout>
-        <div className='hmmain'>
-          <div className='homecontainer1' data-aos="fade-up">
-            <div className='homediv11'>
-              <h1>Good {greet}!!</h1>
-              <p className='homep'>Explore the new invention of Sri Lanka for the 1st time</p>
-              <Button onClick={() => navigate('/addtocart')} data-aos="fade-up" className='homecontbutton'>Visit now</Button>
-            </div>
-            <video className='videoss' autoPlay loop muted disablePictureInPicture>
-              <source src={backq} type="video/mp4" />
-            </video>
+        <div className='homecontainer1' data-aos="fade-up">
+          <div className='homediv11'>
+            <h1>Good {greet}!!</h1>
+            <p className='homep'>Explore the new invention of Sri Lanka for the 1st time</p>
+            <Button onClick={() => navigate('/addtocart')} data-aos="fade-up" className='homecontbutton'>Visit now</Button>
           </div>
-          <div className='homecontainer2' data-aos="fade-up">
-            <div className='ct1'>
-              <div className='content' data-aos="fade-right">
-                <img className='img1fx' src={service} />
-                <p>Instant Service</p>
-              </div>
-              <div className='content' data-aos="fade-up">
-                <img className='img2fx' src={delivery} />
-                <p>Fast Delivery</p>
-              </div>
-            </div>
-            <div className='ct2'>
-              <div className='content' data-aos="fade-up">
-                <img className='img3fx' src={gov} />
-                <p>Government Approved</p>
-              </div>
-              <div className='content' data-aos="fade-left">
-                <img className='img4fx' src={warranty} />
-                <p>Warranties Included</p>
-              </div>
-            </div>
-          </div>
-          <News />
-
-
-          <Feedbacks />
+          <video className='videoss' autoPlay loop muted disablePictureInPicture>
+            <source src={backq} type="video/mp4" />
+          </video>
+          <img src={overlayImage} className='overlayImage' alt="Overlay" />
         </div>
+        <div className='homecontainer2' data-aos="fade-up">
+          <div className='ct1'>
+            <div className='content' data-aos="fade-right">
+              <img className='img1fx' src={service} />
+              <p>Instant Service</p>
+            </div>
+            <div className='content' data-aos="fade-up">
+              <img className='img2fx' src={delivery} />
+              <p>Fast Delivery</p>
+            </div>
+          </div>
+          <div className='ct2'>
+            <div className='content' data-aos="fade-up">
+              <img className='img3fx' src={gov} />
+              <p>Government Approved</p>
+            </div>
+            <div className='content' data-aos="fade-left">
+              <img className='img4fx' src={warranty} />
+              <p>Warranties Included</p>
+            </div>
+          </div>
+        </div>
+        <News />
+        <br /><br /><br />
+        <Feedbacks />
+
       </Layout>
     </div>
   )
