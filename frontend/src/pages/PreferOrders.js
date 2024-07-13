@@ -7,6 +7,7 @@ import Aos from 'aos';
 import 'aos/dist/aos.css';
 import '../styles/topics.css';
 import { FaCheckCircle } from 'react-icons/fa';
+import '../styles/prefercart.css';
 
 const PreferOrders = () => {
 
@@ -81,11 +82,12 @@ const PreferOrders = () => {
         <Row>
           {errorMessage && <Alert variant='danger'>{errorMessage}</Alert>}
           <Col md={4}>
-            <Card className='mb-4 cards' data-aos="fade-up" style={{ minHeight: '650px' }}>
+            <Card className='mb-4 cards' data-aos="fade-up" style={{ minHeight: '700px' }}>
               <Card.Img
                 variant='top'
                 height={250}
-                src={require(`../images2/cndnsr.jpg`)} />
+                src={require(`../images2/cndnsr.jpg`)}
+                className='cardImg' />
               <Card.Body>
                 <p style={{ color: 'green', textAlign: 'end', fontWeight: 'bold' }}><FaCheckCircle /> Vertified product</p>
                 <Card.Title>Condenser</Card.Title>
@@ -184,11 +186,12 @@ const PreferOrders = () => {
             </Card>
           </Col>
           <Col md={4}>
-            <Card className='mb-4 cards' data-aos="fade-up" style={{ minHeight: '650px' }}>
+            <Card className='mb-4 cards' data-aos="fade-up" style={{ minHeight: '700px' }}>
               <Card.Img
                 variant='top'
                 height={250}
-                src={require(`../images2/casing.jpg`)} />
+                src={require(`../images2/casing.jpg`)}
+                className='cardImg' />
               <Card.Body>
                 <p style={{ color: 'green', textAlign: 'end', fontWeight: 'bold' }}><FaCheckCircle /> Vertified product</p>
                 <Card.Title >Fiber Glass Outdoor Casing</Card.Title>
@@ -226,11 +229,12 @@ const PreferOrders = () => {
             </Card>
           </Col>
           <Col md={4}>
-            <Card className='mb-4 cards' data-aos="fade-up" style={{ minHeight: '650px' }}>
+            <Card className='mb-4 cards' data-aos="fade-up" style={{ minHeight: '700px' }}>
               <Card.Img
                 variant='top'
                 height={250}
-                src={require(`../images2/outdor.jpg`)} />
+                src={require(`../images2/outdor.jpg`)}
+                className='cardImg' />
               <Card.Body>
                 <p style={{ color: 'green', textAlign: 'end', fontWeight: 'bold' }}><FaCheckCircle /> Vertified product</p>
                 <Card.Title >Brand new outdoor unit air conditioner</Card.Title>

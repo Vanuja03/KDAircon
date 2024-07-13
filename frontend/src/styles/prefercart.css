@@ -1,0 +1,11 @@
+.cardImg:hover {
+    transform: scale(1.1);
+    transition: all 0.5s;
+    cursor: pointer;
+}
+
+.cards:hover {
+    transform: scale(1.3);
+    transition: all 0.5s;
+    cursor: pointer;
+}

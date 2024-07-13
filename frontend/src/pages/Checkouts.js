@@ -13,6 +13,7 @@ import kdlogo from '../images2/kdhomelg.png';
 import Aos from 'aos';
 import 'aos/dist/aos.css';
 import '../styles/topics.css';
+import Swal from 'sweetalert2';
 
 const Checkouts = () => {
     const [checkouts, setCheckouts] = useState([]);
@@ -48,7 +49,11 @@ const Checkouts = () => {
         try {
             await Axios.post(`http://localhost:4000/api/deleteCheckout`, { _id });
             setCheckouts((prevCheck) => prevCheck.filter((checkout) => checkout._id !== _id));
-            toast.success('Deleted successfully');
+            Swal.fire({
+                title: "Deleted Successfully!",
+                text: "Checkout deleted successfully!",
+                icon: "success",
+            })
         } catch (error) {
             console.error('Axios error: ', error);
             toast.error('Error deleting checkout');

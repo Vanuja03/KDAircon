@@ -2,8 +2,8 @@ import React from 'react'
 import './F.css';
 import { FaEnvelope, FaFacebook, FaMapMarkerAlt, FaPhone, FaTiktok, FaTwitter, FaYoutube } from 'react-icons/fa'
 import GoogleMap from '../pages/GoogleMap';
-// import natlogo from '../webImages/natLogo.png';
-// import fimg from '../webImages/footerimg.jpg';
+import titlelg from '../images2/kdtitlelg.png';
+
 
 
 const Footer = () => {
@@ -13,7 +13,7 @@ const Footer = () => {
       <div className="container_f">
         <div className='foothead'>
 
-          {/* <img src={natlogo} width={85} height={100} alt='natlogo' /> */}
+          <img src={titlelg} className='titlelg' alt='natlogo' />
           <h2 style={{ paddingTop: '2%' }}>KD Aircon Industries (PVT) Ltd</h2>
         </div>
         <div className="row_f">
@@ -62,7 +62,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="copyright">
-        <p>© Copyright 2024 KD Aircon Industries (Pvt) Ltd.</p>
+        <b>© Copyright 2024 KD Aircon Industries (Pvt) Ltd.</b>
       </div>
     </div>
 
