@@ -17,7 +17,7 @@ dotenv.config();
 
 const app = express();
 
-const uri = 'mongodb+srv://vanuja2003:2003vanuja@cluster0.xyfwuiv.mongodb.net/?retryWrites=true&w=majority';
+const uri = '';
 
 const connect = async () => {
     try {
